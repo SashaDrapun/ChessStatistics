@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["CurrentPage"] = "Registration";
+    ViewData["Title"] = "Регистрация";
+    ViewData["Dog"] = "@";
+}
+
+<div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content text-white bg-dark">
+        <div class="modal-header ">
+            <h5 class="modal-title">Регистрация</h5>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <form method="post">
+                    <div class="form-group">
+                        <label for="InputEmail">Почта</label>
+                        <input type="email"
+                               name="email"
+                               class="form-control"
+                               id="InputEmail"
+                               placeholder="Email"
+                               pattern="([0-9a-z_.]+@(ViewData["Dog"])[0-9a-z_^.]+.[a-z]{2,3})+"
+                               title="Почта введена некорректно">
+                        @if (ViewBag.EmailMessage != null)
+                        {
+                            <small class="form-text text-danger">@ViewBag.EmailMessage</small>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="FIO">Фамилия и имя</label>
+                        <input type="text"
+                               name="FIO"
+                               class="form-control"
+                               id="FIO"
+                               placeholder="Фамилия и имя">
+
+                        @if (ViewBag.NicknameMessage != null)
+                        {
+                            <small class="form-text text-danger">@ViewBag.NicknameMessage</small>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Title">Выберите ваш разряд или звание</label>
+                        <select id="Title"
+                                name="Title"
+                                class="form-control">
+                            <option value="4 разряд">4 разряд</option>
+                            <option value="3 разряд">3 разряд</option>
+                            <option value="2 разряд">2 разряд</option>
+                            <option value="1 разряд">1 разряд</option>
+                            <option value="КМС">КМС</option>
+                            <option value="Мастер ФИДЕ">Мастер ФИДЕ</option>
+                            <option value="Международный мастер">Международный мастер</option>
+                            <option value="Гроссмейстер">Гроссмейстер</option>
+                        </select>
+
+                        @if (ViewBag.TitleMessage != null)
+                        {
+                            <small class="form-text text-danger">@ViewBag.TitleMessage</small>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Дата рождения: </label>
+                        <input type="date"
+                               id="date"
+                               name="birthday"
+                               class="form-control" />
+                        @if (ViewBag.BirthdayMessage != null)
+                        {
+                            <small class="form-text text-danger">@ViewBag.BirthdayMessage</small>
+                        }
+                    </div>
+                    
+
+                    <div class="form-group">
+                        <label for="InputPassword">Пароль</label>
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               id="InputPassword"
+                               placeholder="Пароль"
+                               title="Пароль должен состоять как минимум из 5 алфавитно-цифровых символов">
+                        @if (ViewBag.PasswordMessage != null)
+                        {
+                            <small class="form-text text-danger">@ViewBag.PasswordMessage</small>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ConfirmPassword">Подтверждение пароля</label>
+                        <input type="password"
+                               name="ConfirmPassword"
+                               class="form-control"
+                               id="ConfirmPassword"
+                               placeholder="Подтверждение пароля">
+                        @if (ViewBag.ConfirmPasswordMessage != null)
+                        {
+                            <small class="form-text text-danger">@ViewBag.ConfirmPasswordMessage</small>
+                        }
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Зарегистрироваться
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

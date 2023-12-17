@@ -1,0 +1,41 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ChessStatistics.Models
+{
+    public class Game
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        [ForeignKey("Player")]
+        public string IdPlayerWhite { get; set; }
+
+        [ForeignKey("Player")]
+        public string IdPlayerBlack { get; set; }
+
+        [ForeignKey("Tour")]
+        
+        public int IdTour { get; set; }
+
+        public GameResult GameResult { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public double RatingWhite { get; set; }
+
+        public double RatingBlack { get; set; }
+
+        public double RatingWhiteChange { get; set; }
+
+        public double RatingBlackChange { get; set; }
+
+        [NotMapped]
+        public Player PlayerWhite { get; set; }
+
+        [NotMapped]
+        public Player PlayerBlack { get; set; }
+    }
+}

@@ -1,0 +1,104 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="1089335293941-qo0noc7ua1ni85igdll557sps0vsdd7s.apps.googleusercontent.com">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/DarkThemeTable.css">
+    
+
+    <title>Главная</title>
+
+
+</head>
+<body class="bg-dark p-2">
+    <p id="LengthMenu" class="d-none">Отображено _MENU_ записей на странице</p>
+    <p id="ZeroRecords" class="d-none">Ничего не найдено</p>
+    <p id="Info" class="d-none">Показана страница № _PAGE_ из _PAGES_</p>
+    <p id="InfoEmpty" class="d-none">Нет подходящих записей</p>
+    <p id="InfoFiltered" class="d-none">(отфильтровано из _MAX_ записей)</p>
+    <p id="Search" class="d-none">Поиск</p>
+
+    <div id="content"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">СhessStatistics</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item @(ViewData["CurrentPage"].ToString() == "Main"?"active":"")">
+                    <a class="nav-link" href="~/Home/Index">Главная</a>
+                </li>
+                <li class="nav-item @(ViewData["CurrentPage"].ToString() == "Players"?"active":"")">
+                    <a class="nav-link" asp-controller="Home" asp-action="Players">Игроки</a>
+                </li>
+                <li class="nav-item @(ViewData["CurrentPage"].ToString() == "Tournaments"?"active":"")">
+                    <a class="nav-link" asp-controller="Home" asp-action="Tournaments">Турниры</a>
+                </li>
+                <li class="nav-item @(ViewData["CurrentPage"].ToString() == "Games"?"active":"")">
+                    <a class="nav-link" asp-controller="Home" asp-action="Games">Игры</a>
+                </li>
+                @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+                {
+                    <li class="nav-item @(ViewData["CurrentPage"].ToString() == "AdminPanel"?"active":"")">
+                        <a class="nav-link" asp-controller="Home" asp-action="AdminPanel">
+                            Панель администратoра
+                        </a>
+                    </li>
+                }
+
+                @if (ViewBag.AutorizeUser == null)
+                {
+                    <li class="nav-item autorization @(ViewData["CurrentPage"].ToString() == "Autorization"?"active":"")">
+                        <a class="nav-link" asp-controller="Account" asp-action="Login">
+                            Авторизация
+                        </a>
+                    </li>
+                    <li class="nav-item registration @(ViewData["CurrentPage"].ToString() == "Registration"?"active":"")">
+                        <a class="nav-link" asp-controller="Account" asp-action="Register">
+                            Регистрация
+                        </a>
+                    </li>
+                }
+
+                @if (ViewBag.AutorizeUser != null)
+                {
+                    <li class="nav-item mr-2">
+                        <a asp-controller="Home" asp-action="UserPage" asp-route-idUser="@ViewBag.AutorizeUser.Id">
+                            <h3 class='text-success' id="userFIO">@ViewBag.AutorizeUser.FIO</h3>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form asp-controller="Account" asp-action="Logout">
+                            <button type="submit" id="exit" class="btn btn-primary mr-2">Выход</button>
+                        </form>
+                    </li>
+                }
+            </ul>
+            <form asp-controller="Search" asp-action="Items" asp-route-act="search" class="form-inline" my-2 my-lg-0>
+                <input type="text" name="searchValue" class="form-control mr-sm-2" placeholder="Поиск">
+                <button class="btn btn-outline-success my-2" my-sm-0>Поиск</button>
+            </form>
+        </div>
+    </nav>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="~/js/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/Main.js"></script>
+    @RenderBody()
+
+</body>
+</html>

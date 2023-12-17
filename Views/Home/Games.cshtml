@@ -1,0 +1,33 @@
+﻿@{
+    @model List<ChessStatistics.Models.Game>
+    ViewData["Title"] = "Cыгранные игры";
+    ViewData["CurrentPage"] = "Games";
+}
+
+<table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Игрoк за белых</th>
+            <th scope="col">Игрoк за черных</th>
+            <th scope="col">Результат</th>
+            <th scope="col">Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var game in Model)
+        {
+            <tr>
+                <th scope="row">
+                    @game.PlayerWhite.FIO
+                    @(game.RatingWhite + " " + game.RatingWhiteChange)
+                </th>
+                <td>
+                    @game.PlayerBlack.FIO
+                    @(game.RatingBlack + " " + game.RatingBlackChange)
+                </td>
+                <td>@(game.GameResult == GameResult.WhiteWin ? "1-0" : game.GameResult == GameResult.Draw ? "1/2" : "0-1")</td>
+                <td>@game.Date</td>
+            </tr>
+        }
+    </tbody>
+</table>

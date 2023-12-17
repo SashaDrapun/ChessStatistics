@@ -1,0 +1,92 @@
+﻿@{
+    @model ChessStatistics.Models.Tournament
+    ViewData["CurrentPage"] = "Tournament";
+}
+
+<h5 class="text-light"> Участники турнира </h5>
+<table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">ФИО</th>
+            <th scope="col">Рейтинг</th>
+            <th scope="col">Звание</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var player in ViewBag.PlayersParticipaningInTournament)
+        {
+            <tr>
+                <th scope="row">
+                    @player.FIO
+                </th>
+                <th scope="row">
+                    @player.Rating
+                </th>
+                <th scope="row">
+                    @player.Title
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+{
+    <form asp-controller="Tournaments" asp-action="AddTournamentParticipants" asp-route-id="@Model.Id" method="get">
+        <button tournamentId="@Model.Id" class="btn btn-primary"> Добавление участников турнира </button>
+    </form>
+}
+
+<h5 class="text-light"> Туры </h5>
+
+<table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">№</th>
+            <th scope="col">Игрок за белых</th>
+            <th scope="col">Результат</th>
+            <th scope="col">Игрок за черных</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 1; i <= ViewBag.CountPairs; i++)
+        {
+        <tr>
+            <th scope="row">
+                @i
+            </th>
+            <th scope="row">
+                <select id="PlayerWhite"
+                        name="PlayerWhite"
+                        class="form-control">
+                    @foreach (var player in ViewBag.PlayersParticipaningInTournament)
+                    {
+                        <option value="player.Id">@player.FIO</option>
+                    }
+                </select>
+            </th>
+            <th scope="row">
+                <select id="result"
+                        name="GameResult"
+                        class="form-control">
+                    <option value="0">1-0</option>
+                    <option value="1">1/2</option>
+                    <option value="2">0-1</option>
+                </select>
+            </th>
+            <th scope="row">
+                <select id="PlayerBlack"
+                        name="PlayerBlack"
+                        class="form-control">
+                    @foreach (var player in ViewBag.PlayersParticipaningInTournament)
+                    {
+                        <option value="player.Id">@player.FIO</option>
+                    }
+                </select>
+            </th>
+        </tr>
+        }
+    </tbody>
+</table>
+

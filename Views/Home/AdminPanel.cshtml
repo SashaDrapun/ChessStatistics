@@ -1,0 +1,66 @@
+﻿@{
+    @model List<ChessStatistics.Models.Player>
+    ViewData["CurrentPage"] = "AdminPanel";
+    ViewData["Title"] = "Регистрация";
+}
+
+<div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content text-white bg-dark">
+        <div class="modal-header ">
+            <h5 class="modal-title">Регистрация</h5>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <form asp-controller="Games" asp-action="AddGame" method="post">
+
+                    <div class="form-group">
+                        <label for="WhitePlayer">Выберите игрoка за белых</label>
+                        <select id="WhitePlayer"
+                                name="IdPlayerWhite"
+                                class="form-control">
+                            @foreach (var user in Model)
+                            {
+                                <option value="@user.Id">@user.FIO</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="BlackPlayer">Выберите игрoка за черных</label>
+                        <select id="BlackPlayer"
+                                name="IdPlayerBlack"
+                                class="form-control">
+                            @foreach (var user in Model)
+                            {
+                                <option value="@user.Id">@user.FIO</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="result">Результат</label>
+                        <select id="result"
+                                name="GameResult"
+                                class="form-control">
+                            <option value="0">1-0</option>
+                            <option value="1">1/2</option>
+                            <option value="2">0-1</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Дата игры: </label>
+                        <input type="date"
+                               id="date"
+                               name="Date"
+                               class="form-control" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Дoбавить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

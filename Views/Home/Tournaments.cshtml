@@ -1,0 +1,99 @@
+﻿@{
+    @model List<ChessStatistics.Models.Tournament>
+    ViewData["Title"] = "Cыгранные игры";
+    ViewData["CurrentPage"] = "Tournaments";
+}
+
+<table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Название</th>
+            <th scope="col">Дата начала турнира</th>
+            <th scope="col">Тип турнира</th>
+            <th scope="col">Количество туров</th>
+            <th scope="col">Перейти к странице турнира</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tournament in Model)
+        {
+        <tr>
+            <th scope="row">
+                @tournament.TournamentName
+            </th>
+            <td>
+                @tournament.DateStart
+            </td>
+            <td>@tournament.Type</td>
+            <td>@tournament.CountTours</td>
+            <td>
+                <form asp-controller="Home" asp-action="Tournament" asp-route-idTournament="@tournament.Id">
+                    <button class="btn btn-primary" idTournament="@tournament.Id">Перейти</button>
+                </form>
+            </td>
+        </tr>
+            
+    }
+        </tbody>
+    </table>
+
+<div class='modal fade' id='createTournament' tabindex="-1" role="dialog"
+     aria-labelledby="createTournament" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content text-light bg-dark">
+            <div class="modal-header ">
+                <h5 class="modal-title " id="ModalLabel">Создание турнира</h5>
+                <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form name="creatingTournament" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="nameCollection">Введите название турнира</label>
+                            <input type="text" name="TournamentName" class="form-control" id="tournamentName"
+                                   placeholder="Название турнира">
+                        </div>
+
+                        <label for="description">Дата начала турнира</label>
+                        <div class="form-group">
+                            <input type="date"
+                                   id="DateStart"
+                                   name="dateStart"
+                                   class="form-control" />
+                        </div>
+                        <label for="description">Тип турнира</label>
+                        <div class="form-group">
+                            <select id="Type"
+                                    name="Type"
+                                    class="form-control">
+                                <option value="Классические">Классические</option>
+                                <option value="Быстрые">Быстрые</option>
+                                <option value="Блиц">Блиц</option>
+                            </select>
+                        </div>
+                        <label for="description">Количество туров</label>
+                        <div class="form-group">
+                            <input type="number"
+                                   id="countTours"
+                                   name="countTours"
+                                   class="form-control" />
+                        </div>
+                        <button asp-controller="Tournaments" asp-action="CreateTournament"
+                                class="btn btn-primary m-2">
+                            Сохранить
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+{ 
+    <button class="btn btn-primary m-2" data-toggle="modal" data-target="#createTournament">
+        Создание турнира
+    </button>
+}

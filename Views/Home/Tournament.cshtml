@@ -3,8 +3,9 @@
     ViewData["CurrentPage"] = "Tournament";
 }
 
+
 <h5 class="text-light"> Участники турнира </h5>
-<table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+<table id="playersParticipantsTable" class="table table-responsive-sm table-bordered table-hover table-dark">
     <thead>
         <tr>
             <th scope="col">ФИО</th>
@@ -30,7 +31,6 @@
     </tbody>
 </table>
 
-
 @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
 {
     <form asp-controller="Tournaments" asp-action="AddTournamentParticipants" asp-route-id="@Model.Id" method="get">
@@ -40,7 +40,9 @@
 
 <h5 class="text-light"> Туры </h5>
 
-<table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+
+
+<table id="tournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark">
     <thead>
         <tr>
             <th scope="col">№</th>
@@ -89,4 +91,13 @@
         }
     </tbody>
 </table>
+
+<script>
+    new DataTable('#tournamentTable', {
+        "lengthMenu": [10, 25]
+    });
+</script>
+
+
+
 

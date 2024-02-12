@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alexander\\Desktop\\ChessStatistics\\ChessStatistics\\ChessStatistics.csproj": {}
+    "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\ChessStatistics.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alexander\\Desktop\\ChessStatistics\\ChessStatistics\\ChessStatistics.csproj": {
+    "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\ChessStatistics.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alexander\\Desktop\\ChessStatistics\\ChessStatistics\\ChessStatistics.csproj",
+        "projectUniqueName": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\ChessStatistics.csproj",
         "projectName": "ChessStatistics",
-        "projectPath": "C:\\Users\\alexander\\Desktop\\ChessStatistics\\ChessStatistics\\ChessStatistics.csproj",
-        "packagesPath": "C:\\Users\\alexander\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alexander\\Desktop\\ChessStatistics\\ChessStatistics\\obj\\",
+        "projectPath": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\ChessStatistics.csproj",
+        "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\alexander\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -31,6 +29,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -42,6 +41,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
@@ -62,7 +62,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -74,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.423\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

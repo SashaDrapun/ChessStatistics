@@ -40,7 +40,11 @@
 
 <h5 class="text-light"> Туры </h5>
 
-
+<script>
+    new DataTable('#tournamentTable', {
+        "lengthMenu": [10, 25]
+    });
+</script>
 
 <table id="tournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark">
     <thead>
@@ -92,11 +96,7 @@
     </tbody>
 </table>
 
-<script>
-    new DataTable('#tournamentTable', {
-        "lengthMenu": [10, 25]
-    });
-</script>
+
 
 
 

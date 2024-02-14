@@ -1,7 +1,7 @@
 ﻿@{
     @model List<ChessStatistics.Models.Player>
     ViewData["Title"] = "Игроки";
-    ViewData["CurrentPage"] = "Users";
+    ViewData["CurrentPage"] = "Players";
 }
 
 <table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
@@ -28,8 +28,8 @@
             <th scope="row">
                 @user.FIO
             </th>
-            <td>@user.Title</td>
-            <td>@user.Rating</td>
+            <td>@user.Player.Title</td>
+            <td>@user.Player.Rating</td>
             <td>@user.DateLastLogin</td>
             <td>@user.DateRegistration</td>
             <td>@user.Birthday</td>

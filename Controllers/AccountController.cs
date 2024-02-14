@@ -17,11 +17,11 @@ namespace ChessStatistics.Controllers
 {
     public class AccountController : Controller
     {
-        private SignInManager<Player> signInManager;
-        private UserManager<Player> playerManager;
+        private SignInManager<User> signInManager;
+        private UserManager<User> playerManager;
 
-        public AccountController(ApplicationContext applicationContext, SignInManager<Player> signInManager,
-            UserManager<Player> userManager)
+        public AccountController(ApplicationContext applicationContext, SignInManager<User> signInManager,
+            UserManager<User> userManager)
         {
             Database.SetDB(applicationContext);
             this.signInManager = signInManager;
@@ -38,7 +38,7 @@ namespace ChessStatistics.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            Player playerFromDatabaseByEmail = PlayerSearcher.GetPlayerByEmail(model.Email);
+            User playerFromDatabaseByEmail = Services.UserSearcher.GetUserByEmail(model.Email);
 
             bool isAllValid = true;
 
@@ -51,12 +51,6 @@ namespace ChessStatistics.Controllers
             if (string.IsNullOrEmpty(model.FIO))
             {
                 ViewBag.FIOMessage = "Заполните поле";
-                isAllValid = false;
-            }
-
-            if (string.IsNullOrEmpty(model.Title))
-            {
-                ViewBag.TitleMessage = "Выберите разряд";
                 isAllValid = false;
             }
 
@@ -92,24 +86,22 @@ namespace ChessStatistics.Controllers
 
             if (isAllValid)
             {
-
-                Player player = new Player(model.Email, model.Title)
+                User user = new User(model.Email)
                 {
                     UserName = model.Email,
                     FIO = model.FIO,
                     Birthday = model.Birthday,
                     DateRegistration = DateTime.Now,
                     DateLastLogin = DateTime.Now,
-                    Rating = RatingCalculation.GetStartRating(model.Title)
                 };
                 if (Database.db.Users.Count() == 0)
                 {
-                    player.IsAdmin = true;
+                    user.IsAdmin = true;
                 }
-                var result = await playerManager.CreateAsync(player, model.Password);
+                var result = await playerManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(player, false);
+                    await signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -126,7 +118,7 @@ namespace ChessStatistics.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
-            Player playerFromDatabase = PlayerSearcher.GetPlayerByEmail(model.Email);
+            User playerFromDatabase = Services.UserSearcher.GetUserByEmail(model.Email);
             bool isAllValid = true;
 
             if (string.IsNullOrEmpty(model.Password))
@@ -145,7 +137,7 @@ namespace ChessStatistics.Controllers
             {
                 playerFromDatabase.DateLastLogin = DateTime.Now;
 
-                await PlayerUpdater.UpdatePlayerAsync(playerFromDatabase);
+                await UserUpdater.UpdateUserAsync(playerFromDatabase);
                 var result = await signInManager.PasswordSignInAsync(playerFromDatabase.Email, model.Password, false, false);
                 if (result.Succeeded)
                 {

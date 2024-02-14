@@ -11,10 +11,10 @@ namespace ChessStatistics.Models
         public int Id { get; set; }
 
         [ForeignKey("Player")]
-        public string IdPlayerWhite { get; set; }
+        public int IdPlayerWhite { get; set; }
 
         [ForeignKey("Player")]
-        public string IdPlayerBlack { get; set; }
+        public int IdPlayerBlack { get; set; }
 
         [ForeignKey("Tour")]
         

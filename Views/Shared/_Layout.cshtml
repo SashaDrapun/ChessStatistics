@@ -49,6 +49,12 @@
                 </li>
                 @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
                 {
+                    <li class="nav-item @(ViewData["CurrentPage"].ToString() == "Users"?"active":"")">
+                        <a class="nav-link" asp-controller="Home" asp-action="Users">
+                            Пользователи
+                        </a>
+                    </li>
+
                     <li class="nav-item @(ViewData["CurrentPage"].ToString() == "AdminPanel"?"active":"")">
                         <a class="nav-link" asp-controller="Home" asp-action="AdminPanel">
                             Панель администратoра

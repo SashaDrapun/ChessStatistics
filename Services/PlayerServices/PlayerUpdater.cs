@@ -4,15 +4,15 @@ using System.Threading.Tasks;
 
 namespace ChessStatistics.Services.PlayerServices
 {
-    public static class PlayerUpdater
+    public class PlayerUpdater
     {
         public static async Task UpdatePlayerAsync(Player player)
         {
-            Database.db.Users.Update(player);
+            Database.db.Players.Update(player);
             await Database.db.SaveChangesAsync();
         }
 
-        public static async Task UpdateRatingPlayerAsync(string idPlayer, double newRating)
+        public static async Task UpdateRatingPlayerAsync(int idPlayer, double newRating)
         {
             Player player = PlayerSearcher.GetPlayerById(idPlayer);
             player.Rating = newRating;

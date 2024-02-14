@@ -37,7 +37,7 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> Player(string idPlayer)
         {
             await SetViewBag();
-            return View(PlayerSearcher.GetPlayerById(idPlayer));
+            return View(UserSearcher.GetUserById(idPlayer));
         }
 
         public async Task<IActionResult> Tournaments()
@@ -49,8 +49,8 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> Tournament(int idTournament)
         {
             await SetViewBag();
-            List<Player> PlayerParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true);
-            ViewBag.PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false);
+            List<User> PlayerParticipatingInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true);
+            ViewBag.PlayersNotParticipatingInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false);
             ViewBag.PlayersParticipaningInTournament = PlayerParticipatingInTournament;
             ViewBag.CountPairs = PlayerParticipatingInTournament.Count % 2 == 0 ? PlayerParticipatingInTournament.Count / 2 : PlayerParticipatingInTournament.Count / 2 + 1;
             return View(TournamentSearcher.GetTournamentById(idTournament));
@@ -65,7 +65,7 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> AdminPanel()
         {
             await SetViewBag();
-            return View(Database.db.Users.ToList());
+            return View(Database.db.Players.ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -75,7 +75,7 @@ namespace ChessStatistics.Controllers
         }
 
         [NonAction]
-        public async Task<Player> GetAutorizePlayer()
+        public async Task<User> GetAutorizePlayer()
         {
             return await Database.db.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
         }

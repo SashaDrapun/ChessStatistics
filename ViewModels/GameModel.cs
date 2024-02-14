@@ -8,9 +8,9 @@ namespace ChessStatistics.ViewModels
 {
     public class GameModel
     {
-        public string IdPlayerWhite { get; set; }
+        public int IdPlayerWhite { get; set; }
 
-        public string IdPlayerBlack { get; set; }
+        public int IdPlayerBlack { get; set; }
 
         public GameResult GameResult { get; set; }
 

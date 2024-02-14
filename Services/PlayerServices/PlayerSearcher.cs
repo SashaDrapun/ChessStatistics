@@ -1,54 +1,20 @@
 ﻿using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
-using ChessStatistics.Services.TournamentParticipantsServices;
-using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
-namespace ChessStatistics.Services
+namespace ChessStatistics.Services.PlayerServices
 {
     public static class PlayerSearcher
     {
-        public static Player GetPlayerById(string idPlayer)
+        public static Player GetPlayerById(int idPlayer)
         {
-            return Database.db.Users.FirstOrDefault(u => u.Id == idPlayer);
+            return Database.db.Players.FirstOrDefault(player => player.Id == idPlayer);
         }
 
-        public static List<Player> GetAllPlayers()
+        public static double GetPlayerRating(int idPlayer)
         {
-            return Database.db.Users.ToList();
-        }
-
-        public static Player GetPlayerByEmail(string email)
-        {
-            return Database.db.Users.FirstOrDefault(user => user.Email == email);
-        }
-
-        public static double GetPlayerRating(string idPlayer)
-        {
-            return Database.db.Users.FirstOrDefault(u => u.Id == idPlayer).Rating;
-        }
-
-        public static List<Player> GetPlayersParticipatingOrNotParticipatingInTournament(int tournamentId, bool isParticipating)
-        {
-            List<Player> players = GetAllPlayers();
-            List<Player> PlayersResult = new List<Player>();
-
-            List<string> tournamentParticipants = TournamentParticipantsSearcher.GetTournamentParticipantsByTournamentId(tournamentId);
-
-            foreach (var player in players)
-            {
-                if (tournamentParticipants.Contains(player.Id) && isParticipating)
-                {
-                    PlayersResult.Add(GetPlayerById(player.Id));
-                }
-
-                if (!tournamentParticipants.Contains(player.Id) && !isParticipating)
-                {
-                    PlayersResult.Add(GetPlayerById(player.Id));
-                }
-            }
-
-            return PlayersResult;
+            return Database.db.Players.FirstOrDefault(player => player.Id == idPlayer).Rating;
         }
     }
 }

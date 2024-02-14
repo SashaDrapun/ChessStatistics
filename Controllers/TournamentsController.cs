@@ -29,8 +29,8 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> AddTournamentParticipants(int id)
         {
             await SetViewBag();
-            ViewBag.PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(id, false);
-            ViewBag.PlayersParticipaningInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(id, true);
+            ViewBag.PlayersNotParticipatingInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(id, false);
+            ViewBag.PlayersParticipaningInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(id, true);
             return View(TournamentSearcher.GetTournamentById(id));
         }
 
@@ -40,13 +40,13 @@ namespace ChessStatistics.Controllers
         {
             await TournamentParticipantsAdder.AddTournamentAsync(playerId, tournamentId);
             await SetViewBag();
-            ViewBag.PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentId, false);
-            ViewBag.PlayersParticipaningInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentId, true);
+            ViewBag.PlayersNotParticipatingInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentId, false);
+            ViewBag.PlayersParticipaningInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentId, true);
             return View(TournamentSearcher.GetTournamentById(tournamentId));
         }
 
         [NonAction]
-        public async Task<Player> GetAutorizePlayer()
+        public async Task<User> GetAutorizePlayer()
         {
             return await Database.db.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
         }

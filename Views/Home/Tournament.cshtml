@@ -5,7 +5,7 @@
 
 
 <h5 class="text-light"> Участники турнира </h5>
-<table id="playersParticipantsTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+<table id="playersParticipantsTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
     <thead>
         <tr>
             <th scope="col">ФИО</th>
@@ -41,9 +41,11 @@
 <h5 class="text-light"> Туры </h5>
 
 <script>
+    $(document).ready(function () {
     new DataTable('#tournamentTable', {
-        "lengthMenu": [10, 25]
+        lengthMenu: [@Model.CountTours]
     });
+        });
 </script>
 
 <table id="tournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark">

@@ -34,6 +34,12 @@ namespace ChessStatistics.Controllers
             return View(Database.db.Users.ToList());
         }
 
+        public async Task<IActionResult> Player(string idPlayer)
+        {
+            await SetViewBag();
+            return View(PlayerSearcher.GetPlayerById(idPlayer));
+        }
+
         public async Task<IActionResult> Tournaments()
         {
             await SetViewBag();

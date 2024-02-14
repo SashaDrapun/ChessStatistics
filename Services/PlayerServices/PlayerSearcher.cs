@@ -8,7 +8,7 @@ namespace ChessStatistics.Services
 {
     public static class PlayerSearcher
     {
-        public static Player GetPlayer(string idPlayer)
+        public static Player GetPlayerById(string idPlayer)
         {
             return Database.db.Users.FirstOrDefault(u => u.Id == idPlayer);
         }
@@ -39,12 +39,12 @@ namespace ChessStatistics.Services
             {
                 if (tournamentParticipants.Contains(player.Id) && isParticipating)
                 {
-                    PlayersResult.Add(GetPlayer(player.Id));
+                    PlayersResult.Add(GetPlayerById(player.Id));
                 }
 
                 if (!tournamentParticipants.Contains(player.Id) && !isParticipating)
                 {
-                    PlayersResult.Add(GetPlayer(player.Id));
+                    PlayersResult.Add(GetPlayerById(player.Id));
                 }
             }
 

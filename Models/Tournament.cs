@@ -16,7 +16,7 @@ namespace ChessStatistics.Models
 
         public string Type { get; set; }
 
-        public string CountTours { get; set; }
+        public int CountTours { get; set; }
 
         public bool IsInProgress { get; set; }
     }

@@ -11,6 +11,6 @@ namespace ChessStatistics.ViewModels
 
         public string Type { get; set; }
 
-        public string CountTours { get; set; }
+        public int CountTours { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace ChessStatistics.Services.PlayerServices
 
         public static async Task UpdateRatingPlayerAsync(string idPlayer, double newRating)
         {
-            Player player = PlayerSearcher.GetPlayer(idPlayer);
+            Player player = PlayerSearcher.GetPlayerById(idPlayer);
             player.Rating = newRating;
             await UpdatePlayerAsync(player);
         }

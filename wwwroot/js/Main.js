@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
-    new DataTable('Table', {
-        lengthMenu: [
-            [10, 12]
-        ]
+
+    new DataTable('table:not(#tournamentTable)', {
+        lengthMenu: [10, 12]
     });
+
 });
 

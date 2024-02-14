@@ -9,8 +9,8 @@ namespace ChessStatistics.Services.GameServices
     {
         private static Game SetGame(Game game)
         {
-            game.PlayerWhite = PlayerSearcher.GetPlayer(game.IdPlayerWhite);
-            game.PlayerBlack = PlayerSearcher.GetPlayer(game.IdPlayerBlack);
+            game.PlayerWhite = PlayerSearcher.GetPlayerById(game.IdPlayerWhite);
+            game.PlayerBlack = PlayerSearcher.GetPlayerById(game.IdPlayerBlack);
 
             return game;
         }

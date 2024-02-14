@@ -4,7 +4,7 @@
     ViewData["CurrentPage"] = "Users";
 }
 
-<table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark regularTable">
+<table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
     <thead>
         <tr>
             <th scope="col">Фамилия и имя</th>
@@ -65,7 +65,7 @@
             }
 
             <td>
-                <form asp-controller="Home" asp-action="UserPage" asp-route-idUser="@user.Id">
+                <form asp-controller="Home" asp-action="Player" asp-route-idPlayer="@user.Id">
                     <button class="btn btn-primary">
                         Перейти
                     </button>
@@ -123,4 +123,4 @@
 </div>
 
 
-<script src="~/js/Users.js"></script>
+<script src="~/js/players.js"></script>

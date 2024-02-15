@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -38,7 +37,7 @@ namespace ChessStatistics.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            User playerFromDatabaseByEmail = Services.UserSearcher.GetUserByEmail(model.Email);
+            User playerFromDatabaseByEmail = UserSearcher.GetUserByEmail(model.Email);
 
             bool isAllValid = true;
 
@@ -118,7 +117,7 @@ namespace ChessStatistics.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
-            User playerFromDatabase = Services.UserSearcher.GetUserByEmail(model.Email);
+            User playerFromDatabase = UserSearcher.GetUserByEmail(model.Email);
             bool isAllValid = true;
 
             if (string.IsNullOrEmpty(model.Password))

@@ -37,4 +37,59 @@
     </tbody>
 </table>
 
+<button type="submit" class="btn btn-primary" 
+        data-toggle="modal" data-target="#createPlayer">
+        Дoбавить
+</button>
+
+<div class='modal fade' id='createPlayer' tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content text-light bg-dark">
+            <div class="modal-header ">
+                <h5 class="modal-title text-info">Добавление игрока</h5>
+                <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form asp-controller="Players" asp-action="CreatePlayer" method="post">
+
+                        <div class="form-group">
+                            <label for="WhitePlayer">Введите фамилию и имя</label>
+                            <input type="text"
+                                   id="FIO"
+                                   name="FIO"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Title">Выберите ваш разряд или звание</label>
+                            <select id="Title"
+                                    name="Title"
+                                    class="form-control">
+                        <option value="4 разряд">4 разряд</option>
+                        <option value="3 разряд">3 разряд</option>
+                        <option value="2 разряд">2 разряд</option>
+                        <option value="1 разряд">1 разряд</option>
+                        <option value="КМС">КМС</option>
+                        <option value="Мастер ФИДЕ">Мастер ФИДЕ</option>
+                        <option value="Международный мастер">Международный мастер</option>
+                        <option value="Гроссмейстер">Гроссмейстер</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            Дoбавить
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="~/js/players.js"></script>

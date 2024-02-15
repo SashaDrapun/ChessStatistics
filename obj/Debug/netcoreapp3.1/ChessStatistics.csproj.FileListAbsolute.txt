@@ -195,3 +195,4 @@ C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\Ch
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.pdb
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.genruntimeconfig.cache
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\Razor\Views\Home\Player.cshtml.g.cs
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\Razor\Views\Home\Users.cshtml.g.cs

@@ -11,5 +11,12 @@ namespace ChessStatistics.Services.PlayerServices
             Database.db.Users.Update(user);
             await Database.db.SaveChangesAsync();
         }
+
+        public static async Task AppointAdministrator(string idUser)
+        {
+            User user = UserSearcher.GetUserById(idUser);
+            user.IsAdmin = true;
+            await Database.db.SaveChangesAsync();
+        }
     }
 }

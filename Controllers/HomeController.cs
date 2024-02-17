@@ -89,8 +89,16 @@ namespace ChessStatistics.Controllers
         [NonAction]
         public async Task<bool> SetViewBag()
         {
-            ViewBag.AutorizeUser = await GetAutorizePlayer();
-
+            User autorizeUser = await GetAutorizePlayer();
+            ViewBag.AutorizeUser = autorizeUser;
+            if (autorizeUser != null && autorizeUser.IsAdmin)
+            {
+                ViewBag.IsAdmin = true;
+            }
+            else 
+            {
+                ViewBag.IsAdmin = false;
+            }
             return true;
         }
     }

@@ -12,6 +12,12 @@
             <th scope="col">Фамилия и имя</th>
             <th scope="col">Разряд или звание</th>
             <th scope="col">Рейтинг</th>
+           
+            @if(ViewBag.IsAdmin)
+            {
+                <th scope="col">Редактировать</th>
+                <th scope="col">Удалить</th>
+            }
             <th scope="col">Перейти</th>
         </tr>
     </thead>
@@ -22,8 +28,30 @@
             <th scope="row">
                     @player.FIO
             </th>
-                <td>@player.Title</td>
-                <td>@player.Rating</td>
+            <td>@player.Title</td>
+            <td>@player.Rating</td>
+                
+             @if (ViewBag.IsAdmin)
+             {
+                 <td>
+                     <button class="btn btn-primary editPlayer"
+                            idPlayer="@player.Id"
+                            fioPlayer="@player.FIO"
+                            titlePlayer="@player.Title"
+                            data-toggle="modal" data-target="#editPlayer">
+                         Редактировать
+                     </button>
+                 </td>
+
+                 <td>
+                    <button class="btn btn-danger deletePlayer"
+                           idPlayer="@player.Id"
+                           data-toggle="modal" data-target="#deletePlayer">
+                        Удалить
+                    </button>
+
+                 </td>
+             }
 
             <td>
                 <form asp-controller="Home" asp-action="Player" asp-route-idPlayer="@player.Id">
@@ -87,6 +115,79 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class='modal fade' id='editPlayer' tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content text-light bg-dark">
+            <div class="modal-header ">
+                <h5 class="modal-title text-info">Редактирование игрока</h5>
+                <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form asp-controller="Players" asp-action="EditPlayer" method="post">
+                        <input id="IdPlayerEdit" name="IdPlayer" class="d-none">
+                        <div class="form-group">
+                            <label for="WhitePlayer">Введите фамилию и имя</label>
+                            <input type="text"
+                                   id="FIOEdit"
+                                   name="FIO"
+                                   class="form-control"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Title">Выберите ваш разряд или звание</label>
+                            <select id="TitlePlayerEdit"
+                                    name="Title"
+                                    class="form-control">
+                                <option value="4 разряд">4 разряд</option>
+                                <option value="3 разряд">3 разряд</option>
+                                <option value="2 разряд">2 разряд</option>
+                                <option value="1 разряд">1 разряд</option>
+                                <option value="КМС">КМС</option>
+                                <option value="Мастер ФИДЕ">Мастер ФИДЕ</option>
+                                <option value="Международный мастер">Международный мастер</option>
+                                <option value="Гроссмейстер">Гроссмейстер</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            Применить изменения
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class='modal fade' id='deletePlayer' tabindex="-1" role="dialog"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content text-light bg-dark">
+            <div class="modal-header ">
+                <h5 class="modal-title text-danger">Удаление игрока</h5>
+                <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger">Вы уверены, что хотите удалить игрока?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <form id="deletePlayerForm" method="post">
+                    <button type="submit" class="btn btn-primary">Удалить</button>
+                </form>
             </div>
         </div>
     </div>

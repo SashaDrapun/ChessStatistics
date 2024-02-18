@@ -53,12 +53,13 @@ namespace ChessStatistics
             app.UseDeveloperExceptionPage();
             app.UseReact(config => { });
             app.UseRequestLocalization();
-            app.UseDefaultFiles();
+            
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

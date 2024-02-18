@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChessStatistics.Models
@@ -9,6 +8,10 @@ namespace ChessStatistics.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [ForeignKey("User")]
+
+        public string IdUser { get; set; }
 
         public double Rating { get; set; }
 

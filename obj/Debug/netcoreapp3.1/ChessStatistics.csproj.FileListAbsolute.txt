@@ -190,9 +190,16 @@ C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\Ra
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.RazorTargetAssemblyInfo.cache
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.RazorTargetAssemblyInfo.cs
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.Views.pdb
-C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.csproj.CopyComplete
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.dll
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.pdb
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.genruntimeconfig.cache
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\Razor\Views\Home\Player.cshtml.g.cs
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\Razor\Views\Home\Users.cshtml.g.cs
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessStatistics.sourcelink.json
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\staticwebassets\ChessStatistics.StaticWebAssets.Pack.cache
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.ChessStatistics.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.build.ChessStatistics.props
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildMultiTargeting.ChessStatistics.props
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildTransitive.ChessStatistics.props
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessSta.CF37D0C1.Up2Date
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\Razor\Views\Home\PersonalArea.cshtml.g.cs

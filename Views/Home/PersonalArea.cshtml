@@ -1,0 +1,62 @@
+﻿@{
+    @model ChessStatistics.Models.User
+    ViewData["CurrentPage"] = "PersonalArea";
+}
+
+<h3 class="text-light"> Ваш личный кабинет: @Model.FIO </h3>
+
+@if(ViewBag.IsUserConnectedToThePlayer)
+{
+    <h5 class="text-info"> Ваше звание: @Model.Player.Title</h5>
+    <h5 class="text-info"> Ваш рейтинг: @Model.Player.Rating</h5>
+}
+else if(ViewBag.IsUserRequestedLinkWithPlayer)
+{
+    <h5 class="text-info"> Вы запросили связку своего аккаунта с профилем игрока, ожидайте подтвержения администратора</h5>
+}
+else
+{
+    <h5 class="text-info"> Cвяжите ваш аккаунт с профилем игрока </h5>
+    <button type="submit" class="btn btn-primary"
+            data-toggle="modal" data-target="#linkUserWithPlayer">
+        Связать аккаунт с профилем игрока
+    </button>
+}
+
+<div class='modal fade' id='linkUserWithPlayer' tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content text-light bg-dark">
+            <div class="modal-header ">
+                <h5 class="modal-title text-info">Cвязать аккаунт со своим игровым профилем</h5>
+                <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form asp-controller="LinkUserWithPlayer" asp-action="LinkUser" method="post">
+                        <input id="IdUser" name="IdUser" value="@Model.Id" class="d-none">
+                        <div class="form-group">
+                            <label for="PlayerProfile">Выберите ваш игровой профиль</label>
+                            <select id="PlayerProfile"
+                                    name="IdPlayer"
+                                    class="form-control">
+                                @foreach (var player in ViewBag.PlayersNotLinkedWithUser)
+                                {
+                                    <option value="@player.Id">@player.FIO</option>
+                                }
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            Cвязать
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            </div>
+        </div>
+    </div>
+</div>

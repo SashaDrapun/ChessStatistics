@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.Services;
+using ChessStatistics.Services.PlayerServices;
+using ChessStatistics.Services.LinkUserWithPlayerService;
 
 namespace ChessStatistics.Controllers
 {
@@ -46,6 +48,16 @@ namespace ChessStatistics.Controllers
             return View(UserSearcher.GetUserById(idPlayer));
         }
 
+        public async Task<IActionResult> PersonalArea()
+        {
+            await SetViewBag();
+            User autorizeUser = await GetAutorizeUser();
+            ViewBag.IsUserConnectedToThePlayer = UserSearcher.IsUserConnectedToThePlayer(autorizeUser);
+            ViewBag.IsUserRequestedLinkWithPlayer = LinkUserWithPlayerSearcher.IsUserRequestedLinkWithPlayer(autorizeUser);
+            ViewBag.PlayersNotLinkedWithUser = PlayerSearcher.GetPlayersNotLinkedWithUser();
+            return View(UserSearcher.GetUserById(autorizeUser.Id));
+        }
+
         public async Task<IActionResult> Tournaments()
         {
             await SetViewBag();
@@ -70,6 +82,7 @@ namespace ChessStatistics.Controllers
 
         public async Task<IActionResult> AdminPanel()
         {
+            ViewBag.LinksUserWithPlayers = LinkUserWithPlayerSearcher.GetLinksUserWithPlayers();
             await SetViewBag();
             return View(Database.db.Players.ToList());
         }
@@ -81,7 +94,7 @@ namespace ChessStatistics.Controllers
         }
 
         [NonAction]
-        public async Task<User> GetAutorizePlayer()
+        public async Task<User> GetAutorizeUser()
         {
             return await Database.db.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
         }
@@ -89,7 +102,7 @@ namespace ChessStatistics.Controllers
         [NonAction]
         public async Task<bool> SetViewBag()
         {
-            User autorizeUser = await GetAutorizePlayer();
+            User autorizeUser = await GetAutorizeUser();
             ViewBag.AutorizeUser = autorizeUser;
             if (autorizeUser != null && autorizeUser.IsAdmin)
             {

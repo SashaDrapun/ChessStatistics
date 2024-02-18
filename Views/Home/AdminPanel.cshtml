@@ -4,6 +4,47 @@
     ViewData["Title"] = "Панель администратора";
 }
 
+<table id="LinkUser" class="table table-responsive-sm table-bordered table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Фамилия и имя пользователя</th>
+            <th scope="col">Почта пользователя</th>
+            <th scope="col">Фамилия и имя игрока</th>
+            <th scope="col">Подтвердить привязку аккаунта</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var link in ViewBag.LinksUserWithPlayers)
+        {
+            <tr>
+                <th scope="row">
+                    @link.User.FIO
+                </th>
+                <td>
+                    @link.User.Email
+                </td>
+                <td>@link.Player.FIO</td>
+                <td>
+                    <button class="btn btn-primary confirmLink"
+                            idLink="@link.Id"
+                            UserFIO="@link.User.FIO"
+                            UserEmail="@link.User.Email"
+                            PlayerFIO="@link.Player.FIO"
+                            data-toggle="modal" data-target="#confirmLink">
+                        Обработка
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button type="submit" class="btn btn-primary"
+        data-toggle="modal" data-target="#createGame">
+    Создать игру
+</button>
+
+<div class='modal fade' id='createGame' tabindex="-1" role="dialog" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered " role="document">
     <div class="modal-content text-white bg-dark">
         <div class="modal-header ">
@@ -63,4 +104,56 @@
             </div>
         </div>
     </div>
+    </div>
 </div>
+
+<div class='modal fade' id='confirmLink' tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content text-white bg-dark">
+            <div class="modal-header ">
+                <h5 class="modal-title">Связать аккаунт пользователя с игроком</h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form asp-controller="LinkUserWithPlayer" asp-action="LinkUserConfirmOrDecline" method="post">
+                        <input id="IdLink" name="IdLink" class="d-none">
+                        <div class="form-group">
+                            <label for="WhitePlayer">Вы хотите связать пользователя </label>
+                            <input type="text"
+                                   id="FIOUser"
+                                   name="FIOUser"
+                                   class="form-control" />
+                            <input type="text"
+                                   id="emailUser"
+                                   name="emailUser"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="WhitePlayer">C аккаунтом игрока  </label>
+                            <input type="text"
+                                   id="FIOPlayer"
+                                   name="FIOPlayer"
+                                   class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <select id="ConfirmOrDecline"
+                                    name="ConfirmOrDecline"
+                                    class="form-control">
+                                <option value="0">Подтвердить связывание аккаунта</option>
+                                <option value="1">Отклонить связывание аккаунта</option>
+                                
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            Применить
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/adminPanel.js"></script>

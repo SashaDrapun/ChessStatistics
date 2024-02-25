@@ -6,3 +6,4 @@ id_ed25519.pub
 /obj
 /bin
 *.v2
+.vs/ChessStatistics/v17/.suo

@@ -67,8 +67,8 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> Tournament(int idTournament)
         {
             await SetViewBag();
-            List<User> PlayerParticipatingInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true);
-            ViewBag.PlayersNotParticipatingInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false);
+            List<Player> PlayerParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true);
+            ViewBag.PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false);
             ViewBag.PlayersParticipaningInTournament = PlayerParticipatingInTournament;
             ViewBag.CountPairs = PlayerParticipatingInTournament.Count % 2 == 0 ? PlayerParticipatingInTournament.Count / 2 : PlayerParticipatingInTournament.Count / 2 + 1;
             return View(TournamentSearcher.GetTournamentById(idTournament));

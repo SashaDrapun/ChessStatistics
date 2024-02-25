@@ -53,28 +53,5 @@ namespace ChessStatistics.Services
         {
             return SetUser(Database.db.Users.FirstOrDefault(user => user.Email == email));
         }
-
-        public static List<User> GetPlayersParticipatingOrNotParticipatingInTournament(int tournamentId, bool isParticipating)
-        {
-            List<User> players = GetAllUsers();
-            List<User> PlayersResult = new List<User>();
-
-            List<string> tournamentParticipants = TournamentParticipantsSearcher.GetTournamentParticipantsByTournamentId(tournamentId);
-
-            foreach (var player in players)
-            {
-                if (tournamentParticipants.Contains(player.Id) && isParticipating)
-                {
-                    PlayersResult.Add(GetUserById(player.Id));
-                }
-
-                if (!tournamentParticipants.Contains(player.Id) && !isParticipating)
-                {
-                    PlayersResult.Add(GetUserById(player.Id));
-                }
-            }
-
-            return PlayersResult;
-        }
     }
 }

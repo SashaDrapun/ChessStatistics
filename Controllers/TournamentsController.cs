@@ -2,6 +2,7 @@
 using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
 using ChessStatistics.Services;
+using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.TournamentParticipantsServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChessStatistics.Controllers
 {
+    
     public class TournamentsController : Controller
     {
 
@@ -25,25 +27,6 @@ namespace ChessStatistics.Controllers
             return RedirectToAction("Tournaments", "Home");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddTournamentParticipants(int id)
-        {
-            await SetViewBag();
-            ViewBag.PlayersNotParticipatingInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(id, false);
-            ViewBag.PlayersParticipaningInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(id, true);
-            return View(TournamentSearcher.GetTournamentById(id));
-        }
-
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public async Task<IActionResult> AddTournamentParticipants(int tournamentId, string playerId)
-        {
-            await TournamentParticipantsAdder.AddTournamentAsync(playerId, tournamentId);
-            await SetViewBag();
-            ViewBag.PlayersNotParticipatingInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentId, false);
-            ViewBag.PlayersParticipaningInTournament = UserSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentId, true);
-            return View(TournamentSearcher.GetTournamentById(tournamentId));
-        }
 
         [NonAction]
         public async Task<User> GetAutorizePlayer()

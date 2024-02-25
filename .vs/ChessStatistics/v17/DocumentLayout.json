@@ -1,12 +1,155 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|c:\\users\\alex\\desktop\\chessstatistics\\chessstatistics\\wwwroot\\js\\tournament.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|solutionrelative:wwwroot\\js\\tournament.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|c:\\users\\alex\\desktop\\chessstatistics\\chessstatistics\\hubs\\tournamenthub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|solutionrelative:hubs\\tournamenthub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|c:\\users\\alex\\desktop\\chessstatistics\\chessstatistics\\controllers\\tournamentparticipantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|solutionrelative:controllers\\tournamentparticipantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|c:\\users\\alex\\desktop\\chessstatistics\\chessstatistics\\wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|solutionrelative:wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|c:\\users\\alex\\desktop\\chessstatistics\\chessstatistics\\views\\home\\tournament.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|solutionrelative:views\\home\\tournament.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|c:\\users\\alex\\desktop\\chessstatistics\\chessstatistics\\controllers\\tournamentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|solutionrelative:controllers\\tournamentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|c:\\users\\alex\\desktop\\chessstatistics\\chessstatistics\\wwwroot\\css\\darkthemetable.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|solutionrelative:wwwroot\\css\\darkthemetable.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|c:\\users\\alex\\desktop\\chessstatistics\\chessstatistics\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA14B02F-286D-4F82-91DF-401C114492AA}|ChessStatistics.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "signalr.min.js",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+              "RelativeToolTip": "wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-02-23T23:30:02.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Tournament.cshtml",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Views\\Home\\Tournament.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Tournament.cshtml",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Views\\Home\\Tournament.cshtml",
+              "RelativeToolTip": "Views\\Home\\Tournament.cshtml",
+              "ViewState": "AQIAAJYAAAAAAAAAAAAAALkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-02-23T23:28:32.809Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TournamentParticipantController.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Controllers\\TournamentParticipantController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TournamentParticipantController.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Controllers\\TournamentParticipantController.cs",
+              "RelativeToolTip": "Controllers\\TournamentParticipantController.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABYAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T23:08:44.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TournamentsController.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Controllers\\TournamentsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TournamentsController.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Controllers\\TournamentsController.cs",
+              "RelativeToolTip": "Controllers\\TournamentsController.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAAA0AAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T23:07:35.01Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DarkThemeTable.css",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\wwwroot\\css\\DarkThemeTable.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\DarkThemeTable.css",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\wwwroot\\css\\DarkThemeTable.css",
+              "RelativeToolTip": "wwwroot\\css\\DarkThemeTable.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-02-23T23:06:48.228Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "tournament.js",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\wwwroot\\js\\tournament.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\tournament.js",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\wwwroot\\js\\tournament.js*",
+              "RelativeToolTip": "wwwroot\\js\\tournament.js*",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-02-23T23:06:24.613Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TournamentHub.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Hubs\\TournamentHub.cs",
+              "RelativeDocumentMoniker": "Hubs\\TournamentHub.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Hubs\\TournamentHub.cs",
+              "RelativeToolTip": "Hubs\\TournamentHub.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T23:02:45.38Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\ChessStatistics\\ChessStatistics\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AQIAADAAAAAAAAAAAAAqwEQAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T23:01:56.843Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

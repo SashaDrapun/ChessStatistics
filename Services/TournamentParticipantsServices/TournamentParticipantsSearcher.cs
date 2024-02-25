@@ -14,7 +14,7 @@ namespace ChessStatistics.Services.TournamentParticipantsServices
             return Database.db.TournamentParticipants.ToList();
         }
 
-        public static List<string> GetTournamentParticipantsByTournamentId(int tournamentId)
+        public static List<int> GetTournamentParticipantsByTournamentId(int tournamentId)
         {
             return Database.db.TournamentParticipants.Where(tp => tp.IdTournament == tournamentId).Select(tp => tp.IdPlayer).ToList();
         }

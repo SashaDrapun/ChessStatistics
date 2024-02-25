@@ -3,33 +3,99 @@
     ViewData["CurrentPage"] = "Tournament";
 }
 
+<div class="bd-example">
+    <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="player-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="true">Игроки</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tour-tab" data-bs-toggle="tab" data-bs-target="#tours" type="button" role="tab" aria-controls="tours" aria-selected="false">Туры</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="result-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab" aria-controls="results" aria-selected="false">Итоги</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade active show" id="players" role="tabpanel" aria-labelledby="players-tab">
+            <h5 class="text-light"> Участники турнира </h5>
+            <table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
+                <thead>
+                    <tr>
+                        <th scope="col">ФИО</th>
+                        <th scope="col">Рейтинг</th>
+                        <th scope="col">Звание</th>
+                    </tr>
+                </thead>
+                <tbody id="PlayersParticipatingInTournament">
+                    @foreach (var player in ViewBag.PlayersParticipaningInTournament)
+                    {
+                        <tr>
+                            <th scope="row">
+                                @player.FIO
+                            </th>
+                            <th scope="row">
+                                @player.Rating
+                            </th>
+                            <th scope="row">
+                                @player.Title
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-<h5 class="text-light"> Участники турнира </h5>
-<table id="playersParticipantsTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
-    <thead>
-        <tr>
-            <th scope="col">ФИО</th>
-            <th scope="col">Рейтинг</th>
-            <th scope="col">Звание</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var player in ViewBag.PlayersParticipaningInTournament)
-        {
-            <tr>
-                <th scope="row">
-                    @player.FIO
-                </th>
-                <th scope="row">
-                    @player.Rating
-                </th>
-                <th scope="row">
-                    @player.Title
-                </th>
-            </tr>
-        }
-    </tbody>
-</table>
+            @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+            {
+                <button class="btn btn-primary m-2" data-toggle="modal" data-target="#AddParticipant">
+                    Добавление участника
+                </button>
+            }
+
+            <div class='modal fade' id='AddParticipant' tabindex="-1" role="dialog"
+                 aria-labelledby="createTournament" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered " role="document">
+                    <div class="modal-content text-light bg-dark">
+                        <div class="modal-header ">
+                            <h5 class="modal-title " id="ModalLabel">Добавление участника</h5>
+                            <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <form name="AddParticipant">
+                                    <input type="text" name="tournamentId" id="tournamentId" class="d-none" value="@Model.Id">
+                                    <div class="form-group">
+                                        <label for="Title">Выберите игрока</label>
+                                        <select id="playerId"
+                                                name="playerId"
+                                                class="form-control">
+                                            @{
+                                                foreach (var player in ViewBag.PlayersNotParticipatingInTournament)
+                                                {
+                                                    <option id="@player.Id" value="@player.Id">@player.FIO</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-primary m-2">
+                                        Добавить
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="tours" role="tabpanel" aria-labelledby="tours-tab">
+            <p><strong>Это некий заполнитель содержимого, связанного с содержимым вкладки "Профиль".</strong> Щелчок по другой вкладке переключает видимость этой на следующую. Вкладка JavaScript меняет местами классы для управления видимостью и стилем содержимого. Вы можете использовать его с вкладками, таблетками и любой другой навигацией с поддержкой <code>.nav</code>.</p>
+        </div>
+        <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+            <p><strong>Это некий заполнитель содержимого, связанного с содержимым вкладки "Контакт".</strong> Щелчок по другой вкладке переключает видимость этой на следующую. Вкладка JavaScript меняет местами классы для управления видимостью и стилем содержимого. Вы можете использовать его с вкладками, таблетками и любой другой навигацией с поддержкой <code>.nav</code>.</p>
+        </div>
+    </div>
+</div>
 
 @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
 {
@@ -43,7 +109,7 @@
 <script>
     $(document).ready(function () {
     new DataTable('#tournamentTable', {
-        lengthMenu: [@Model.CountTours]
+            lengthMenu: [@ViewBag.CountPairs + 1]
     });
         });
 </script>
@@ -58,8 +124,10 @@
         </tr>
     </thead>
     <tbody>
+        <form>
         @for (int i = 1; i <= ViewBag.CountPairs; i++)
         {
+        
         <tr>
             <th scope="row">
                 @i
@@ -95,8 +163,20 @@
             </th>
         </tr>
         }
+
+        <tr>
+            <th>5</th>
+            <th></th>
+            <th></th>
+            <th><button>Cохранить изменения</button></th>
+        </tr>
+       
+        </form>
     </tbody>
 </table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"> </script>
+<script src="~/js/tournament.js"></script>
 
 
 

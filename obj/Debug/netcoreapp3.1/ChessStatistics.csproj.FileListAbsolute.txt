@@ -203,3 +203,4 @@ C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\st
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\staticwebassets\msbuild.buildTransitive.ChessStatistics.props
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\ChessSta.CF37D0C1.Up2Date
 C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\obj\Debug\netcoreapp3.1\Razor\Views\Home\PersonalArea.cshtml.g.cs
+C:\Users\Alex\Desktop\ChessStatistics\ChessStatistics\bin\Debug\netcoreapp3.1\libman.json

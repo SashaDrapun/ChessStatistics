@@ -17,7 +17,7 @@ namespace ChessStatistics.Controllers
         [HttpPost]
         public async Task<IActionResult> AddGame(GameModel gameModel)
         {
-            await GameAdder.AddGameAsync(gameModel);
+            await GameAdder.AddPassedGameAsync(gameModel);
             return RedirectToAction("AdminPanel", "Home");
         }
     }

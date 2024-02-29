@@ -3,6 +3,7 @@
     .build();
 
 hubConnection.start();
+console.dir(usersParticipatingInTournamentTable);
 
 async function AddParticipant(idPlayer, idTournament) {
     const response = await fetch("/api/tournamentParticipants/", {
@@ -15,7 +16,6 @@ async function AddParticipant(idPlayer, idTournament) {
     });
     if (response.ok === true) {
         const player = await response.json();
-        console.log(player);
         hubConnection.invoke("Send", player.id, player.fio, player.rating, player.title);
     }
 
@@ -32,7 +32,18 @@ async function AddParticipant(idPlayer, idTournament) {
                             <th scope="row">
                                 ${playerTitle}
                             </th>`;
-        document.querySelector('#PlayersParticipatingInTournament').appendChild(player);
+        let table = $('#usersParticipatingInTournamentTable').DataTable();
+
+        table.row.add([playerFIO, playerRating, playerTitle]).draw();
+    
+        //console.dir(table);
+        //if (table.firstElementChild.classList.contains("odd")) {
+        //    table.removeChild(table.firstElementChild);
+        //}
+
+        //console.dir(table);
+
+        //table.appendChild(player);
     });
 }
 

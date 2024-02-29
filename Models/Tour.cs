@@ -15,5 +15,7 @@ namespace ChessStatistics.Models
 
         public int TourNumber { get; set; }
 
+        public int IdPlayerSkippingGame { get; set; } 
+
     }
 }

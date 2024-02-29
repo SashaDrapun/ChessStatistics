@@ -32,6 +32,8 @@ namespace ChessStatistics.Models
 
         public double RatingBlackChange { get; set; }
 
+        public bool DidTheGamePassed { get; set; }
+
         [NotMapped]
         public Player PlayerWhite { get; set; }
 

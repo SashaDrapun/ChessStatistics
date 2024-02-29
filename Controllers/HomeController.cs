@@ -104,14 +104,8 @@ namespace ChessStatistics.Controllers
         {
             User autorizeUser = await GetAutorizeUser();
             ViewBag.AutorizeUser = autorizeUser;
-            if (autorizeUser != null && autorizeUser.IsAdmin)
-            {
-                ViewBag.IsAdmin = true;
-            }
-            else 
-            {
-                ViewBag.IsAdmin = false;
-            }
+            ViewBag.IsAdmin = autorizeUser != null && autorizeUser.IsAdmin;
+
             return true;
         }
     }

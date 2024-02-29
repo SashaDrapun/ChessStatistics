@@ -22,32 +22,10 @@ async function AddParticipant(idPlayer, idTournament) {
     hubConnection.on('Send', function (playerId, playerFIO, playerRating, playerTitle) {
         let option = document.getElementById(playerId);
         option.parentNode.removeChild(option);
-        const player = document.createElement('tr');
-        player.innerHTML = `<th scope="row">
-                                 ${playerFIO}
-                            </th>
-                            <th scope="row">
-                                ${playerRating}
-                            </th>
-                            <th scope="row">
-                                ${playerTitle}
-                            </th>`;
-        let table = $('#usersParticipatingInTournamentTable').DataTable();
 
         table.row.add([playerFIO, playerRating, playerTitle]).draw();
-    
-        //console.dir(table);
-        //if (table.firstElementChild.classList.contains("odd")) {
-        //    table.removeChild(table.firstElementChild);
-        //}
-
-        //console.dir(table);
-
-        //table.appendChild(player);
     });
 }
-
-
 
 document.forms["AddParticipant"].addEventListener("submit", e => {
     e.preventDefault();

@@ -26,6 +26,11 @@ namespace ChessStatistics.Services.GameServices
             return games;
         }
 
+        public static List<Game> GetGamesByTour(int tourId) 
+        {
+            return Database.db.Games.Where(game => game.IdTour == tourId).ToList();
+        }
+
         public static Game GetGame(int idGame)
         {
             return SetGame(Database.db.Games.FirstOrDefault(g => g.Id == idGame));

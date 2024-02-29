@@ -3,14 +3,20 @@
     ViewData["Title"] = "Cыгранные игры";
     ViewData["CurrentPage"] = "Tournaments";
 }
-
-<table id="playersTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+<div class="container justify-content-center">
+<table id="playersTable" class="table table-responsive-sm table-bordered table-hover table-dark ">
     <thead>
         <tr>
             <th scope="col">Название</th>
             <th scope="col">Дата начала турнира</th>
             <th scope="col">Тип турнира</th>
             <th scope="col">Количество туров</th>
+            @if(ViewBag.IsAdmin)
+            {
+                    <th scope="col">Редактировать</th>
+                    <th scope="col">Удалить</th>
+            }
+                
             <th scope="col">Перейти к странице турнира</th>
         </tr>
     </thead>
@@ -26,6 +32,28 @@
             </td>
             <td>@tournament.Type</td>
             <td>@tournament.CountTours</td>
+                    @if (ViewBag.IsAdmin)
+                    {
+                        <td>
+                            <button class="btn btn-danger editTournament"
+                                    tournamentId="@tournament.Id"
+                                    tournamentName="@tournament.TournamentName"
+                                    data-toggle="modal" data-target="#editTournament">
+                                Редактировать
+                            </button>
+                        </td>
+
+                        <td>
+                            <button class="btn btn-danger deleteTournament"
+                                    tournamentId="@tournament.Id"
+                                    tournamentName="@tournament.TournamentName"
+                                    data-toggle="modal" data-target="#deleteTournament">
+                                Удалить
+                            </button>
+                        </td>
+                        
+                    }
+                    
             <td>
                 <form asp-controller="Home" asp-action="Tournament" asp-route-idTournament="@tournament.Id">
                     <button class="btn btn-primary" idTournament="@tournament.Id">Перейти</button>
@@ -91,9 +119,85 @@
     </div>
 </div>
 
-@if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+    <div class='modal fade' id='editTournament' tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content text-light bg-dark">
+                <div class="modal-header ">
+                    <h5 class="modal-title text-info">Редактирование игрока</h5>
+                    <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form asp-controller="Players" asp-action="EditPlayer" method="post">
+                            <input id="IdPlayerEdit" name="IdPlayer" class="d-none">
+                            <div class="form-group">
+                                <label for="WhitePlayer">Введите фамилию и имя</label>
+                                <input type="text"
+                                       id="FIOEdit"
+                                       name="FIO"
+                                       class="form-control" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Title">Выберите ваш разряд или звание</label>
+                                <select id="TitlePlayerEdit"
+                                        name="Title"
+                                        class="form-control">
+                                    <option value="4 разряд">4 разряд</option>
+                                    <option value="3 разряд">3 разряд</option>
+                                    <option value="2 разряд">2 разряд</option>
+                                    <option value="1 разряд">1 разряд</option>
+                                    <option value="КМС">КМС</option>
+                                    <option value="Мастер ФИДЕ">Мастер ФИДЕ</option>
+                                    <option value="Международный мастер">Международный мастер</option>
+                                    <option value="Гроссмейстер">Гроссмейстер</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                Применить изменения
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='modal fade' id='deleteTournament' tabindex="-1" role="dialog"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content text-light bg-dark">
+                <div class="modal-header ">
+                    <h5 class="modal-title text-danger">Удаление турнира</h5>
+                    <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="beforeDeleteTournamentText" class="text-danger"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <form id="deleteTournamentForm" method="post" enctype="multipart/form-data">
+                        <button type="submit" class="btn btn-primary">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.IsAdmin)
 { 
     <button class="btn btn-primary m-2" data-toggle="modal" data-target="#createTournament">
         Создание турнира
     </button>
 }
+</div>
+
+<script src="~/js/tournaments.js"></script>

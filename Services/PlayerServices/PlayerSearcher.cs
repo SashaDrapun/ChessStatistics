@@ -44,7 +44,7 @@ namespace ChessStatistics.Services.PlayerServices
             List<Player> players = GetAllPlayers();
             List<Player> PlayersResult = new List<Player>();
 
-            List<int> tournamentParticipants = TournamentParticipantsSearcher.GetTournamentParticipantsByTournamentId(tournamentId);
+            List<int> tournamentParticipants = TournamentParticipantsSearcher.GetTournamentParticipantsIdPlayerByTournamentId(tournamentId);
 
             foreach (var player in players)
             {

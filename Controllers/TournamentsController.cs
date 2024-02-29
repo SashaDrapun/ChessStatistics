@@ -27,6 +27,13 @@ namespace ChessStatistics.Controllers
             return RedirectToAction("Tournaments", "Home");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteTournament(int idTournament)
+        {
+            await TournamentDeleter.DeleteTournament(idTournament);
+            return RedirectToAction("Tournaments", "Home");
+        }
+
 
         [NonAction]
         public async Task<User> GetAutorizePlayer()

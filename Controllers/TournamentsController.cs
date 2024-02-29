@@ -28,6 +28,13 @@ namespace ChessStatistics.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> EditTournament(TournamentModel tournamentModel)
+        {
+            await TournamentUpdater.UpdateTournamentAsync(tournamentModel);
+            return RedirectToAction("Tournaments", "Home");
+        }
+
+        [HttpPost]
         public async Task<IActionResult> DeleteTournament(int idTournament)
         {
             await TournamentDeleter.DeleteTournament(idTournament);

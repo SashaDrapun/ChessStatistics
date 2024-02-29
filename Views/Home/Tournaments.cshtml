@@ -28,7 +28,7 @@
                 @tournament.TournamentName
             </th>
             <td>
-                @tournament.DateStart
+                @tournament.DateStart.ToString("dd.MM.yyyy")
             </td>
             <td>@tournament.Type</td>
             <td>@tournament.CountTours</td>
@@ -38,6 +38,9 @@
                             <button class="btn btn-danger editTournament"
                                     tournamentId="@tournament.Id"
                                     tournamentName="@tournament.TournamentName"
+                                    tournamentDateStart="@tournament.DateStart.ToString("yyyy-MM-dd")"
+                                    tournamentType="@tournament.Type"
+                                    tournamentCountTours="@tournament.CountTours"
                                     data-toggle="modal" data-target="#editTournament">
                                 Редактировать
                             </button>
@@ -123,37 +126,44 @@
         <div class="modal-dialog modal-dialog-centered " role="document">
             <div class="modal-content text-light bg-dark">
                 <div class="modal-header ">
-                    <h5 class="modal-title text-info">Редактирование игрока</h5>
+                    <h5 class="modal-title text-info">Редактирование турнира</h5>
                     <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="container-fluid">
-                        <form asp-controller="Players" asp-action="EditPlayer" method="post">
-                            <input id="IdPlayerEdit" name="IdPlayer" class="d-none">
+                        <form asp-controller="Tournaments" asp-action="EditTournament" method="post">
+                            <input id="IdTournamentEdit" name="idTournament" class="d-none">
                             <div class="form-group">
-                                <label for="WhitePlayer">Введите фамилию и имя</label>
-                                <input type="text"
-                                       id="FIOEdit"
-                                       name="FIO"
-                                       class="form-control" />
+                                <label for="nameCollection">Введите название турнира</label>
+                                <input type="text" id="TournamentNameEdit" name="TournamentName" class="form-control"
+                                       placeholder="Название турнира">
                             </div>
 
+                            <label for="description">Дата начала турнира</label>
                             <div class="form-group">
-                                <label for="Title">Выберите ваш разряд или звание</label>
-                                <select id="TitlePlayerEdit"
-                                        name="Title"
+                                <input type="date"
+                                       id="DateStartEdit"
+                                       name="dateStart"
+                                       class="form-control" />
+                            </div>
+                            <label for="description">Тип турнира</label>
+                            <div class="form-group">
+                                <select id="TypeEdit"
+                                        name="Type"
                                         class="form-control">
-                                    <option value="4 разряд">4 разряд</option>
-                                    <option value="3 разряд">3 разряд</option>
-                                    <option value="2 разряд">2 разряд</option>
-                                    <option value="1 разряд">1 разряд</option>
-                                    <option value="КМС">КМС</option>
-                                    <option value="Мастер ФИДЕ">Мастер ФИДЕ</option>
-                                    <option value="Международный мастер">Международный мастер</option>
-                                    <option value="Гроссмейстер">Гроссмейстер</option>
+                                    <option value="Классические">Классические</option>
+                                    <option value="Быстрые">Быстрые</option>
+                                    <option value="Блиц">Блиц</option>
                                 </select>
+                            </div>
+                            <label for="description">Количество туров</label>
+                            <div class="form-group">
+                                <input type="number"
+                                       id="countToursEdit"
+                                       name="countTours"
+                                       class="form-control" />
                             </div>
 
                             <button type="submit" class="btn btn-primary">

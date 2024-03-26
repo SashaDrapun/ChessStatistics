@@ -1,5 +1,5 @@
 ﻿@{
-    @model List<ChessStatistics.Models.Game>
+    @model List<ChessStatistics.ViewModels.GameModel>
     ViewData["Title"] = "Cыгранные игры";
     ViewData["CurrentPage"] = "Games";
 }
@@ -14,19 +14,19 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var game in Model)
+        @foreach (var gameModel in Model)
         {
             <tr>
                 <th scope="row">
-                    @game.PlayerWhite.FIO
-                    @(game.RatingWhite + " " + game.RatingWhiteChange)
+                    @gameModel.PlayerWhite.FIO
+                    @(gameModel.RatingWhite + " " + gameModel.RatingWhiteChange)
                 </th>
                 <td>
-                    @game.PlayerBlack.FIO
-                    @(game.RatingBlack + " " + game.RatingBlackChange)
+                    @gameModel.PlayerBlack.FIO
+                    @(gameModel.RatingBlack + " " + gameModel.RatingBlackChange)
                 </td>
-                <td>@(game.GameResult == GameResult.WhiteWin ? "1-0" : game.GameResult == GameResult.Draw ? "1/2" : "0-1")</td>
-                <td>@game.Date</td>
+                <td>@(gameModel.GameResult == GameResult.WhiteWin ? "1-0" : gameModel.GameResult == GameResult.Draw ? "1/2" : "0-1")</td>
+                <td>@gameModel.Date</td>
             </tr>
         }
     </tbody>

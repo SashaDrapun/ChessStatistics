@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChessStatistics.Models;
+using System;
+using System.Collections.Generic;
 
 
 namespace ChessStatistics.ViewModels
@@ -13,5 +15,7 @@ namespace ChessStatistics.ViewModels
         public string Type { get; set; }
 
         public int CountTours { get; set; }
+
+        public TournamentDrawModel TournamentDrawModel { get; set; }
     }
 }

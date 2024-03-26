@@ -11,10 +11,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ChessStatistics.Controllers
 {
-    
     public class TournamentsController : Controller
     {
-
         public TournamentsController(ApplicationContext applicationContext)
         {
             Database.SetDB(applicationContext);

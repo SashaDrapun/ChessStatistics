@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ChessStatistics.Models;
 using ChessStatistics.BusinessLogic;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +11,7 @@ using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.Services;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.LinkUserWithPlayerService;
+using ChessStatistics.Mappers;
 
 namespace ChessStatistics.Controllers
 {
@@ -71,13 +70,13 @@ namespace ChessStatistics.Controllers
             ViewBag.PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false);
             ViewBag.PlayersParticipaningInTournament = PlayerParticipatingInTournament;
             ViewBag.CountPairs = PlayerParticipatingInTournament.Count % 2 == 0 ? PlayerParticipatingInTournament.Count / 2 : PlayerParticipatingInTournament.Count / 2 + 1;
-            return View(TournamentSearcher.GetTournamentById(idTournament));
+            return View(TournamentSearcher.GetTournamentModelById(idTournament));
         }
 
         public async Task<IActionResult> Games()
         {
             await SetViewBag();
-            return View(GameSearcher.GetAllGames());
+            return View(GameMapper.MapGames(GameSearcher.GetAllGames()));
         }
 
         public async Task<IActionResult> AdminPanel()

@@ -1,7 +1,11 @@
 ﻿using ChessStatistics.BusinessLogic;
+using ChessStatistics.BusinessLogic.GeneratingTournamentDraw;
+using ChessStatistics.Mappers;
 using ChessStatistics.Models;
+using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.TournamentParticipantsServices;
+using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,35 +14,38 @@ using System.Threading.Tasks;
 namespace ChessStatistics.Controllers
 {
     [Route("api/[controller]")]
-    public class TournamentParticipantsController : Controller
+    public class TournamentController : Controller
     {
-        public TournamentParticipantsController(ApplicationContext applicationContext)
+        public TournamentController(ApplicationContext applicationContext)
         {
             Database.SetDB(applicationContext);
         }
 
-        [HttpPost]
+        [HttpPost("AddTournamentParticipants")]
         public async Task<ActionResult<Player>> AddTournamentParticipants([FromBody] TournamentAddParticipantModel tournamentAddParticipantModel)
         {
             await TournamentParticipantsAdder.AddTournamentAsync(tournamentAddParticipantModel.IdPlayer, tournamentAddParticipantModel.IdTournament);
-            await SetViewBag();
             ViewBag.PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentAddParticipantModel.IdTournament, false);
             ViewBag.PlayersParticipaningInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentAddParticipantModel.IdTournament, true);
             return Ok(PlayerSearcher.GetPlayerById(tournamentAddParticipantModel.IdPlayer));
         }
 
-        [NonAction]
-        public async Task<User> GetAutorizePlayer()
+        [HttpPost("GenerateTournamentDraw")]
+        public async Task<ActionResult<TournamentDrawModel>> GenerateTournamentDraw([FromBody] TournamentModel tournamentModel)
         {
-            return await Database.db.Users.FirstOrDefaultAsync(u => u.Email == User.Identity.Name);
+            await GeneratingTournamentDraw.GenerateTournamentDrawAsync(tournamentModel.IdTournament);
+
+            TournamentDrawModel result = TournamentSearcher.GetTournamentDraw(tournamentModel.IdTournament);
+            return result;
         }
 
-        [NonAction]
-        public async Task<bool> SetViewBag()
+        [HttpPost("SetGameResult")]
+        public async Task<ActionResult<GameModel>> SetGameResult([FromBody] GameModel gameModel)
         {
-            ViewBag.AutorizeUser = await GetAutorizePlayer();
+            await GameUpdater.UpdateGameAsync(gameModel);
 
-            return true;
+            GameModel result = GameMapper.MapGame(GameSearcher.GetGame(gameModel.Id));
+            return result;
         }
     }
 }

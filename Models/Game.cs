@@ -34,10 +34,6 @@ namespace ChessStatistics.Models
 
         public bool DidTheGamePassed { get; set; }
 
-        [NotMapped]
-        public Player PlayerWhite { get; set; }
 
-        [NotMapped]
-        public Player PlayerBlack { get; set; }
     }
 }

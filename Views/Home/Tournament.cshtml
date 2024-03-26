@@ -1,5 +1,5 @@
 ﻿@{
-    @model ChessStatistics.Models.Tournament
+    @model ChessStatistics.ViewModels.TournamentModel
     ViewData["CurrentPage"] = "Tournament";
 }
 
@@ -64,7 +64,7 @@
                         <div class="modal-body">
                             <div class="container-fluid">
                                 <form name="AddParticipant">
-                                    <input type="text" name="tournamentId" id="tournamentId" class="d-none" value="@Model.Id">
+                                    <input type="text" name="tournamentId" id="tournamentId" class="d-none" value="@Model.IdTournament">
                                     <div class="form-group">
                                         <label for="Title">Выберите игрока</label>
                                         <select id="playerId"
@@ -91,72 +91,103 @@
         <div class="tab-pane fade" id="tours" role="tabpanel" aria-labelledby="tours-tab">
             <h5 class="text-light"> Туры </h5>
 
-            <form asp-controller="TournamentTours" asp-action="GenerateTournamentDraw" asp-route-idTournament="@Model.Id" method="post">
-                <button type="submit">
-                    Cгенерировать жеребьевку
-                </button>
-            </form>
-            
-            <table id="tournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">№</th>
-                        <th scope="col">Игрок за белых</th>
-                        <th scope="col">Результат</th>
-                        <th scope="col">Игрок за черных</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <form>
-                        @for (int i = 1; i <= ViewBag.CountPairs; i++)
+            @if(Model.TournamentDrawModel.Tours.Count == 0)
+            {
+                <form name="GeneratingTournamentDraw">
+                    <button id="GenerateTournamentDraw" type="submit">
+                        Cгенерировать жеребьевку
+                    </button>
+                </form>
+            }
+                        
+            <nav>
+                <div class="nav nav-tabs centered justify-content-center" id="nav-tabTours" role="tablist">
+                    @if (Model.TournamentDrawModel.Tours.Count != 0)
+                    {
+                        for (int i = 0; i < Model.TournamentDrawModel.Tours.Count; i++)
                         {
-
-                        <tr>
-                            <th scope="row">
-                                    @i
-                            </th>
-                            <th scope="row">
-                                <select id="PlayerWhite"
-                                        name="PlayerWhite"
-                                        class="form-control">
-                                        @foreach (var player in ViewBag.PlayersParticipaningInTournament)
-                                        {
-                                        <option value="player.Id">@player.FIO</option>
-                                        }
-                                </select>
-                            </th>
-                            <th scope="row">
-                                <select id="result"
-                                        name="GameResult"
-                                        class="form-control">
-                                    <option value="0">1-0</option>
-                                    <option value="1">1/2</option>
-                                    <option value="2">0-1</option>
-                                </select>
-                            </th>
-                            <th scope="row">
-                                <select id="PlayerBlack"
-                                        name="PlayerBlack"
-                                        class="form-control">
-                                        @foreach (var player in ViewBag.PlayersParticipaningInTournament)
-                                        {
-                                        <option value="player.Id">@player.FIO</option>
-                                        }
-                                </select>
-                            </th>
-                        </tr>
+                            <button class="nav-link" id="nav-tour@(i+1)-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-tour@(i + 1)" type="button" role="tab" aria-controls="nav-tour@(i+1)"
+                                    aria-selected="true">
+                                Тур @(i + 1)
+                            </button>
                         }
+                    }
+                    
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent2" justify-content-center>
+                @if (Model.TournamentDrawModel.Tours.Count != 0)
+                {
+                    for (int i = 0; i < Model.TournamentDrawModel.Tours.Count; i++)
+                    {
+                        <div class="tab-pane fade show" id="nav-tour@(i+1)" role="tabpanel" aria-labelledby="nav-tour@(i+1)-tab">
+                            <div class="d-flex justify-content-center">
+                                <table id="usersParticipatingInTournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Белые</th>
+                                            <th scope="col">Очки</th>
+                                            <th scope="col">Результат</th>
+                                            <th scope="col">Очки</th>
+                                            <th scope="col">Черные</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="PlayersParticipatingInTournament">
+                        @for (int j = 0; j < Model.TournamentDrawModel.Tours[i].Games.Count; j++)
+                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    @(j+1)
+                                                </th>
+                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)PlayerWhiteFIO">
+                                                    @(Model.TournamentDrawModel.Tours[i].Games[j].PlayerWhite.FIO + "\n")
+                                                    @(Model.TournamentDrawModel.Tours[i].Games[j].RatingWhite) 
+                                                    @(Model.TournamentDrawModel.Tours[i].Games[j].RatingWhiteChange)
+                                                </th>
+                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)PlayerWhiteScore">
+                                                    1
+                                                </th>
+                                                <th scope="row">
+                                                    <select id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)GameResult"
+                                                        name="GameResult"
+                                                        idGame="@Model.TournamentDrawModel.Tours[i].Games[j].Id"
+                                                        class="form-control gameResultSelect">
+                                                        @if (!Model.TournamentDrawModel.Tours[i].Games[j].DidTheGamePassed)
+                                                        {
+                                                            <option selected disabled>Заполнить</option>
+                                                            <option value="0">1-0</option>
+                                                            <option value="1">1/2</option>
+                                                            <option value="2">0-1</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="0" selected="@(Model.TournamentDrawModel.Tours[i].Games[j].GameResult == GameResult.WhiteWin)">1-0</option>
+                                                            <option value="1" selected="@(Model.TournamentDrawModel.Tours[i].Games[j].GameResult == GameResult.Draw)">1/2</option>
+                                                            <option value="2" selected="@(Model.TournamentDrawModel.Tours[i].Games[j].GameResult == GameResult.BlackWin)">0-1</option>
+                                                        }
+    
+                                                        </select>
 
-                    <tr>
-                        <th>5</th>
-                        <th></th>
-                        <th></th>
-                        <th><button>Cохранить изменения</button></th>
-                    </tr>
-
-                    </form>
-                </tbody>
-            </table>
+                                                </th>
+                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)PlayerBlackScore">
+                                                    2
+                                                </th>
+                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)PlayerBlackFIO">
+                                                    @(Model.TournamentDrawModel.Tours[i].Games[j].PlayerBlack.FIO + "\n")
+                                                    @(Model.TournamentDrawModel.Tours[i].Games[j].RatingBlack)
+                                                    @(Model.TournamentDrawModel.Tours[i].Games[j].RatingBlackChange)
+                                                </th>
+                                            </tr>
+                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
         </div>
         <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
             <p><strong>Это некий заполнитель содержимого, связанного с содержимым вкладки "Контакт".</strong> Щелчок по другой вкладке переключает видимость этой на следующую. Вкладка JavaScript меняет местами классы для управления видимостью и стилем содержимого. Вы можете использовать его с вкладками, таблетками и любой другой навигацией с поддержкой <code>.nav</code>.</p>

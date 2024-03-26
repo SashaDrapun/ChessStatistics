@@ -45,6 +45,8 @@ namespace ChessStatistics.Services.GameServices
                 IdPlayerWhite = idPlayerWhite,
                 IdPlayerBlack = idPlayerBlack,
                 DidTheGamePassed = false,
+                RatingWhite = Math.Round(PlayerSearcher.GetPlayerRating(idPlayerWhite), 2),
+                RatingBlack = Math.Round(PlayerSearcher.GetPlayerRating(idPlayerBlack), 2),
                 IdTour = tourId
             };
 

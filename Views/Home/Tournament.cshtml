@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody id="PlayersParticipatingInTournament">
-                    @foreach (var player in ViewBag.PlayersParticipaningInTournament)
+                    @foreach (var player in Model.PlayersParticipatingInTournament)
                     {
                         <tr>
                             <th scope="row">
@@ -71,7 +71,7 @@
                                                 name="playerId"
                                                 class="form-control">
                                             @{
-                                                foreach (var player in ViewBag.PlayersNotParticipatingInTournament)
+                                                foreach (var player in Model.PlayersNotParticipatingInTournament)
                                                 {
                                                     <option id="@player.Id" value="@player.Id">@player.FIO</option>
                                                 }
@@ -190,7 +190,59 @@
             </div>
         </div>
         <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
-            <p><strong>Это некий заполнитель содержимого, связанного с содержимым вкладки "Контакт".</strong> Щелчок по другой вкладке переключает видимость этой на следующую. Вкладка JavaScript меняет местами классы для управления видимостью и стилем содержимого. Вы можете использовать его с вкладками, таблетками и любой другой навигацией с поддержкой <code>.nav</code>.</p>
+            @if(!Model.RoundRobinTournamentResult.IsResultReady)
+            {
+                <p>Заполните результаты туров, если заполнили, перезагрузите страницу</p>
+            }
+            else
+            {
+                <table id="resultOfTournament" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Место</th>
+                            <th scope="col">ФИО</th>
+                            <th scope="col">Рейтинг</th>
+                            <th scope="col">Очки</th>
+                            <th scope="col">Личная встреча</th>
+                            <th scope="col">Коэффициент Койя</th>
+                            <th scope="col">Коэффициент Соннеборна-Бергера</th>
+                            <th scope="col">Число выигранных партий</th>
+                        </tr>
+                    </thead>
+                    <tbody id="PlayersParticipatingInTournament">
+                        @foreach(var player in Model.RoundRobinTournamentResult.Players)
+                        {
+                            <tr>
+                                <th scope="row">
+                                    @player.Place
+                                </th>
+                                <th scope="row">
+                                    @player.FIO
+                                </th>
+                                <th scope="row">
+                                    @player.Rating
+                                </th>
+                                <th scope="row">
+                                    @player.Points
+                                </th>
+                                <th scope="row">
+                                    @player.CoefficientPersonalMeeting
+                                </th>
+                                <th scope="row">
+                                    @player.CoefficientKoya
+                                </th>
+                                <th scope="row">
+                                    @player.СoefficientSonnebornBerger
+                                </th>
+                                <th scope="row">
+                                    @player.NumberOfWonGames
+                                </th>
+                            </tr>
+                        }
+                        
+                    </tbody>
+                </table>
+            }
         </div>
     </div>
 </div>

@@ -12,6 +12,7 @@ using ChessStatistics.Services;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.LinkUserWithPlayerService;
 using ChessStatistics.Mappers;
+using ChessStatistics.ViewModels;
 
 namespace ChessStatistics.Controllers
 {
@@ -66,11 +67,9 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> Tournament(int idTournament)
         {
             await SetViewBag();
-            List<Player> PlayerParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true);
-            ViewBag.PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false);
-            ViewBag.PlayersParticipaningInTournament = PlayerParticipatingInTournament;
-            ViewBag.CountPairs = PlayerParticipatingInTournament.Count % 2 == 0 ? PlayerParticipatingInTournament.Count / 2 : PlayerParticipatingInTournament.Count / 2 + 1;
-            return View(TournamentSearcher.GetTournamentModelById(idTournament));
+            TournamentModel tournamentModel = TournamentSearcher.GetTournamentModelById(idTournament);
+            tournamentModel = TournamentSearcher.SetRoundRobitResult(tournamentModel);
+            return View(tournamentModel);
         }
 
         public async Task<IActionResult> Games()

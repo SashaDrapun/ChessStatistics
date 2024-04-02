@@ -13,7 +13,11 @@ namespace ChessStatistics.Models
 
         public string IdUser { get; set; }
 
-        public double Rating { get; set; }
+        public double RatingClassic { get; set; }
+
+        public double RatingRapid { get; set; }
+
+        public double RatingBlitz { get; set; }
 
         public string Title { get; set; }
 

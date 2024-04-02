@@ -1,7 +1,9 @@
 ﻿using ChessStatistics.BusinessLogic;
+using ChessStatistics.BusinessLogic.TournamentResult;
 using ChessStatistics.Mappers;
 using ChessStatistics.Models;
 using ChessStatistics.Services.GameServices;
+using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.ToursServices;
 using ChessStatistics.ViewModels;
 using System.Collections.Generic;
@@ -43,9 +45,9 @@ namespace ChessStatistics.Services.TournamentServices
             return tournamentDraw;
         }
 
-        public static TournamentModel GetTournamentModelById(int IdTournament)
+        public static TournamentModel GetTournamentModelById(int idTournament)
         {
-            Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.Id == IdTournament);
+            Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.Id == idTournament);
 
             TournamentModel tournamentModel = new TournamentModel()
             {
@@ -54,10 +56,21 @@ namespace ChessStatistics.Services.TournamentServices
                 DateStart = tournament.DateStart,
                 TournamentDrawModel = GetTournamentDraw(tournament.Id),
                 TournamentName = tournament.TournamentName,
-                Type = tournament.Type
+                Type = tournament.Type,
+                PlayersParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true),
+                PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false)
             };
 
             return tournamentModel;
+        }
+
+        public static TournamentModel SetRoundRobitResult(TournamentModel model)
+        {
+            GenerateTournamentResult generateTournamentResult = new GenerateTournamentResult(model.IdTournament);
+
+            model.RoundRobinTournamentResult = generateTournamentResult.GenerateRoundRobinTournamentResult();
+
+            return model;
         }
     }
 }

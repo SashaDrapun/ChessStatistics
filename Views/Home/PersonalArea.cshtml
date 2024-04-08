@@ -7,8 +7,8 @@
 
 @if(ViewBag.IsUserConnectedToThePlayer)
 {
-    <h5 class="text-info"> Ваше звание: @Model.Player.Title</h5>
-    <h5 class="text-info"> Ваш рейтинг: @Model.Player.Rating</h5>
+    <h5 class="text-info"> Ваше звание: @Model.Player.Rank</h5>
+    <h5 class="text-info"> Ваш рейтинг по блицу: @Model.Player.RatingBlitz</h5>
 }
 else if(ViewBag.IsUserRequestedLinkWithPlayer)
 {

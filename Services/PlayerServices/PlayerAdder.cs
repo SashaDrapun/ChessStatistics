@@ -12,8 +12,10 @@ namespace ChessStatistics.Services.PlayerServices
             Player player = new Player
             {
                 FIO = playerModel.FIO,
-                Title = playerModel.Title,
-                Rating = RatingCalculation.GetStartRating(playerModel.Title)
+                Rank = playerModel.Rank,
+                RatingBlitz = RatingCalculation.GetStartRating(playerModel.Rank),
+                RatingRapid = RatingCalculation.GetStartRating(playerModel.Rank),
+                RatingClassic = RatingCalculation.GetStartRating(playerModel.Rank)
             };
 
             Database.db.Players.Add(player);

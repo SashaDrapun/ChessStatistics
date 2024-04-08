@@ -15,7 +15,7 @@ namespace ChessStatistics.Services.ToursServices
 
             foreach (var tour in tours)
             {
-                await GameDeleter.DeleteGames(tour.Id);
+                await GameDeleter.DeleteGames(tour.IdTour);
                 Database.db.Remove(tour);
             }
 

@@ -12,12 +12,15 @@ const buttonsEditTournament = document.querySelectorAll('.editTournament');
 
 for (let i = 0; i < buttonsEditTournament.length; i++) {
     buttonsEditTournament[i].addEventListener('click', e => {
-        console.log(e.target.getAttribute('tournamentName'));
 
         document.querySelector('#IdTournamentEdit').value = e.target.getAttribute('tournamentId');
         document.querySelector('#TournamentNameEdit').value = e.target.getAttribute('tournamentName');
+
+        console.dir(document.querySelector('#TournamentTypeEdit'));
+        console.log(e.target.getAttribute('tournamentType'));
         document.querySelector('#DateStartEdit').value = e.target.getAttribute('tournamentDateStart');
-        document.querySelector('#TypeEdit').value = e.target.getAttribute('tournamentType');
+        document.querySelector('#TournamentTypeEdit').value = e.target.getAttribute('tournamentType');
+        document.querySelector('#RatingTypeEdit').value = e.target.getAttribute('ratingType');
         document.querySelector('#countToursEdit').value = e.target.getAttribute('tournamentCountTours');
         
     });

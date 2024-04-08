@@ -11,7 +11,7 @@ namespace ChessStatistics.Services.ToursServices
     {
         public static Tour GetTourById(int idTour)
         {
-            return Database.db.Tours.FirstOrDefault(t => t.Id == idTour);
+            return Database.db.Tours.FirstOrDefault(t => t.IdTour == idTour);
         }
 
         public static List<Tour> GetToursByTournament(int idTournament)

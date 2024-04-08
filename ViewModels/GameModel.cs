@@ -1,4 +1,8 @@
 ﻿using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
+using ChessStatistics.Services.PlayerServices;
+using ChessStatistics.Services.TournamentServices;
+using ChessStatistics.Services.ToursServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,7 +13,16 @@ namespace ChessStatistics.ViewModels
 {
     public class GameModel
     {
-        public int Id { get; set; }
+        
+
+        public GameModel()
+        {
+            
+        }
+
+
+        public int IdGame { get; set; }
+
         public int IdPlayerWhite { get; set; }
 
         public int IdPlayerBlack { get; set; }

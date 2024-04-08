@@ -5,7 +5,7 @@ namespace ChessStatistics.ViewModels
 {
     public class TourModel
     {
-        public int Id { get; set; }
+        public int IdTour { get; set; }
 
         public int IdTournament { get; set; }
 

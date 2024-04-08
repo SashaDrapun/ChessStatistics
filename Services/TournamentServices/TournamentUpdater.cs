@@ -15,7 +15,8 @@ namespace ChessStatistics.Services.TournamentServices
             tournament.DateStart = tournamentModel.DateStart;
             tournament.CountTours = tournamentModel.CountTours;
             tournament.TournamentName = tournamentModel.TournamentName;
-            tournament.Type = tournamentModel.Type;
+            tournament.TournamentType = tournamentModel.TournamentType;
+            tournament.RatingType = tournamentModel.RatingType;
             Database.db.Tournaments.Update(tournament);
             await Database.db.SaveChangesAsync();
         }

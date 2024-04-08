@@ -1,5 +1,6 @@
 ﻿using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
 using ChessStatistics.Services.TournamentParticipantsServices;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ChessStatistics.Services.PlayerServices
     {
         public static Player GetPlayerById(int idPlayer)
         {
-            return Database.db.Players.FirstOrDefault(player => player.Id == idPlayer);
+            return Database.db.Players.FirstOrDefault(player => player.IdPlayer == idPlayer);
         }
 
         public static List<Player> GetAllPlayers()
@@ -19,9 +20,22 @@ namespace ChessStatistics.Services.PlayerServices
             return Database.db.Players.ToList(); 
         }
 
-        public static double GetPlayerRating(int idPlayer)
+        public static double GetPlayerRating(int idPlayer, RatingType ratingType)
         {
-            return Database.db.Players.FirstOrDefault(player => player.Id == idPlayer).Rating;
+            Player player = Database.db.Players.FirstOrDefault(player => player.IdPlayer == idPlayer);
+
+            if (ratingType == RatingType.Blitz)
+            {
+                return player.RatingBlitz;
+            }
+
+            if (ratingType == RatingType.Rapid)
+            {
+                return player.RatingRapid;
+            }
+
+            return player.RatingClassic;
+
         }
 
         public static List<Player> GetPlayersNotLinkedWithUser()
@@ -48,14 +62,14 @@ namespace ChessStatistics.Services.PlayerServices
 
             foreach (var player in players)
             {
-                if (tournamentParticipants.Contains(player.Id) && isParticipating)
+                if (tournamentParticipants.Contains(player.IdPlayer) && isParticipating)
                 {
-                    PlayersResult.Add(GetPlayerById(player.Id));
+                    PlayersResult.Add(GetPlayerById(player.IdPlayer));
                 }
 
-                if (!tournamentParticipants.Contains(player.Id) && !isParticipating)
+                if (!tournamentParticipants.Contains(player.IdPlayer) && !isParticipating)
                 {
-                    PlayersResult.Add(GetPlayerById(player.Id));
+                    PlayersResult.Add(GetPlayerById(player.IdPlayer));
                 }
             }
 

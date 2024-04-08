@@ -1,4 +1,5 @@
 ﻿using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
 using System;
@@ -67,8 +68,30 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
         {
             foreach (var player in tournamentModel.PlayersParticipatingInTournament)
             {
-                result.Players.Add(new RoundRobinPlayerResult(player.Id, player.FIO, player.Rating));
+                result.Players.Add(new RoundRobinPlayerResult(player.IdPlayer, player.FIO, ChoouseRatingByType(player)));
             }
+        }
+
+        private double ChoouseRatingByType(Player player)
+        {
+            double playerRating = 0;
+
+            if (tournamentModel.RatingType == RatingType.Blitz)
+            {
+                playerRating = player.RatingBlitz;
+            }
+
+            if (tournamentModel.RatingType == RatingType.Rapid)
+            {
+                playerRating = player.RatingRapid;
+            }
+
+            if (tournamentModel.RatingType == RatingType.Classic)
+            {
+                playerRating = player.RatingClassic;
+            }
+
+            return playerRating;
         }
 
         private void CalculateCountPointAndCountWonGames()

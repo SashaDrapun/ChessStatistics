@@ -8,7 +8,7 @@ namespace ChessStatistics.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int IdGame { get; set; }
 
         [ForeignKey("Player")]
         public int IdPlayerWhite { get; set; }

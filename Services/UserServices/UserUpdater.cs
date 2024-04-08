@@ -26,7 +26,7 @@ namespace ChessStatistics.Services.PlayerServices
             User user = UserSearcher.GetUserById(linkUserWithPlayer.IdUser);
             Player player = PlayerSearcher.GetPlayerById(linkUserWithPlayer.IdPlayer);
 
-            user.IdPlayer = player.Id;
+            user.IdPlayer = player.IdPlayer;
             player.IdUser = user.Id;
             await Database.db.SaveChangesAsync();
         }

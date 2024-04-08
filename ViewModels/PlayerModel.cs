@@ -6,8 +6,10 @@
 
         public string FIO { get; set; }
 
-        public string Title { get; set; }
+        public string Rank { get; set; }
 
-        public double Rating { get; set; }
+        public double CurrentRating { get; set; }
+
+        public Rating Rating { get; set; }
     }
 }

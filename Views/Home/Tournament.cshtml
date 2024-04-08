@@ -1,4 +1,6 @@
-﻿@{
+﻿@using ChessStatistics.Models.Enum
+@using ChessStatistics.Services
+@{
     @model ChessStatistics.ViewModels.TournamentModel
     ViewData["CurrentPage"] = "Tournament";
 }
@@ -34,10 +36,24 @@
                                 @player.FIO
                             </th>
                             <th scope="row">
-                                @player.Rating
+                                @if (Model.RatingType == RatingType.Blitz)
+                                {
+                                    @player.RatingBlitz
+                                }
+
+                                @if (Model.RatingType == RatingType.Rapid)
+                                {
+                                    @player.RatingRapid
+                                }
+
+                                @if (Model.RatingType == RatingType.Classic)
+                                {
+                                    @player.RatingClassic
+                                }
+                                
                             </th>
                             <th scope="row">
-                                @player.Title
+                                @player.Rank
                             </th>
                         </tr>
                     }
@@ -73,7 +89,7 @@
                                             @{
                                                 foreach (var player in Model.PlayersNotParticipatingInTournament)
                                                 {
-                                                    <option id="@player.Id" value="@player.Id">@player.FIO</option>
+                                                    <option id="@player.IdPlayer" value="@player.IdPlayer">@player.FIO</option>
                                                 }
                                             }
                                         </select>
@@ -141,18 +157,18 @@
                                                 <th scope="row">
                                                     @(j+1)
                                                 </th>
-                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)PlayerWhiteFIO">
+                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)PlayerWhiteFIO">
                                                     @(Model.TournamentDrawModel.Tours[i].Games[j].PlayerWhite.FIO + "\n")
                                                     @(Model.TournamentDrawModel.Tours[i].Games[j].RatingWhite) 
                                                     @(Model.TournamentDrawModel.Tours[i].Games[j].RatingWhiteChange)
                                                 </th>
-                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)PlayerWhiteScore">
+                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)PlayerWhiteScore">
                                                     1
                                                 </th>
                                                 <th scope="row">
-                                                    <select id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)GameResult"
+                                                    <select id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)GameResult"
                                                         name="GameResult"
-                                                        idGame="@Model.TournamentDrawModel.Tours[i].Games[j].Id"
+                                                        idGame="@Model.TournamentDrawModel.Tours[i].Games[j].IdGame"
                                                         class="form-control gameResultSelect">
                                                         @if (!Model.TournamentDrawModel.Tours[i].Games[j].DidTheGamePassed)
                                                         {
@@ -171,10 +187,10 @@
                                                         </select>
 
                                                 </th>
-                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)PlayerBlackScore">
+                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)PlayerBlackScore">
                                                     2
                                                 </th>
-                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].Id)Game@(Model.TournamentDrawModel.Tours[i].Games[j].Id)PlayerBlackFIO">
+                                                <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)PlayerBlackFIO">
                                                     @(Model.TournamentDrawModel.Tours[i].Games[j].PlayerBlack.FIO + "\n")
                                                     @(Model.TournamentDrawModel.Tours[i].Games[j].RatingBlack)
                                                     @(Model.TournamentDrawModel.Tours[i].Games[j].RatingBlackChange)

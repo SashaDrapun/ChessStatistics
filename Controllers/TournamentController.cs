@@ -25,9 +25,8 @@ namespace ChessStatistics.Controllers
         public async Task<ActionResult<Player>> AddTournamentParticipants([FromBody] TournamentAddParticipantModel tournamentAddParticipantModel)
         {
             await TournamentParticipantsAdder.AddTournamentAsync(tournamentAddParticipantModel.IdPlayer, tournamentAddParticipantModel.IdTournament);
-            ViewBag.PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentAddParticipantModel.IdTournament, false);
-            ViewBag.PlayersParticipaningInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(tournamentAddParticipantModel.IdTournament, true);
-            return Ok(PlayerSearcher.GetPlayerById(tournamentAddParticipantModel.IdPlayer));
+            Player player = PlayerSearcher.GetPlayerById(tournamentAddParticipantModel.IdPlayer);
+            return Ok(PlayerMapper.MapPlayer(player, tournamentAddParticipantModel.IdTournament));
         }
 
         [HttpPost("GenerateTournamentDraw")]
@@ -44,7 +43,7 @@ namespace ChessStatistics.Controllers
         {
             await GameUpdater.UpdateGameAsync(gameModel);
 
-            GameModel result = GameMapper.MapGame(GameSearcher.GetGame(gameModel.Id));
+            GameModel result = GameMapper.MapGame(GameSearcher.GetGame(gameModel.IdGame));
             return result;
         }
     }

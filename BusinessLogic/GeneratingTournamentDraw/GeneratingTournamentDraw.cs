@@ -1,7 +1,10 @@
-﻿using ChessStatistics.Models;
+﻿using ChessStatistics.Mappers;
+using ChessStatistics.Models;
 using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.ToursServices;
+using ChessStatistics.ViewModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +24,7 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw
 
             for (int i = 0; i < playersParticipatingInTournament.Count; i++)
             {
-                players.Add(new PlayerInGeneratingDraw(playersParticipatingInTournament[i].Id));
+                players.Add(new PlayerInGeneratingDraw(playersParticipatingInTournament[i].IdPlayer));
             }
 
             if (numberOfParticipants % 2 != 0)
@@ -72,17 +75,30 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw
 
                     if (playerTour.EnemyNumber == -1)
                     {
-                        await TourAdder.AddPlayerSkippingGame(tour.Id, players[i].PlayerId);
+                        await TourAdder.AddPlayerSkippingGame(tour.IdTour, players[i].PlayerId);
                         continue;
                     }
 
                     if (playerTour.Color == Color.White)
                     {
-                        await GameAdder.AddNotPassedGameAsync(players[i].PlayerId, players[playerTour.EnemyNumber - 1].PlayerId, tour.Id);
+                        Game game = new Game
+                        {
+                            IdPlayerWhite = players[i].PlayerId,
+                            IdPlayerBlack = players[playerTour.EnemyNumber - 1].PlayerId,
+                            IdTour = tour.IdTour
+                        };
+                        await GameAdder.AddNotPassedGameAsync(GameMapper.MapGame(game));
                     }
                     else
                     {
-                        await GameAdder.AddNotPassedGameAsync(players[playerTour.EnemyNumber - 1].PlayerId, players[i].PlayerId, tour.Id);
+                        Game game = new Game
+                        {
+                            IdPlayerWhite = players[playerTour.EnemyNumber - 1].PlayerId,
+                            IdPlayerBlack = players[i].PlayerId,
+                            IdTour = tour.IdTour
+                        };
+                        
+                        await GameAdder.AddNotPassedGameAsync(GameMapper.MapGame(game));
                     }
 
                     written.Add(playerTour.EnemyNumber);

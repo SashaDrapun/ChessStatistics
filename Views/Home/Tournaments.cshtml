@@ -1,6 +1,6 @@
 ﻿@{
-    @model List<ChessStatistics.Models.Tournament>
-    ViewData["Title"] = "Cыгранные игры";
+    @model List<ChessStatistics.ViewModels.TournamentModel>
+    ViewData["Title"] = "Турниры";
     ViewData["CurrentPage"] = "Tournaments";
 }
 <div class="container justify-content-center">
@@ -10,6 +10,7 @@
             <th scope="col">Название</th>
             <th scope="col">Дата начала турнира</th>
             <th scope="col">Тип турнира</th>
+            <th scope="col">Рейтинг турнира</th>
             <th scope="col">Количество туров</th>
             @if(ViewBag.IsAdmin)
             {
@@ -30,16 +31,19 @@
             <td>
                 @tournament.DateStart.ToString("dd.MM.yyyy")
             </td>
-            <td>@tournament.Type</td>
+            <td>@tournament.GetTournamentType()</td>
+            <td>@tournament.GetRatingType()</td>
             <td>@tournament.CountTours</td>
+
                     @if (ViewBag.IsAdmin)
                     {
                         <td>
                             <button class="btn btn-danger editTournament"
-                                    tournamentId="@tournament.Id"
+                                    tournamentId="@tournament.IdTournament"
                                     tournamentName="@tournament.TournamentName"
                                     tournamentDateStart="@tournament.DateStart.ToString("yyyy-MM-dd")"
-                                    tournamentType="@tournament.Type"
+                                    tournamentType="@((int)tournament.TournamentType)"
+                                    ratingType="@((int)tournament.RatingType)"
                                     tournamentCountTours="@tournament.CountTours"
                                     data-toggle="modal" data-target="#editTournament">
                                 Редактировать
@@ -48,7 +52,7 @@
 
                         <td>
                             <button class="btn btn-danger deleteTournament"
-                                    tournamentId="@tournament.Id"
+                                    tournamentId="@tournament.IdTournament"
                                     tournamentName="@tournament.TournamentName"
                                     data-toggle="modal" data-target="#deleteTournament">
                                 Удалить
@@ -58,8 +62,8 @@
                     }
                     
             <td>
-                <form asp-controller="Home" asp-action="Tournament" asp-route-idTournament="@tournament.Id">
-                    <button class="btn btn-primary" idTournament="@tournament.Id">Перейти</button>
+                <form asp-controller="Home" asp-action="Tournament" asp-route-idTournament="@tournament.IdTournament">
+                    <button class="btn btn-primary" idTournament="@tournament.IdTournament">Перейти</button>
                 </form>
             </td>
         </tr>
@@ -94,16 +98,27 @@
                                    name="dateStart"
                                    class="form-control" />
                         </div>
-                        <label for="description">Тип турнира</label>
+                        
                         <div class="form-group">
-                            <select id="Type"
-                                    name="Type"
+                                <label for="description">Тип турнира</label>
+                            <select id="TournamentType"
+                                    name="TournamenType"
                                     class="form-control">
-                                <option value="Классические">Классические</option>
-                                <option value="Быстрые">Быстрые</option>
-                                <option value="Блиц">Блиц</option>
+                                <option value="0">Круговая система</option>
+                                <option value="1">Швейцарская система</option>
                             </select>
                         </div>
+                           
+                            <div class="form-group">
+                                <label for="description">Контроль времени</label>
+                                <select id="RatingType"
+                                        name="RatingType"
+                                        class="form-control">
+                                    <option value="0">Блиц</option>
+                                    <option value="1">Рапид</option>
+                                    <option value="2">Классика</option>
+                                </select>
+                            </div>
                         <label for="description">Количество туров</label>
                         <div class="form-group">
                             <input type="number"
@@ -148,14 +163,24 @@
                                        name="dateStart"
                                        class="form-control" />
                             </div>
-                            <label for="description">Тип турнира</label>
                             <div class="form-group">
-                                <select id="TypeEdit"
-                                        name="Type"
+                                <label for="description">Тип турнира</label>
+                                <select id="TournamentTypeEdit"
+                                        name="TournamenType"
                                         class="form-control">
-                                    <option value="Классические">Классические</option>
-                                    <option value="Быстрые">Быстрые</option>
-                                    <option value="Блиц">Блиц</option>
+                                    <option value="0">Круговая система</option>
+                                    <option value="1">Швейцарская система</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Контроль времени</label>
+                                <select id="RatingTypeEdit"
+                                        name="RatingType"
+                                        class="form-control">
+                                    <option value="0">Блиц</option>
+                                    <option value="1">Рапид</option>
+                                    <option value="2">Классика</option>
                                 </select>
                             </div>
                             <label for="description">Количество туров</label>

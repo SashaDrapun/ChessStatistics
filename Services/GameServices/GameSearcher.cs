@@ -16,7 +16,7 @@ namespace ChessStatistics.Services.GameServices
 
         public static List<Game> GetGamesByTournament(int tournamentId) 
         {
-            Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
+            Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == tournamentId);
 
             List<Tour> tours = TourSearcher.GetToursByTournament(tournamentId);
 
@@ -24,7 +24,7 @@ namespace ChessStatistics.Services.GameServices
 
             for (int i = 0; i < tours.Count; i++)
             {
-                games.AddRange(GetGamesByTour(tours[i].Id));
+                games.AddRange(GetGamesByTour(tours[i].IdTour));
             }
 
             return games;
@@ -32,7 +32,7 @@ namespace ChessStatistics.Services.GameServices
 
         public static Game GetGame(int idGame)
         {
-            return Database.db.Games.FirstOrDefault(g => g.Id == idGame);
+            return Database.db.Games.FirstOrDefault(g => g.IdGame == idGame);
         }
 
         public static List<Game> GetAllGames()

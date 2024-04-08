@@ -16,7 +16,7 @@ namespace ChessStatistics.Services.TournamentServices
     {
         public static Tournament GetTournamentById(int IdTournament)
         {
-            return Database.db.Tournaments.FirstOrDefault(t => t.Id == IdTournament);
+            return Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == IdTournament);
         }
 
         public static TournamentDrawModel GetTournamentDraw(int idTournament)
@@ -32,11 +32,11 @@ namespace ChessStatistics.Services.TournamentServices
             {
                 TourModel tourModel = new TourModel
                 {
-                    Id = tours[i].Id,
+                    IdTour = tours[i].IdTour,
                     TourNumber = tours[i].TourNumber,
                     IdTournament = tours[i].IdTournament,
                     IdPlayerSkippingGame = tours[i].IdPlayerSkippingGame,
-                    Games = GameMapper.MapGames(GameSearcher.GetGamesByTour(tours[i].Id))
+                    Games = GameMapper.MapGames(GameSearcher.GetGamesByTour(tours[i].IdTour))
                 };
 
                 tournamentDraw.Tours.Add(tourModel);
@@ -45,18 +45,36 @@ namespace ChessStatistics.Services.TournamentServices
             return tournamentDraw;
         }
 
-        public static TournamentModel GetTournamentModelById(int idTournament)
+        public static TournamentModel GetPartialTournamentModel(int idTournament)
         {
-            Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.Id == idTournament);
+            Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == idTournament);
 
             TournamentModel tournamentModel = new TournamentModel()
             {
-                IdTournament = tournament.Id,
+                IdTournament = tournament.IdTournament,
                 CountTours = tournament.CountTours,
                 DateStart = tournament.DateStart,
-                TournamentDrawModel = GetTournamentDraw(tournament.Id),
                 TournamentName = tournament.TournamentName,
-                Type = tournament.Type,
+                RatingType = tournament.RatingType,
+                TournamentType = tournament.TournamentType,
+            };
+
+            return tournamentModel;
+        }
+
+        public static TournamentModel GetTournamentModelById(int idTournament)
+        {
+            Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == idTournament);
+
+            TournamentModel tournamentModel = new TournamentModel()
+            {
+                IdTournament = tournament.IdTournament,
+                CountTours = tournament.CountTours,
+                DateStart = tournament.DateStart,
+                TournamentDrawModel = GetTournamentDraw(tournament.IdTournament),
+                TournamentName = tournament.TournamentName,
+                RatingType = tournament.RatingType,
+                TournamentType = tournament.TournamentType,
                 PlayersParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true),
                 PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false)
             };

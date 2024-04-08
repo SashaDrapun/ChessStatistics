@@ -26,7 +26,7 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> EditPlayer(PlayerModel playerModel)
         {
             Player player = PlayerSearcher.GetPlayerById(playerModel.IdPlayer);
-            player.Title = playerModel.Title;
+            player.Rank = playerModel.Rank;
             player.FIO = playerModel.FIO;
             await PlayerUpdater.UpdatePlayerAsync(player);
             return RedirectToAction("Players", "Home");

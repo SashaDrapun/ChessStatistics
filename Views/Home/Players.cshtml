@@ -11,7 +11,9 @@
         <tr>
             <th scope="col">Фамилия и имя</th>
             <th scope="col">Разряд или звание</th>
-            <th scope="col">Рейтинг</th>
+            <th scope="col">Рейтинг в блице</th>
+            <th scope="col">Рейтинг в рапиде</th>
+            <th scope="col">Рейтинг в классике</th>
            
             @if(ViewBag.IsAdmin)
             {
@@ -28,16 +30,18 @@
             <th scope="row">
                     @player.FIO
             </th>
-            <td>@player.Title</td>
-            <td>@player.Rating</td>
+            <td>@player.Rank</td>
+            <td>@player.RatingBlitz</td>
+            <td>@player.RatingRapid</td>
+            <td>@player.RatingClassic</td>
                 
              @if (ViewBag.IsAdmin)
              {
                  <td>
                      <button class="btn btn-primary editPlayer"
-                            idPlayer="@player.Id"
+                            idPlayer="@player.IdPlayer"
                             fioPlayer="@player.FIO"
-                            titlePlayer="@player.Title"
+                            titlePlayer="@player.Rank"
                             data-toggle="modal" data-target="#editPlayer">
                          Редактировать
                      </button>
@@ -45,7 +49,7 @@
 
                  <td>
                     <button class="btn btn-danger deletePlayer"
-                           idPlayer="@player.Id"
+                           idPlayer="@player.IdPlayer"
                            data-toggle="modal" data-target="#deletePlayer">
                         Удалить
                     </button>
@@ -54,7 +58,7 @@
              }
 
             <td>
-                <form asp-controller="Home" asp-action="Player" asp-route-idPlayer="@player.Id">
+                <form asp-controller="Home" asp-action="Player" asp-route-idPlayer="@player.IdPlayer">
                     <button class="btn btn-primary">
                         Перейти
                     </button>

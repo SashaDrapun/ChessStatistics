@@ -15,7 +15,7 @@ async function AddParticipant(idPlayer, idTournament) {
     });
     if (response.ok === true) {
         const player = await response.json();
-        hubConnection.invoke("AddTournamentParticipant", player.id, player.fio, player.rating, player.title);
+        hubConnection.invoke("AddTournamentParticipant", player.idPlayer, player.fio, player.currentRating, player.rank);
     }
 }
 
@@ -35,20 +35,25 @@ async function GeneratingTournamentDraw(idTournament) {
         })
     });
     if (response.ok === true) {
-        const tournamentDraw = await response.json();
-        hubConnection.invoke("GeneratingTournamentDraw", tournamentDraw);
+        let tournamentDraw = await response.json();
+        console.dir(tournamentDraw);
+        try
+        {
+            hubConnection.invoke("GeneratingTournamentDraw", tournamentDraw);
+        }
+        catch (error) {
+            console.error('An error occurred while invoking GeneratingTournamentDraw:', error);
+           
+        }
     }
 }
 
 hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
-    console.dir(tournamentDraw);
     let tournamentId = document.querySelector('#tournamentId').value;
     if (tournamentDraw != null && tournamentDraw.tours[0].idTournament == tournamentId) {
         for (let index = 0; index < tournamentDraw.tours.length; index++) {
             let i = index + 1;
-            console.log(index);
-            console.log(index < tournamentDraw.tours.length);
-
+            
             let tourNumber = "Тур " + i;
             let tourNavDiv = document.createElement('div');
             tourNavDiv.innerHTML = `<button class="nav-link" id="nav-tour${i}-tab" data-bs-toggle="tab" 
@@ -78,17 +83,17 @@ hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
                             <th scope="row">
                                 ${j}
                             </th>
-                            <th scope="row" id="Tour${tournamentDraw.tours[index].id}Game${tournamentDraw.tours[index].games[jindex].id}PlayerWhiteFIO">
+                            <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerWhiteFIO">
                                 ${tournamentDraw.tours[index].games[jindex].playerWhite.fio}
                              </th>
-                             <th scope="row" id="Tour${tournamentDraw.tours[index].id}Game${tournamentDraw.tours[index].games[jindex].id}PlayerWhiteScore">
+                             <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerWhiteScore">
                                 1
                              </th>
                             <th scope="row">
                                 <select
                                         id="result"
                                         name="GameResult"
-                                        idGame="${tournamentDraw.tours[index].games[jindex].id}"
+                                        idGame="${tournamentDraw.tours[index].games[jindex].idGame}"
                                         class="form-control gameResultSelect">
                                         <option selected disabled>Заполнить</option>
                                         <option value="0">1-0</option>
@@ -96,10 +101,10 @@ hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
                                         <option value="2">0-1</option>
                                 </select>
                             </th>
-                            <th scope="row" id="Tour${tournamentDraw.tours[index].id}Game${tournamentDraw.tours[index].games[jindex].id}PlayerBlackScore">
+                            <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerBlackScore">
                                 2
                             </th>
-                            <th scope="row" id="Tour${tournamentDraw.tours[index].id}Game${tournamentDraw.tours[index].games[jindex].id}PlayerBlackFIO">
+                            <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerBlackFIO">
                                 ${tournamentDraw.tours[index].games[jindex].playerBlack.fio}
                              </th>
                         </tr>`;
@@ -121,11 +126,12 @@ hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
 });
 
 async function SetGameResult(idGame, gameResult) {
+    console.log("Зашли в SetGameResult");
     const response = await fetch("/api/Tournament/SetGameResult/", {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
-            Id: parseInt(idGame),
+            IdGame: parseInt(idGame),
             GameResult: parseInt(gameResult)
         })
     });
@@ -139,10 +145,10 @@ async function SetGameResult(idGame, gameResult) {
 }
 
 hubConnection.on('SetGameResult', function (gameModel) {
-    let playerWhiteFIO = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.id}PlayerWhiteFIO`);
-    let playerWhiteScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.id}PlayerWhiteScore`);
-    let playerBlackFIO = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.id}PlayerBlackFIO`);
-    let playerBlackScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.id}PlayerBlackScore`);
+    let playerWhiteFIO = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerWhiteFIO`);
+    let playerWhiteScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerWhiteScore`);
+    let playerBlackFIO = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerBlackFIO`);
+    let playerBlackScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerBlackScore`);
 
     console.log("Данные:")
     console.dir(gameModel);
@@ -163,8 +169,6 @@ function SetGameResultSelects() {
         }
     }
 }
-
-
 
 document.forms["AddParticipant"].addEventListener("submit", e => {
     e.preventDefault();

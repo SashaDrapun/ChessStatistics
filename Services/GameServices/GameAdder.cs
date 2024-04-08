@@ -1,7 +1,10 @@
 ﻿using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
 using ChessStatistics.Services.PlayerServices;
+using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Threading.Tasks;
 
@@ -11,8 +14,11 @@ namespace ChessStatistics.Services.GameServices
     {
         public static async Task<Game> AddPassedGameAsync(GameModel gameModel)
         {
-            double ratingWhite = PlayerSearcher.GetPlayerRating(gameModel.IdPlayerWhite);
-            double ratingBlack = PlayerSearcher.GetPlayerRating(gameModel.IdPlayerBlack);
+            Tournament tournament = TournamentSearcher.GetTournamentById(gameModel.IdTournament);
+            RatingType ratingType = tournament.RatingType;
+
+            double ratingWhite = PlayerSearcher.GetPlayerRating(gameModel.IdPlayerWhite, ratingType);
+            double ratingBlack = PlayerSearcher.GetPlayerRating(gameModel.IdPlayerBlack, ratingType);
 
             PlayersRating newPlayersRating = RatingCalculation.ReturnNewPlayersRating(ratingWhite, ratingBlack, gameModel.GameResult);
 
@@ -32,22 +38,25 @@ namespace ChessStatistics.Services.GameServices
             Database.db.Games.Add(game);
             await Database.db.SaveChangesAsync();
 
-            await PlayerUpdater.UpdateRatingPlayerAsync(gameModel.IdPlayerWhite, newPlayersRating.WhiteRating);
-            await PlayerUpdater.UpdateRatingPlayerAsync(gameModel.IdPlayerBlack, newPlayersRating.BlackRating);
+            await PlayerUpdater.UpdateRatingPlayerAsync(gameModel.IdPlayerWhite, newPlayersRating.WhiteRating, ratingType);
+            await PlayerUpdater.UpdateRatingPlayerAsync(gameModel.IdPlayerBlack, newPlayersRating.BlackRating, ratingType);
 
             return game;
         }
 
-        public static async Task<Game> AddNotPassedGameAsync(int idPlayerWhite, int idPlayerBlack, int tourId)
+        public static async Task<Game> AddNotPassedGameAsync(GameModel gameModel)
         {
+            //Tournament tournament = TournamentSearcher.GetTournamentById(gameModel.IdTournament);
+            //RatingType ratingType = tournament.RatingType;
+
             Game game = new Game
             {
-                IdPlayerWhite = idPlayerWhite,
-                IdPlayerBlack = idPlayerBlack,
+                IdPlayerWhite = gameModel.IdPlayerWhite,
+                IdPlayerBlack = gameModel.IdPlayerBlack,
                 DidTheGamePassed = false,
-                RatingWhite = Math.Round(PlayerSearcher.GetPlayerRating(idPlayerWhite), 2),
-                RatingBlack = Math.Round(PlayerSearcher.GetPlayerRating(idPlayerBlack), 2),
-                IdTour = tourId
+                RatingWhite = gameModel.RatingWhite,
+                RatingBlack = gameModel.RatingBlack,
+                IdTour = gameModel.IdTour
             };
 
             Database.db.Games.Add(game);

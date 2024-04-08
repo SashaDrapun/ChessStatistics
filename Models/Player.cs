@@ -7,7 +7,7 @@ namespace ChessStatistics.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int IdPlayer { get; set; }
 
         [ForeignKey("User")]
 
@@ -19,7 +19,7 @@ namespace ChessStatistics.Models
 
         public double RatingBlitz { get; set; }
 
-        public string Title { get; set; }
+        public string Rank { get; set; }
 
         public string FIO { get; set; }
     }

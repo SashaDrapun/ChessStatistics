@@ -1,4 +1,6 @@
-﻿namespace ChessStatistics.ViewModels
+﻿using ChessStatistics.Models.Enum;
+
+namespace ChessStatistics.ViewModels
 {
     public class PlayerModel
     {
@@ -6,7 +8,9 @@
 
         public string FIO { get; set; }
 
-        public string Rank { get; set; }
+        public Rank Rank { get; set; }
+
+        public string RankOutput { get; set; }
 
         public double CurrentRating { get; set; }
 

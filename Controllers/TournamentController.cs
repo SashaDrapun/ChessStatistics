@@ -1,7 +1,9 @@
 ﻿using ChessStatistics.BusinessLogic;
-using ChessStatistics.BusinessLogic.GeneratingTournamentDraw;
+using ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Round;
+using ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss;
 using ChessStatistics.Mappers;
 using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
 using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.TournamentParticipantsServices;
@@ -32,7 +34,17 @@ namespace ChessStatistics.Controllers
         [HttpPost("GenerateTournamentDraw")]
         public async Task<ActionResult<TournamentDrawModel>> GenerateTournamentDraw([FromBody] TournamentModel tournamentModel)
         {
-            await GeneratingTournamentDraw.GenerateTournamentDrawAsync(tournamentModel.IdTournament);
+            Tournament tournament = TournamentSearcher.GetTournamentById(tournamentModel.IdTournament);
+
+            if (tournament.TournamentType == TournamentType.Round)
+            {
+                await GeneratingRoundTournamentDraw.GenerateTournamentDrawAsync(tournamentModel.IdTournament);
+            }
+
+            if (tournament.TournamentType == TournamentType.Swiss)
+            {
+                await GeneratingSwissTournamentDraw.AddNextTourAsync(tournamentModel.IdTournament);
+            }
 
             TournamentDrawModel result = TournamentSearcher.GetTournamentDraw(tournamentModel.IdTournament);
             return result;

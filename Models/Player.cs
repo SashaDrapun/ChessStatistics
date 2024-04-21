@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ChessStatistics.Models.Enum;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChessStatistics.Models
@@ -19,7 +20,7 @@ namespace ChessStatistics.Models
 
         public double RatingBlitz { get; set; }
 
-        public string Rank { get; set; }
+        public Rank Rank { get; set; }
 
         public string FIO { get; set; }
     }

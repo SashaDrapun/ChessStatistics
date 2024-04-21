@@ -10,9 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw
+namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Round
 {
-    public static class GeneratingTournamentDraw
+    public static class GeneratingRoundTournamentDraw
     {
         public static async Task GenerateTournamentDrawAsync(int idTournament)
         {
@@ -97,13 +97,12 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw
                             IdPlayerBlack = players[i].PlayerId,
                             IdTour = tour.IdTour
                         };
-                        
+
                         await GameAdder.AddNotPassedGameAsync(GameMapper.MapGame(game));
                     }
 
                     written.Add(playerTour.EnemyNumber);
                 }
-
             }
         }
 

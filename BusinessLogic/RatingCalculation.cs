@@ -1,4 +1,5 @@
 ﻿using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
 using System;
 
 namespace ChessStatistics.BusinessLogic
@@ -23,44 +24,49 @@ namespace ChessStatistics.BusinessLogic
             return new PlayersRating(newRatingWhite, newRatingBlack);
         }
 
-        public static double GetStartRating(string title)
+        public static double GetStartRating(Rank rank)
         {
-            if (title == "4 разряд")
+            if (rank == Rank.Fourth)
             {
                 return 1200;
             }
 
-            if (title == "3 разряд")
+            if (rank == Rank.Third)
             {
                 return 1400;
             }
 
-            if (title == "2 разряд")
+            if (rank == Rank.Second)
             {
                 return 1600;
             }
 
-            if (title == "1 разряд")
+            if (rank == Rank.First)
             {
                 return 1800;
             }
 
-            if (title == "КМС")
+            if (rank == Rank.Kms)
             {
                 return 2000;
             }
 
-            if (title == "Мастер ФИДЕ")
+            if (rank == Rank.FM)
             {
                 return 2300;
             }
 
-            if (title == "Международный мастер")
+            if (rank == Rank.IM)
             {
                 return 2400;
             }
 
-            return 2500;
+            if (rank == Rank.GM)
+            {
+                return 2500;
+            }
+
+            return 1000;
         }
 
         private static double GetDigitalRepresentationOfResult(GameResult gameResult, bool forWhites)

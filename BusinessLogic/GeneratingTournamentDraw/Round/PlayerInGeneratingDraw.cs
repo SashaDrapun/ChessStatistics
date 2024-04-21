@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw
+namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Round
 {
     internal class PlayerInGeneratingDraw
     {
         internal PlayerInGeneratingDraw(int playerNumber)
         {
             PlayerId = playerNumber;
-            Tours = new List<PlayerTour>(); 
+            Tours = new List<PlayerTour>();
         }
         internal int PlayerId { get; set; }
 

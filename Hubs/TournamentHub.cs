@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System;
 using ChessStatistics.Models;
 using ChessStatistics.ViewModels;
+using ChessStatistics.Models.Enum;
 
 namespace ChessStatistics.Hubs
 {

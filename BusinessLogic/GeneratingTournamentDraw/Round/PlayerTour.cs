@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw
+namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Round
 {
     public class PlayerTour
     {
@@ -15,10 +15,10 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw
             EnemyNumber = enemyNumber;
         }
 
-        public int TourNumber { get ; set; }
+        public int TourNumber { get; set; }
 
         public Color Color { get; set; }
 
-        public int EnemyNumber {  get; set; }
+        public int EnemyNumber { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw
+namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Round
 {
     public enum Color
     {

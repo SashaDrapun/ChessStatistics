@@ -15,7 +15,7 @@ async function AddParticipant(idPlayer, idTournament) {
     });
     if (response.ok === true) {
         const player = await response.json();
-        hubConnection.invoke("AddTournamentParticipant", player.idPlayer, player.fio, player.currentRating, player.rank);
+        hubConnection.invoke("AddTournamentParticipant", player.idPlayer, player.fio, player.currentRating, player.rankOutput);
     }
 }
 
@@ -50,19 +50,35 @@ async function GeneratingTournamentDraw(idTournament) {
 
 hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
     let tournamentId = document.querySelector('#tournamentId').value;
+    
     if (tournamentDraw != null && tournamentDraw.tours[0].idTournament == tournamentId) {
-        for (let index = 0; index < tournamentDraw.tours.length; index++) {
-            let i = index + 1;
-            
-            let tourNumber = "Тур " + i;
-            let tourNavDiv = document.createElement('div');
-            tourNavDiv.innerHTML = `<button class="nav-link" id="nav-tour${i}-tab" data-bs-toggle="tab" 
+        let tournamentType = document.querySelector('#tournamentType').value;
+        if (tournamentType == 0) {
+            for (let index = 0; index < tournamentDraw.tours.length; index++) {
+                DrawTournamentDraw(tournamentDraw, index);
+            }
+        }
+        else {
+            DrawTournamentDraw(tournamentDraw, tournamentDraw.tours.length - 1);
+        }
+        
+        document.querySelector("#GenerateTournamentDraw").remove();
+        SetGameResultSelects();
+    }
+});
+
+function DrawTournamentDraw(tournamentDraw, index) {
+    let i = index + 1;
+
+    let tourNumber = "Тур " + i;
+    let tourNavDiv = document.createElement('div');
+    tourNavDiv.innerHTML = `<button class="nav-link" id="nav-tour${i}-tab" data-bs-toggle="tab" 
                                 data-bs-target="#nav-tour${i}" type="button" role="tab" aria-controls="nav-tour${i}"
                                  aria-selected="true">${tourNumber}</button>`;
-            let tourNav = tourNavDiv.firstChild;
+    let tourNav = tourNavDiv.firstChild;
 
-            let tourContentDiv = document.createElement('div');
-            let tourContentText = `<div class="tab-pane fade show" id="nav-tour${i}" role="tabpanel" aria-labelledby="nav-tour${i}-tab">
+    let tourContentDiv = document.createElement('div');
+    let tourContentText = `<div class="tab-pane fade show" id="nav-tour${i}" role="tabpanel" aria-labelledby="nav-tour${i}-tab">
                         <div class="d-flex justify-content-center">
                             <table id="usersParticipatingInTournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
                 <thead>
@@ -76,10 +92,10 @@ hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
                     </tr>
                 </thead>
                 <tbody id="PlayersParticipatingInTournament">`;
-            for (let jindex = 0; jindex < tournamentDraw.tours[index].games.length; jindex++) {
-                j = jindex + 1;
-                tournamentDraw.tours[index].games.length
-                tourContentText += `<tr>
+    for (let jindex = 0; jindex < tournamentDraw.tours[index].games.length; jindex++) {
+        j = jindex + 1;
+        tournamentDraw.tours[index].games.length
+        tourContentText += `<tr>
                             <th scope="row">
                                 ${j}
                             </th>
@@ -108,22 +124,18 @@ hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
                                 ${tournamentDraw.tours[index].games[jindex].playerBlack.fio}
                              </th>
                         </tr>`;
-            }
-            tourContentText += `</tbody>
+    }
+    tourContentText += `</tbody>
             </table>
                         </div>
                                     </div>`;
 
-            tourContentDiv.innerHTML = tourContentText
-            let tourContent = tourContentDiv.firstChild;
+    tourContentDiv.innerHTML = tourContentText
+    let tourContent = tourContentDiv.firstChild;
 
-            document.querySelector("#nav-tabTours").appendChild(tourNav);
-            document.querySelector("#nav-tabContent2").appendChild(tourContent);
-        }
-        document.querySelector("#GenerateTournamentDraw").remove();
-        SetGameResultSelects();
-    }
-});
+    document.querySelector("#nav-tabTours").appendChild(tourNav);
+    document.querySelector("#nav-tabContent2").appendChild(tourContent);
+}
 
 async function SetGameResult(idGame, gameResult) {
     console.log("Зашли в SetGameResult");

@@ -1,5 +1,5 @@
 ﻿@{
-    @model List<ChessStatistics.Models.Player>
+    @model List<ChessStatistics.ViewModels.PlayerOnPagePlayersModel>
     ViewData["Title"] = "Игроки";
     ViewData["CurrentPage"] = "Players";
 }
@@ -31,7 +31,7 @@
             <th scope="row">
                     @player.FIO
             </th>
-            <td>@player.Rank</td>
+            <td>@player.RankOutput</td>
             <td>@player.RatingBlitz</td>
             <td>@player.RatingRapid</td>
             <td>@player.RatingClassic</td>

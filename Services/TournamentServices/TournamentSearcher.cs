@@ -39,6 +39,11 @@ namespace ChessStatistics.Services.TournamentServices
                     Games = GameMapper.MapGames(GameSearcher.GetGamesByTour(tours[i].IdTour))
                 };
 
+                if (tourModel.IdPlayerSkippingGame > 0)
+                {
+                    tourModel.PlayerSkippingGame = PlayerMapper.MapPlayer(PlayerSearcher.GetPlayerById(tourModel.IdPlayerSkippingGame), idTournament);
+                }
+
                 tournamentDraw.Tours.Add(tourModel);
             }
 

@@ -13,7 +13,7 @@ namespace ChessStatistics.ViewModels
 
         public int IdPlayerSkippingGame { get; set; }
 
-        public Player PlayerSkippingGame { get; set; }
+        public PlayerModel PlayerSkippingGame { get; set; }
 
         public List<GameModel> Games { get; set; }
     }

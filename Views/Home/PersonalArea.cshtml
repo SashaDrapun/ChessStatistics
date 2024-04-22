@@ -2,6 +2,7 @@
     @model ChessStatistics.Models.User
     ViewData["CurrentPage"] = "PersonalArea";
 }
+<div id="content" class="container justify-content-center">
 
 <h3 class="text-light"> Ваш личный кабинет: @Model.FIO </h3>
 
@@ -22,6 +23,7 @@ else
         Связать аккаунт с профилем игрока
     </button>
 }
+</div>
 
 <div class='modal fade' id='linkUserWithPlayer' tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered " role="document">
@@ -43,7 +45,7 @@ else
                                     class="form-control">
                                 @foreach (var player in ViewBag.PlayersNotLinkedWithUser)
                                 {
-                                    <option value="@player.Id">@player.FIO</option>
+                                    <option value="@player.IdPlayer">@player.FIO</option>
                                 }
                             </select>
                         </div>

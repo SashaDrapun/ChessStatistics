@@ -391,11 +391,22 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss
 
         private static SwissTour DrawFirstRound(List<SwissPlayer> players)
         {
-            players = players.OrderBy(p => p.Rating).ToList();
+            players = players.OrderByDescending(p => p.Rating).ToList();
 
             SwissTour tour = new SwissTour(1, 1);
 
             int halfCount = players.Count / 2;
+
+            int idPlayerSkippingGame = -1;
+            if (players.Count % 2 != 0)
+            {
+                idPlayerSkippingGame = players[players.Count - 1].Id;
+                players[players.Count - 1].Score++;
+                players[players.Count - 1].DidMissTheTour = true;
+            }
+
+            tour.IdPlayerSkippingGame = idPlayerSkippingGame;
+
             for (int i = 0; i < halfCount; i++)
             {
                 SwissPlayer firstPlayer = players[i];
@@ -423,15 +434,7 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss
 
             }
 
-            int idPlayerSkippingGame = -1;
-            if (players.Count % 2 != 0)
-            {
-                idPlayerSkippingGame = players[players.Count - 1].Id;
-                players[players.Count - 1].Score++;
-                players[players.Count - 1].DidMissTheTour = true;
-            }
-
-            tour.IdPlayerSkippingGame = idPlayerSkippingGame;
+            
 
             return tour;
         }

@@ -125,11 +125,34 @@ function DrawTournamentDraw(tournamentDraw, index) {
                              </th>
                         </tr>`;
     }
+
+    if (tournamentDraw.tours[index].idPlayerSkippingGame > 0) {
+        tourContentText += `<tr>
+            <th scope="row">
+                ${(tournamentDraw.tours[index].games.length + 1)}
+            </th>
+            <th scope="row">
+                ${tournamentDraw.tours[index].playerSkippingGame.fio} 
+            </th>
+            <th scope="row">
+                1
+            </th>
+            <th scope="row">
+                Пропуск
+            </th>
+            <th scope="row">
+
+            </th>
+            <th scope="row">
+
+            </th>
+        </tr>`
+    }
     tourContentText += `</tbody>
             </table>
                         </div>
                                     </div>`;
-
+    console.log(tourContentText);
     tourContentDiv.innerHTML = tourContentText
     let tourContent = tourContentDiv.firstChild;
 
@@ -192,7 +215,15 @@ document.forms["AddParticipant"].addEventListener("submit", e => {
 if (document.forms["GeneratingTournamentDraw"] != null) {
     document.forms["GeneratingTournamentDraw"].addEventListener("submit", e => {
         e.preventDefault();
-        const tournamentId = document.querySelector('#tournamentId').value;
+        const tournamentId = document.querySelector('#idTournament').value;
+        GeneratingTournamentDraw(tournamentId);
+    });
+}
+
+if (document.forms["GenerateNextTour"] != null) {
+    document.forms["GenerateNextTour"].addEventListener("submit", e => {
+        e.preventDefault();
+        const tournamentId = document.querySelector('#idTournament').value;
         GeneratingTournamentDraw(tournamentId);
     });
 }

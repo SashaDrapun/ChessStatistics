@@ -5,6 +5,9 @@
     ViewData["CurrentPage"] = "Tournament";
 }
 
+<div id="content" class="container justify-content-center">
+
+<input type="text" name="idTournament" id="idTournament" class="d-none" value="@(Model.IdTournament)">
 <input type="text" name="tournamentType" id="tournamentType" class="d-none" value="@((int)Model.TournamentType)">
 <div class="bd-example">
     <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
@@ -67,6 +70,7 @@
                     Добавление участника
                 </button>
             }
+            
 
             <div class='modal fade' id='AddParticipant' tabindex="-1" role="dialog"
                  aria-labelledby="createTournament" aria-hidden="true">
@@ -198,13 +202,44 @@
                                                 </th>
                                             </tr>
                         }
+                        @if (Model.TournamentDrawModel.Tours[i].IdPlayerSkippingGame > 0)
+                                        {
+                                            <tr>
+                                                <th scope="row">
+                                                    @((Model.TournamentDrawModel.Tours[i].Games.Count) + 1)
+                                                </th>
+                                                <th scope="row">
+                                                    @(Model.TournamentDrawModel.Tours[i].PlayerSkippingGame.FIO + "\n")
+                                                    @(Model.TournamentDrawModel.Tours[i].PlayerSkippingGame.CurrentRating)
+                                                </th>
+                                                <th scope="row">
+                                                    1
+                                                </th>
+                                                <th scope="row">
+                                                    Пропуск
+                                                </th>
+                                                <th scope="row">
+                                                    
+                                                </th>
+                                                <th scope="row">
+                                                    
+                                                </th>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     }
                 }
+                   
             </div>
+
+                <form name="GenerateNextTour">
+                    <button id="GenerateNextTour" type="submit">
+                        Генерация следующего тура
+                    </button>
+                </form>
         </div>
         <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
             @if(!Model.RoundRobinTournamentResult.IsResultReady)
@@ -263,7 +298,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"> </script>
 <script src="~/js/tournament.js"></script>

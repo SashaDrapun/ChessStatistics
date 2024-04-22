@@ -73,9 +73,10 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Round
 
                     PlayerTour playerTour = players[i].Tours.Where(t => t.TourNumber == tourNumber).FirstOrDefault();
 
-                    if (playerTour.EnemyNumber == -1)
+                    if (players[playerTour.EnemyNumber - 1].PlayerId == -1)
                     {
                         await TourAdder.AddPlayerSkippingGame(tour.IdTour, players[i].PlayerId);
+                        written.Add(playerTour.EnemyNumber);
                         continue;
                     }
 

@@ -2,6 +2,7 @@
 using ChessStatistics.Models;
 using ChessStatistics.Models.Enum;
 using ChessStatistics.Services.TournamentParticipantsServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +23,8 @@ namespace ChessStatistics.Services.PlayerServices
 
         public static double GetPlayerRating(int idPlayer, RatingType ratingType)
         {
-            Player player = Database.db.Players.FirstOrDefault(player => player.IdPlayer == idPlayer);
+            Player player = Database.db.Players.FirstOrDefault(player => player.IdPlayer == idPlayer) ?? throw new NullReferenceException();
+
 
             if (ratingType == RatingType.Blitz)
             {

@@ -152,7 +152,6 @@ function DrawTournamentDraw(tournamentDraw, index) {
             </table>
                         </div>
                                     </div>`;
-    console.log(tourContentText);
     tourContentDiv.innerHTML = tourContentText
     let tourContent = tourContentDiv.firstChild;
 
@@ -223,9 +222,35 @@ if (document.forms["GeneratingTournamentDraw"] != null) {
 if (document.forms["GenerateNextTour"] != null) {
     document.forms["GenerateNextTour"].addEventListener("submit", e => {
         e.preventDefault();
-        const tournamentId = document.querySelector('#idTournament').value;
-        GeneratingTournamentDraw(tournamentId);
+        if (AreAllTheResultsEntered()) {
+            const tournamentId = document.querySelector('#idTournament').value;
+            GeneratingTournamentDraw(tournamentId);
+        }
+        else {
+            const alertContainer = document.getElementById('alertWhenNotAllResultsEnteredContainer');
+            const alertHtml = `
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Заполните результаты текущего тура, прежде чем генерировать следующий тур</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+
+            alertContainer.innerHTML = alertHtml;
+        }
     });
+}
+
+function AreAllTheResultsEntered() {
+    let gameResultSelects = document.querySelectorAll('.gameResultSelect');
+
+    if (gameResultSelects != null) {
+        for (let i = 0; i < gameResultSelects.length; i++) {
+            if (gameResultSelects[i].value == "Заполнить") {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
 
 SetGameResultSelects();

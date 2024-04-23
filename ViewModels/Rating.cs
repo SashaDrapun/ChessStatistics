@@ -22,51 +22,6 @@ namespace ChessStatistics.ViewModels
            
         }
 
-        //public double GetRating()
-        //{
-        //    double result = 0;
-
-        //    if (RatingType == RatingType.Blitz) 
-        //    {
-        //        result = RatingBlitz;
-        //    }
-
-        //    if (RatingType == RatingType.Rapid)
-        //    {
-        //        result = RatingRapid;
-        //    }
-
-        //    if (RatingType == RatingType.Classic)
-        //    {
-        //        result = RatingClassic;
-        //    }
-
-        //    return Math.Round(result, 2);
-        //}
-
-        //public string GetRatingName()
-        //{
-        //    string result = string.Empty;
-
-        //    if (RatingType == RatingType.Blitz)
-        //    {
-        //        result = "Рейтинг блиц";
-        //    }
-
-        //    if (RatingType == RatingType.Rapid)
-        //    {
-        //        result = "Рейтинг рапид";
-        //    }
-
-        //    if (RatingType == RatingType.Classic)
-        //    {
-        //        result = "Рейтинг классика";
-        //    }
-
-        //    return result;
-        //}
-
-
         public double RatingBlitz { get; set; }
 
         public double RatingRapid { get; set; }

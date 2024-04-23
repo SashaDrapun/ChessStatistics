@@ -120,7 +120,7 @@
             @if(Model.TournamentDrawModel.Tours.Count == 0)
             {
                 <form name="GeneratingTournamentDraw">
-                    <button id="GenerateTournamentDraw" type="submit">
+                    <button class="TournamentDraw" id="GenerateTournamentDraw" type="submit">
                         Cгенерировать жеребьевку
                     </button>
                 </form>
@@ -240,14 +240,10 @@
                    
             </div>
 
-                <style>
-                    
-                </style>
-
             @if(Model.TournamentType == TournamentType.Swiss && (Model.CountTours != Model.TournamentDrawModel.Tours.Count))
             {
                     <form name="GenerateNextTour">
-                        <button id="GenerateNextTour" type="submit" class="btn btn-primary btn-lg btn-block">
+                        <button class = "TournamentDraw" id="GenerateNextTour" type="submit" class="btn btn-primary btn-lg btn-block">
                             <i class="fas fa-chess-clock"></i>
                             Генерация следующего тура
                         </button>

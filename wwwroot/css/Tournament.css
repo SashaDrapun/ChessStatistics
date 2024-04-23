@@ -1,4 +1,4 @@
-﻿#GenerateNextTour {
+﻿.TournamentDraw {
     border: 1px solid #007bff; /* Толщина, стиль и цвет границы кнопки */
     color: #fff; /* Цвет текста кнопки */
     background-color: #007bff; /* Цвет фона кнопки */
@@ -6,14 +6,17 @@
     padding: 2px 5px; /* Уменьшено */
     font-weight: bold; /* Жирность текста кнопки */
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; /* Анимация при наведении курсора */
+    margin-top: 10px; /* Отступ сверху */
+    margin-bottom: 20px; /* Отступ снизу */
 }
 
-    #GenerateNextTour:hover {
-        color: #fff; /* Цвет текста при наведении курсора */
-        background-color: #3e92ec; /* Цвет фона кнопки при наведении курсора */
-        border-color: #3e92ec; /* Цвет границы кнопки при наведении курсора */
+.TournamentDraw:hover {
+    color: #fff; /* Цвет текста при наведении курсора */
+    background-color: #3e92ec; /* Цвет фона кнопки при наведении курсора */
+    border-color: #3e92ec; /* Цвет границы кнопки при наведении курсора */
+}
+
+.TournamentDraw i {
+    margin-right: 0.1rem;
     }
 
-    #GenerateNextTour i {
-        margin-right: 0.1rem;
-    }

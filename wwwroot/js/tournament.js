@@ -60,6 +60,10 @@ hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
         }
         else {
             DrawTournamentDraw(tournamentDraw, tournamentDraw.tours.length - 1);
+            let countTours = document.querySelector('#countTours').value;
+            if (countTours == tournamentDraw.tours.length) {
+                document.forms["GenerateNextTour"].parentNode.removeChild(document.forms["GenerateNextTour"]);
+            }
         }
         
         document.querySelector("#GenerateTournamentDraw").remove();

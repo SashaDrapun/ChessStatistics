@@ -5,10 +5,15 @@
     ViewData["CurrentPage"] = "Tournament";
 }
 
+<link rel="stylesheet" href="~/css/Tournament.css">
+
 <div id="content" class="container justify-content-center">
 
 <input type="text" name="idTournament" id="idTournament" class="d-none" value="@(Model.IdTournament)">
+    <input type="text" name="countTours" id="countTours" class="d-none" value="@(Model.CountTours)">
 <input type="text" name="tournamentType" id="tournamentType" class="d-none" value="@((int)Model.TournamentType)">
+
+
 <div class="bd-example">
     <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -235,10 +240,15 @@
                    
             </div>
 
-            @if(Model.TournamentType == TournamentType.Swiss)
+                <style>
+                    
+                </style>
+
+            @if(Model.TournamentType == TournamentType.Swiss && (Model.CountTours != Model.TournamentDrawModel.Tours.Count))
             {
                     <form name="GenerateNextTour">
-                        <button id="GenerateNextTour" type="submit">
+                        <button id="GenerateNextTour" type="submit" class="btn btn-primary btn-lg btn-block">
+                            <i class="fas fa-chess-clock"></i>
                             Генерация следующего тура
                         </button>
                     </form>

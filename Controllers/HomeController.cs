@@ -27,6 +27,7 @@ namespace ChessStatistics.Controllers
 
         public async Task<IActionResult> Index()
         {
+            await SetViewBag();
             var html = await BlogPost.FetchPageAsync("https://lichess.org/@/Lichess/blog");
             var blogPosts = BlogPost.ParseBlogPosts(html);
 

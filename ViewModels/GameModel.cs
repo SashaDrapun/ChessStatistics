@@ -47,6 +47,10 @@ namespace ChessStatistics.ViewModels
 
         public double RatingBlackChange { get; set; }
 
+        public double PlayerWhiteScore { get; set; }
+
+        public double PlayerBlackScore { get; set; }
+
         public bool DidTheGamePassed { get; set; }
 
     }

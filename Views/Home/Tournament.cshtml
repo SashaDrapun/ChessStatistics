@@ -174,7 +174,7 @@
                                                     @(Model.TournamentDrawModel.Tours[i].Games[j].RatingWhiteChange)
                                                 </th>
                                                 <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)PlayerWhiteScore">
-                                                    1
+                                                        @Model.TournamentDrawModel.Tours[i].Games[j].PlayerWhiteScore
                                                 </th>
                                                 <th scope="row">
                                                     <select id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)GameResult"
@@ -199,7 +199,7 @@
 
                                                 </th>
                                                 <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)PlayerBlackScore">
-                                                    2
+                                                        @Model.TournamentDrawModel.Tours[i].Games[j].PlayerBlackScore
                                                 </th>
                                                 <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)PlayerBlackFIO">
                                                     @(Model.TournamentDrawModel.Tours[i].Games[j].PlayerBlack.FIO + "\n")

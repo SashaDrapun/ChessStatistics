@@ -67,7 +67,6 @@ hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
         }
         
         document.querySelector("#GenerateTournamentDraw").remove();
-        SetGameResultSelects();
     }
 });
 
@@ -82,17 +81,18 @@ function DrawTournamentDraw(tournamentDraw, index) {
     let tourNav = tourNavDiv.firstChild;
 
     let tourContentDiv = document.createElement('div');
+
     let tourContentText = `<div class="tab-pane fade show" id="nav-tour${i}" role="tabpanel" aria-labelledby="nav-tour${i}-tab">
                         <div class="d-flex justify-content-center">
                             <table id="usersParticipatingInTournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Белые</th>
-                        <th scope="col">Очки</th>
-                        <th scope="col">Результат</th>
-                        <th scope="col">Очки</th>
-                        <th scope="col">Черные</th>
+                        <th scope="col"><i class="fas fa-hashtag" style="color: #ffffff; margin-right: 5px;"></i>Номер</th>
+                        <th scope="col"><i class="fas fa-chess-pawn" style="color: #ffffff; margin-right: 5px;"></i>Белые</th>
+                        <th scope="col"><i class="fas fa-trophy" style="color: #ffffff; margin-right: 5px;"></i>Очки</th>
+                        <th scope="col"><i class="fas fa-exchange-alt" style="color: #ffffff; margin-right: 5px;"></i>Результат</th>
+                        <th scope="col"><i class="fas fa-trophy" style="color: #ffffff; margin-right: 5px;"></i>Очки</th>
+                        <th scope="col"><i class="fas fa-chess-pawn" style="color: #000000; margin-right: 5px;"></i>Черные</th>
                     </tr>
                 </thead>
                 <tbody id="PlayersParticipatingInTournament">`;
@@ -107,7 +107,7 @@ function DrawTournamentDraw(tournamentDraw, index) {
                                 ${tournamentDraw.tours[index].games[jindex].playerWhite.fio}
                              </th>
                              <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerWhiteScore">
-                                1
+                                ${tournamentDraw.tours[index].games[jindex].playerWhiteScore}
                              </th>
                             <th scope="row">
                                 <select
@@ -122,7 +122,7 @@ function DrawTournamentDraw(tournamentDraw, index) {
                                 </select>
                             </th>
                             <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerBlackScore">
-                                2
+                                ${tournamentDraw.tours[index].games[jindex].playerBlackScore}
                             </th>
                             <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerBlackFIO">
                                 ${tournamentDraw.tours[index].games[jindex].playerBlack.fio}
@@ -161,6 +161,7 @@ function DrawTournamentDraw(tournamentDraw, index) {
 
     document.querySelector("#nav-tabTours").appendChild(tourNav);
     document.querySelector("#nav-tabContent2").appendChild(tourContent);
+    SetGameResultSelects();
 }
 
 async function SetGameResult(idGame, gameResult) {
@@ -187,16 +188,14 @@ hubConnection.on('SetGameResult', function (gameModel) {
     let playerWhiteScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerWhiteScore`);
     let playerBlackFIO = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerBlackFIO`);
     let playerBlackScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerBlackScore`);
-
-    console.log("Данные:")
-    console.dir(gameModel);
-    playerWhiteFIO.innerText = `${gameModel.playerWhite.fio} \n ${gameModel.ratingWhite} ${gameModel.ratingWhiteChange}`
-    playerBlackFIO.innerText = `${gameModel.playerBlack.fio} \n ${gameModel.ratingBlack} ${gameModel.ratingBlackChange}`
+    playerWhiteFIO.innerText = `${gameModel.playerWhite.fio} \n ${gameModel.ratingWhite} ${gameModel.ratingWhiteChange}`;
+    playerBlackFIO.innerText = `${gameModel.playerBlack.fio} \n ${gameModel.ratingBlack} ${gameModel.ratingBlackChange}`;
+    playerWhiteScore.innerText = `${gameModel.playerWhiteScore}`;
+    playerBlackScore.innerText = `${gameModel.playerBlackScore}`;
 });
 
 function SetGameResultSelects() {
     let gameResultSelects = document.querySelectorAll('.gameResultSelect');
-
     if (gameResultSelects != null) {
         for (let i = 0; i < gameResultSelects.length; i++) {
             gameResultSelects[i].addEventListener('change', e => {

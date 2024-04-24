@@ -96,7 +96,7 @@
                             <input type="date"
                                    id="DateStart"
                                    name="dateStart"
-                                   class="form-control" />
+                                   class="form-control"/>
                         </div>
                         
                         <div class="form-group">
@@ -108,6 +108,15 @@
                                 <option value="1">Швейцарская система</option>
                             </select>
                         </div>
+
+                           
+                            <div class="form-group" id="countToursAddTournament">
+                                <label for="description">Количество туров</label>
+                                <input type="number"
+                                       id="countTours"
+                                       name="countTours"
+                                       class="form-control" />
+                            </div>
                            
                             <div class="form-group">
                                 <label for="description">Контроль времени</label>
@@ -119,13 +128,7 @@
                                     <option value="2">Классика</option>
                                 </select>
                             </div>
-                        <label for="description">Количество туров</label>
-                        <div class="form-group">
-                            <input type="number"
-                                   id="countTours"
-                                   name="countTours"
-                                   class="form-control" />
-                        </div>
+                       
                         <button asp-controller="Tournaments" asp-action="CreateTournament"
                                 class="btn btn-primary m-2">
                             Сохранить
@@ -173,6 +176,14 @@
                                 </select>
                             </div>
 
+                            <div class="form-group" id="countToursEditTournament">
+                                <label for="description">Количество туров</label>
+                                <input type="number"
+                                       id="countToursEdit"
+                                       name="countTours"
+                                       class="form-control" />
+                            </div>
+
                             <div class="form-group">
                                 <label for="description">Контроль времени</label>
                                 <select id="RatingTypeEdit"
@@ -183,13 +194,8 @@
                                     <option value="2">Классика</option>
                                 </select>
                             </div>
-                            <label for="description">Количество туров</label>
-                            <div class="form-group">
-                                <input type="number"
-                                       id="countToursEdit"
-                                       name="countTours"
-                                       class="form-control" />
-                            </div>
+                            
+                            
 
                             <button type="submit" class="btn btn-primary">
                                 Применить изменения

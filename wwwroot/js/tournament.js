@@ -226,6 +226,22 @@ if (document.forms["GeneratingTournamentDraw"] != null) {
 if (document.forms["GenerateNextTour"] != null) {
     document.forms["GenerateNextTour"].addEventListener("submit", e => {
         e.preventDefault();
+        let table = document.getElementById('usersParticipatingInTournamentTable');
+        let countPlayers = table.rows.length - 1;
+        let countTours = document.getElementById('countTours').value; 
+        let minimumNumberOfParticipants = 2 + parseInt(countTours);
+
+        if (countPlayers < minimumNumberOfParticipants) {
+            const alertContainer = document.getElementById('alertWhenInsufficientNumberOfParticipants');
+            const alertHtml = `
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Минимальное количество участников при ${countTours} турах = ${minimumNumberOfParticipants}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+            alertContainer.innerHTML = alertHtml;
+            return;
+        }
+        
         if (AreAllTheResultsEntered()) {
             const tournamentId = document.querySelector('#idTournament').value;
             GeneratingTournamentDraw(tournamentId);

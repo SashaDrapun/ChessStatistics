@@ -6,12 +6,12 @@
 }
 
 <link rel="stylesheet" href="~/css/Tournament.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
 <div id="content" class="container justify-content-center">
 
 <input type="text" name="idTournament" id="idTournament" class="d-none" value="@(Model.IdTournament)">
-    <input type="text" name="countTours" id="countTours" class="d-none" value="@(Model.CountTours)">
+<input type="text" name="countTours" id="countTours" class="d-none" value="@(Model.CountTours)">
 <input type="text" name="tournamentType" id="tournamentType" class="d-none" value="@((int)Model.TournamentType)">
 
 
@@ -100,32 +100,32 @@
                                             @{
                                                 foreach (var player in Model.PlayersNotParticipatingInTournament)
                                                 {
-                                                    <option id="@player.IdPlayer" value="@player.IdPlayer">@player.FIO</option>
+                                                        <option id="@player.IdPlayer" value="@player.IdPlayer">@player.FIO</option>
+                                                    }
                                                 }
-                                            }
-                                        </select>
-                                    </div>
-                                    <button class="btn btn-primary m-2">
-                                        Добавить
-                                    </button>
-                                </form>
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-primary m-2">
+                                            Добавить
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="tab-pane fade" id="tours" role="tabpanel" aria-labelledby="tours-tab">
-            <h5 class="text-light"> Туры </h5>
+            <div class="tab-pane fade" id="tours" role="tabpanel" aria-labelledby="tours-tab">
+                <h5 class="text-light"> Туры </h5>
 
-            @if(Model.TournamentDrawModel.Tours.Count == 0)
-            {
+                @if (Model.TournamentDrawModel.Tours.Count == 0 && Model.TournamentType == TournamentType.Round)
+                {
                 <form name="GeneratingTournamentDraw">
                     <button class="TournamentDraw" id="GenerateTournamentDraw" type="submit">
                         Cгенерировать жеребьевку
                     </button>
                 </form>
-            }
+                }
                         
             <nav>
                 <div class="nav nav-tabs centered justify-content-center" id="nav-tabTours" role="tablist">
@@ -255,6 +255,10 @@
             <div id="alertWhenNotAllResultsEnteredContainer">
             </div>
 
+            <div id="alertWhenInsufficientNumberOfParticipants">
+
+            </div>
+
         </div>
         <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
             @if(!Model.RoundRobinTournamentResult.IsResultReady)
@@ -313,7 +317,7 @@
         </div>
     </div>
 </div>
-</div>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"> </script>
 <script src="~/js/tournament.js"></script>

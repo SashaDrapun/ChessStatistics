@@ -13,6 +13,7 @@ using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.LinkUserWithPlayerService;
 using ChessStatistics.Mappers;
 using ChessStatistics.ViewModels;
+using ChessStatistics.BusinessLogic.ParseInformationFromLichess;
 
 namespace ChessStatistics.Controllers
 {
@@ -26,7 +27,16 @@ namespace ChessStatistics.Controllers
 
         public async Task<IActionResult> Index()
         {
-            await SetViewBag();
+            var html = await BlogPost.FetchPageAsync("https://lichess.org/@/Lichess/blog");
+            var blogPosts = BlogPost.ParseBlogPosts(html);
+
+            var viewModel = new NewsViewModel
+            {
+                BlogPosts = blogPosts
+            };
+
+            ViewData["NewsViewModel"] = viewModel;
+
             return View();
         }
 

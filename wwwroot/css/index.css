@@ -1,0 +1,36 @@
+﻿.ublog-index__posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 -15px;
+}
+
+.ublog-post-card {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 15px;
+    max-width: 400px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.ublog-post-card__top {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.ublog-post-card__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform .3s;
+}
+
+    .ublog-post-card__image:hover {
+        transform: scale(1.1);
+    }
+
+.ublog-post-card__over-image {
+    position

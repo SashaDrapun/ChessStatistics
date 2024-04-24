@@ -3,6 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.60" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.0.4" />
     <PackageReference Include="React.AspNet" Version="5.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />

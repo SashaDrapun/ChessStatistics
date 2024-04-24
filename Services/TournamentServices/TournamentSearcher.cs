@@ -80,8 +80,10 @@ namespace ChessStatistics.Services.TournamentServices
                 TournamentName = tournament.TournamentName,
                 RatingType = tournament.RatingType,
                 TournamentType = tournament.TournamentType,
-                PlayersParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true),
-                PlayersNotParticipatingInTournament = PlayerSearcher.GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false)
+                PlayersParticipatingInTournament = PlayerMapper.MapListPlayersToListPlayerOnPlayersPage(PlayerSearcher.
+                GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true)),
+                PlayersNotParticipatingInTournament = PlayerMapper.MapListPlayersToListPlayerOnPlayersPage(PlayerSearcher.
+                GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false))
             };
 
             return tournamentModel;

@@ -23,9 +23,9 @@ namespace ChessStatistics.ViewModels
 
         public int CountTours { get; set; }
 
-        public List<Player> PlayersParticipatingInTournament { get; set; }
+        public List<PlayerOnPagePlayersModel> PlayersParticipatingInTournament { get; set; }
 
-        public List<Player> PlayersNotParticipatingInTournament { get; set; }
+        public List<PlayerOnPagePlayersModel> PlayersNotParticipatingInTournament { get; set; }
 
         public TournamentDrawModel TournamentDrawModel { get; set; }
 

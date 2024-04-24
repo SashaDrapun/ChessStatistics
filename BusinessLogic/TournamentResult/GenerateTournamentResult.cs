@@ -94,6 +94,28 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
             return playerRating;
         }
 
+        private double ChoouseRatingByType(PlayerOnPagePlayersModel player)
+        {
+            double playerRating = 0;
+
+            if (tournamentModel.RatingType == RatingType.Blitz)
+            {
+                playerRating = player.RatingBlitz;
+            }
+
+            if (tournamentModel.RatingType == RatingType.Rapid)
+            {
+                playerRating = player.RatingRapid;
+            }
+
+            if (tournamentModel.RatingType == RatingType.Classic)
+            {
+                playerRating = player.RatingClassic;
+            }
+
+            return playerRating;
+        }
+
         private void CalculateCountPointAndCountWonGames()
         {
             foreach (var tour in tournamentModel.TournamentDrawModel.Tours)

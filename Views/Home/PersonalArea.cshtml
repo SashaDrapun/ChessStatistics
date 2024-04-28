@@ -1,16 +1,66 @@
-﻿@{
-    @model ChessStatistics.Models.User
+﻿ @model ChessStatistics.Models.User
+
+@{
     ViewData["CurrentPage"] = "PersonalArea";
+    Layout = "_Layout";
 }
+
 <div id="content" class="container justify-content-center">
+    <h3 class="text-light"> Личный кабинет: @Model.FIO </h3>
 
-<h3 class="text-light"> Ваш личный кабинет: @Model.FIO </h3>
+    @if (ViewBag.IsUserConnectedToThePlayer)
+    {
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fas fa-chess-king"></i> Статистика профиля</h4>
+            </div>
+            <div class="card-body">
+                <table class="table mb-0 bg-secondary text-white">
+                    <tbody>
+                        <tr>
+                            <th>Звание</th>
+                            <td>@Model.Player.Rank</td>
+                        </tr>
+                        <tr>
+                            <th>Рейтинг по блицу</th>
+                            <td>@Model.Player.RatingBlitz</td>
+                        </tr>
+                        <tr>
+                            <th>Рейтинг по рапиду</th>
+                            <td>@Model.Player.RatingRapid</td>
+                        </tr>
+                        <tr>
+                            <th>Рейтинг по классике</th>
+                            <td>@Model.Player.RatingClassic</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-@if(ViewBag.IsUserConnectedToThePlayer)
-{
-    <h5 class="text-info"> Ваше звание: @Model.Player.Rank</h5>
-    <h5 class="text-info"> Ваш рейтинг по блицу: @Model.Player.RatingBlitz</h5>
-}
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card bg-dark text-white">
+                    <div class="card-header">
+                        <h4 class="card-title"><i class="fas fa-chart-bar"></i> Рейтинги по дисциплинам</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="ratingChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-dark text-white">
+                    <div class="card-header">
+                        <h4 class="card-title"><i class="fas fa-chart-pie"></i> Распределение рейтингов</h4>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="ratingDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 else if(ViewBag.IsUserRequestedLinkWithPlayer)
 {
     <h5 class="text-info"> Вы запросили связку своего аккаунта с профилем игрока, ожидайте подтвержения администратора</h5>

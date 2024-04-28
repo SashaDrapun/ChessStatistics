@@ -8,23 +8,23 @@
 <div class="container justify-content-center">
 
     <h5 class="text-light">Последние новости из мира шахмат</h5>
-@if (viewModel != null && viewModel.BlogPosts != null && viewModel.BlogPosts.Count > 0)
-{
-    <div class="ublog-index__posts ublog-post-cards infinite-scroll">
-        @foreach (var post in viewModel.BlogPosts)
-        {
-            <a class="ublog-post-card ublog-post-card--link" href="@post.Url">
-                <span class="ublog-post-card__top">
-                    <img class="ublog-post-image ublog-post-card__image" width="400" height="250" src="@Html.Raw(post.ImageUrl)" />
-                    <time datetime="@post.PublishDate.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")" class="ublog-post-card__over-image">@post.PublishDate.ToString("dd MMM yyyy")</time>
-                </span>
-                <span class="ublog-post-card__content">
-                    <h2 class="ublog-post-card__title">@post.Title</h2>
-                    <span class="ublog-post-card__intro">@post.Intro</span>
-                </span>
-            </a>
-        }
-    </div>
-}
+    @if (viewModel != null && viewModel.BlogPosts != null && viewModel.BlogPosts.Count > 0)
+    {
+        <div class="ublog-index__posts ublog-post-cards infinite-scroll">
+            @foreach (var post in viewModel.BlogPosts)
+            {
+                <a class="ublog-post-card ublog-post-card--link" href="@post.Url">
+                    <span class="ublog-post-card__top">
+                        <img class="ublog-post-image ublog-post-card__image" width="400" height="250" src="@Html.Raw(post.ImageUrl)" />
+                        <time datetime="@post.PublishDate.ToString("yyyy-MM-ddTHH:mm:ss.fffZ")" class="ublog-post-card__over-image">@post.PublishDate.ToString("dd MMM yyyy")</time>
+                    </span>
+                    <span class="ublog-post-card__content">
+                        <h2 class="ublog-post-card__title">@post.Title</h2>
+                        <span class="ublog-post-card__intro">@post.Intro</span>
+                    </span>
+                </a>
+            }
+        </div>
+    }
 
 </div>

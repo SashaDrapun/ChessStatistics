@@ -21,16 +21,16 @@ namespace ChessStatistics.Services.TournamentServices
 
         public static TournamentDrawModel GetTournamentDraw(int idTournament)
         {
-            TournamentDrawModel tournamentDraw = new TournamentDrawModel
+            TournamentDrawModel tournamentDraw = new()
             {
-                Tours = new List<TourModel>()
+                Tours = []
             };
 
             List<Tour> tours = TourSearcher.GetToursByTournament(idTournament);
 
             for (int i = 0; i < tours.Count; i++)
             {
-                TourModel tourModel = new TourModel
+                TourModel tourModel = new()
                 {
                     IdTour = tours[i].IdTour,
                     TourNumber = tours[i].TourNumber,
@@ -54,7 +54,7 @@ namespace ChessStatistics.Services.TournamentServices
         {
             Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == idTournament);
 
-            TournamentModel tournamentModel = new TournamentModel()
+            TournamentModel tournamentModel = new()
             {
                 IdTournament = tournament.IdTournament,
                 CountTours = tournament.CountTours,
@@ -71,7 +71,7 @@ namespace ChessStatistics.Services.TournamentServices
         {
             Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == idTournament);
 
-            TournamentModel tournamentModel = new TournamentModel()
+            TournamentModel tournamentModel = new()
             {
                 IdTournament = tournament.IdTournament,
                 CountTours = tournament.CountTours,
@@ -91,7 +91,7 @@ namespace ChessStatistics.Services.TournamentServices
 
         public static TournamentModel SetRoundRobitResult(TournamentModel model)
         {
-            GenerateTournamentResult generateTournamentResult = new GenerateTournamentResult(model.IdTournament);
+            GenerateTournamentResult generateTournamentResult = new(model.IdTournament);
 
             model.RoundRobinTournamentResult = generateTournamentResult.GenerateRoundRobinTournamentResult();
 

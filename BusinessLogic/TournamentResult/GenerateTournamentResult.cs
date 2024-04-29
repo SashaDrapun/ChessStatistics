@@ -7,23 +7,17 @@ using System.Linq;
 
 namespace ChessStatistics.BusinessLogic.TournamentResult
 {
-    public class GenerateTournamentResult
+    public class GenerateTournamentResult(int idTournament)
     {
-        private TournamentModel tournamentModel { get; set; }
+        private TournamentModel TournamentModel { get; set; } = TournamentSearcher.GetTournamentModelById(idTournament);
 
-        private RoundRobinTournamentResult result { get; set; }
-
-        public GenerateTournamentResult(int idTournament)
-        {
-            tournamentModel = TournamentSearcher.GetTournamentModelById(idTournament);
-            result = new RoundRobinTournamentResult();
-        }
+        private RoundRobinTournamentResult Result { get; set; } = new RoundRobinTournamentResult();
 
         public RoundRobinTournamentResult GenerateRoundRobinTournamentResult()
         {
             bool IsTournamentStarted = true;
 
-            if (tournamentModel.TournamentDrawModel.Tours.Count == 0)
+            if (TournamentModel.TournamentDrawModel.Tours.Count == 0)
             {
                 IsTournamentStarted = false;
             }
@@ -31,33 +25,33 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
 
             if (IsTournamentStarted)
             {
-                result.IsResultReady = true;
+                Result.IsResultReady = true;
                 SetPlayers();
                 CalculateCountPointAndCountWonGames();
                 CalculateCoefficients();
-                result.Players = result.Players.OrderByDescending(x => x.Points).
+                Result.Players = [.. Result.Players.OrderByDescending(x => x.Points).
                                ThenByDescending(x => x.CoefficientPersonalMeeting).
                                ThenByDescending(x => x.CoefficientKoya).
                                ThenByDescending(x => x.СoefficientSonnebornBerger).
-                               ThenByDescending(x => x.NumberOfWonGames).ToList();
-                for (int i = 0; i < result.Players.Count; i++)
+                               ThenByDescending(x => x.NumberOfWonGames)];
+                for (int i = 0; i < Result.Players.Count; i++)
                 {
-                    result.Players[i].Place = i + 1;
+                    Result.Players[i].Place = i + 1;
                 }
             }
             else
             {
-                result.IsResultReady = false;
+                Result.IsResultReady = false;
             }
 
-            return result;
+            return Result;
         }
 
         private void SetPlayers()
         {
-            foreach (var player in tournamentModel.PlayersParticipatingInTournament)
+            foreach (var player in TournamentModel.PlayersParticipatingInTournament)
             {
-                result.Players.Add(new RoundRobinPlayerResult(player.IdPlayer, player.FIO, ChoouseRatingByType(player)));
+                Result.Players.Add(new RoundRobinPlayerResult(player.IdPlayer, player.FIO, ChoouseRatingByType(player)));
             }
         }
 
@@ -65,17 +59,17 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
         {
             double playerRating = 0;
 
-            if (tournamentModel.RatingType == RatingType.Blitz)
+            if (TournamentModel.RatingType == RatingType.Blitz)
             {
                 playerRating = player.RatingBlitz;
             }
 
-            if (tournamentModel.RatingType == RatingType.Rapid)
+            if (TournamentModel.RatingType == RatingType.Rapid)
             {
                 playerRating = player.RatingRapid;
             }
 
-            if (tournamentModel.RatingType == RatingType.Classic)
+            if (TournamentModel.RatingType == RatingType.Classic)
             {
                 playerRating = player.RatingClassic;
             }
@@ -85,7 +79,7 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
 
         private void CalculateCountPointAndCountWonGames()
         {
-            foreach (var tour in tournamentModel.TournamentDrawModel.Tours)
+            foreach (var tour in TournamentModel.TournamentDrawModel.Tours)
             {
                 foreach (var game in tour.Games)
                 {
@@ -96,20 +90,20 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
 
                     if (game.GameResult == GameResult.WhiteWin)
                     {
-                        result.Players.Where(player => player.Id == game.IdPlayerWhite).FirstOrDefault().Points++;
-                        result.Players.Where(player => player.Id == game.IdPlayerWhite).FirstOrDefault().NumberOfWonGames++;
+                        Result.Players.Where(player => player.Id == game.IdPlayerWhite).FirstOrDefault().Points++;
+                        Result.Players.Where(player => player.Id == game.IdPlayerWhite).FirstOrDefault().NumberOfWonGames++;
                     }
 
                     if (game.GameResult == GameResult.Draw)
                     {
-                        result.Players.Where(player => player.Id == game.IdPlayerWhite).FirstOrDefault().Points += 0.5;
-                        result.Players.Where(player => player.Id == game.IdPlayerBlack).FirstOrDefault().Points += 0.5;
+                        Result.Players.Where(player => player.Id == game.IdPlayerWhite).FirstOrDefault().Points += 0.5;
+                        Result.Players.Where(player => player.Id == game.IdPlayerBlack).FirstOrDefault().Points += 0.5;
                     }
 
                     if (game.GameResult == GameResult.BlackWin)
                     {
-                        result.Players.Where(player => player.Id == game.IdPlayerBlack).FirstOrDefault().Points++;
-                        result.Players.Where(player => player.Id == game.IdPlayerBlack).FirstOrDefault().NumberOfWonGames++;
+                        Result.Players.Where(player => player.Id == game.IdPlayerBlack).FirstOrDefault().Points++;
+                        Result.Players.Where(player => player.Id == game.IdPlayerBlack).FirstOrDefault().NumberOfWonGames++;
                     }
                 }
             }
@@ -117,12 +111,12 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
 
         private void CalculateCoefficients()
         {
-            foreach (var tour in tournamentModel.TournamentDrawModel.Tours)
+            foreach (var tour in TournamentModel.TournamentDrawModel.Tours)
             {
                 foreach (var game in tour.Games)
                 {
-                    RoundRobinPlayerResult playerWhite = result.Players.Where(player => player.Id == game.IdPlayerWhite).FirstOrDefault();
-                    RoundRobinPlayerResult playerBlack = result.Players.Where(player => player.Id == game.IdPlayerBlack).FirstOrDefault();
+                    RoundRobinPlayerResult playerWhite = Result.Players.Where(player => player.Id == game.IdPlayerWhite).FirstOrDefault();
+                    RoundRobinPlayerResult playerBlack = Result.Players.Where(player => player.Id == game.IdPlayerBlack).FirstOrDefault();
 
                     if (game.GameResult == GameResult.WhiteWin)
                     {
@@ -145,7 +139,7 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
 
         private void CalculateCoefficientsWhiteWin(RoundRobinPlayerResult playerWhite, RoundRobinPlayerResult playerBlack)
         {
-            double halfOfMaxAmountOfPoints = (double)(tournamentModel.PlayersParticipatingInTournament.Count - 1) / 2;
+            double halfOfMaxAmountOfPoints = (double)(TournamentModel.PlayersParticipatingInTournament.Count - 1) / 2;
             if (playerWhite.Points == playerBlack.Points)
             {
                 playerWhite.CoefficientPersonalMeeting++;
@@ -161,7 +155,7 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
 
         private void CalculateCoefficientsDraw(RoundRobinPlayerResult playerWhite, RoundRobinPlayerResult playerBlack)
         {
-            double halfOfMaxAmountOfPoints = (double)(tournamentModel.PlayersParticipatingInTournament.Count - 1) / 2;
+            double halfOfMaxAmountOfPoints = (double)(TournamentModel.PlayersParticipatingInTournament.Count - 1) / 2;
 
             if (playerWhite.Points == playerBlack.Points)
             {
@@ -185,7 +179,7 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
 
         private void CalculateCoefficientsBlackWin(RoundRobinPlayerResult playerWhite, RoundRobinPlayerResult playerBlack)
         {
-            double halfOfMaxAmountOfPoints = (double)(tournamentModel.PlayersParticipatingInTournament.Count - 1) / 2;
+            double halfOfMaxAmountOfPoints = (double)(TournamentModel.PlayersParticipatingInTournament.Count - 1) / 2;
 
             if (playerWhite.Points == playerBlack.Points)
             {

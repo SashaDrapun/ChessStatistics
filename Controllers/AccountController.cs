@@ -16,8 +16,8 @@ namespace ChessStatistics.Controllers
 {
     public class AccountController : Controller
     {
-        private SignInManager<User> signInManager;
-        private UserManager<User> playerManager;
+        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<User> playerManager;
 
         public AccountController(ApplicationContext applicationContext, SignInManager<User> signInManager,
             UserManager<User> userManager)
@@ -85,7 +85,7 @@ namespace ChessStatistics.Controllers
 
             if (isAllValid)
             {
-                User user = new User(model.Email)
+                User user = new(model.Email)
                 {
                     UserName = model.Email,
                     FIO = model.FIO,
@@ -93,7 +93,7 @@ namespace ChessStatistics.Controllers
                     DateRegistration = DateTime.Now,
                     DateLastLogin = DateTime.Now,
                 };
-                if (Database.db.Users.Count() == 0)
+                if (!Database.db.Users.Any())
                 {
                     user.IsAdmin = true;
                 }

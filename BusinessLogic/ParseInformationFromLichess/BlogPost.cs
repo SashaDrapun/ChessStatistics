@@ -30,7 +30,7 @@ namespace ChessStatistics.BusinessLogic.ParseInformationFromLichess
 
             if (postNodes == null)
             {
-                return new List<BlogPost>();
+                return [];
             }
 
             var postList = new List<BlogPost>();

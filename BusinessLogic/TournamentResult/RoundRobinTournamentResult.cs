@@ -7,7 +7,7 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
     {
         public RoundRobinTournamentResult()
         {
-            Players = new List<RoundRobinPlayerResult>();
+            Players = [];
         }
 
         public List<RoundRobinPlayerResult> Players { get; set; }

@@ -15,13 +15,14 @@ namespace ChessStatistics.Mappers
         {
             Tournament tournament = TournamentSearcher.GetTournamentById(idTournament);
 
-            PlayerModel model = new PlayerModel();
-
-            model.IdPlayer = player.IdPlayer;
-            model.Rank = player.Rank;
-            model.RankOutput = GetRankOutput(player.Rank);
-            model.FIO = player.FIO;
-            model.Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic, tournament.RatingType);
+            PlayerModel model = new()
+            {
+                IdPlayer = player.IdPlayer,
+                Rank = player.Rank,
+                RankOutput = GetRankOutput(player.Rank),
+                FIO = player.FIO,
+                Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic, tournament.RatingType)
+            };
             model.CurrentRating = RatingOperations.GetRating(model.Rating);
 
             return model;
@@ -29,7 +30,7 @@ namespace ChessStatistics.Mappers
 
         public static PlayerOnPagePlayersModel MapPlayerToPlayerOnPlayersPage(Player player)
         {
-            PlayerOnPagePlayersModel model = new PlayerOnPagePlayersModel
+            PlayerOnPagePlayersModel model = new()
             {
                 IdPlayer = player.IdPlayer,
                 Rank = player.Rank,
@@ -44,7 +45,7 @@ namespace ChessStatistics.Mappers
 
         public static List<PlayerOnPagePlayersModel> MapListPlayersToListPlayerOnPlayersPage(List<Player> players)
         {
-            List<PlayerOnPagePlayersModel> result = new List<PlayerOnPagePlayersModel>();
+            List<PlayerOnPagePlayersModel> result = [];
 
             foreach (Player player in players)
             {

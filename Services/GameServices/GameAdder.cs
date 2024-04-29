@@ -22,7 +22,7 @@ namespace ChessStatistics.Services.GameServices
 
             PlayersRating newPlayersRating = RatingCalculation.ReturnNewPlayersRating(ratingWhite, ratingBlack, gameModel.GameResult);
 
-            Game game = new Game
+            Game game = new()
             {
                 IdPlayerWhite = gameModel.IdPlayerWhite,
                 IdPlayerBlack = gameModel.IdPlayerBlack,
@@ -46,7 +46,7 @@ namespace ChessStatistics.Services.GameServices
 
         public static async Task<Game> AddNotPassedGameAsync(GameModel gameModel)
         {
-            Game game = new Game
+            Game game = new()
             {
                 IdPlayerWhite = gameModel.IdPlayerWhite,
                 IdPlayerBlack = gameModel.IdPlayerBlack,

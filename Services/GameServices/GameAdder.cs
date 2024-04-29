@@ -46,9 +46,6 @@ namespace ChessStatistics.Services.GameServices
 
         public static async Task<Game> AddNotPassedGameAsync(GameModel gameModel)
         {
-            //Tournament tournament = TournamentSearcher.GetTournamentById(gameModel.IdTournament);
-            //RatingType ratingType = tournament.RatingType;
-
             Game game = new Game
             {
                 IdPlayerWhite = gameModel.IdPlayerWhite,

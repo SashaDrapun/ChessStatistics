@@ -103,7 +103,8 @@ function DrawTournamentDraw(tournamentDraw, index) {
                                 ${j}
                             </th>
                             <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerWhiteFIO">
-                                ${tournamentDraw.tours[index].games[jindex].playerWhite.fio}
+                                ${tournamentDraw.tours[index].games[jindex].playerWhite.fio + '\n'}
+                                ${String(tournamentDraw.tours[index].games[jindex].ratingWhite)}
                              </th>
                              <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerWhiteScore">
                                 ${tournamentDraw.tours[index].games[jindex].playerWhiteScore}
@@ -124,7 +125,8 @@ function DrawTournamentDraw(tournamentDraw, index) {
                                 ${tournamentDraw.tours[index].games[jindex].playerBlackScore}
                             </th>
                             <th scope="row" id="Tour${tournamentDraw.tours[index].idTour}Game${tournamentDraw.tours[index].games[jindex].idGame}PlayerBlackFIO">
-                                ${tournamentDraw.tours[index].games[jindex].playerBlack.fio}
+                                ${tournamentDraw.tours[index].games[jindex].playerBlack.fio + '\n'}
+                                ${String(tournamentDraw.tours[index].games[jindex].ratingBlack)}
                              </th>
                         </tr>`;
     }

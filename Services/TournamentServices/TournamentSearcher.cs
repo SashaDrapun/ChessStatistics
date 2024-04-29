@@ -97,5 +97,12 @@ namespace ChessStatistics.Services.TournamentServices
 
             return model;
         }
+
+        public static RoundRobinTournamentResult GetRoundRobitResult(int idTournament)
+        {
+            GenerateTournamentResult generateTournamentResult = new(idTournament);
+
+            return generateTournamentResult.GenerateRoundRobinTournamentResult();
+        }
     }
 }

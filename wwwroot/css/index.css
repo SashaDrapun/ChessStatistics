@@ -28,9 +28,6 @@
     transition: transform .3s;
 }
 
-    .ublog-post-card__image:hover {
-        transform: scale(1.1);
-    }
-
-.ublog-post-card__over-image {
-    position
+.ublog-post-card__image:hover {
+       transform: scale(1.1);
+}

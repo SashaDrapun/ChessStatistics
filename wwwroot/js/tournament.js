@@ -36,7 +36,6 @@ async function GeneratingTournamentDraw(idTournament) {
     });
     if (response.ok === true) {
         let tournamentDraw = await response.json();
-        console.dir(tournamentDraw);
         try
         {
             hubConnection.invoke("GeneratingTournamentDraw", tournamentDraw);
@@ -165,7 +164,6 @@ function DrawTournamentDraw(tournamentDraw, index) {
 }
 
 async function SetGameResult(idGame, gameResult) {
-    console.log("Зашли в SetGameResult");
     const response = await fetch("/api/Tournament/SetGameResult/", {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
@@ -184,14 +182,107 @@ async function SetGameResult(idGame, gameResult) {
 }
 
 hubConnection.on('SetGameResult', function (gameModel) {
-    let playerWhiteFIO = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerWhiteFIO`);
-    let playerWhiteScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerWhiteScore`);
-    let playerBlackFIO = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerBlackFIO`);
-    let playerBlackScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerBlackScore`);
-    playerWhiteFIO.innerText = `${gameModel.playerWhite.fio} \n ${gameModel.ratingWhite} ${gameModel.ratingWhiteChange}`;
-    playerBlackFIO.innerText = `${gameModel.playerBlack.fio} \n ${gameModel.ratingBlack} ${gameModel.ratingBlackChange}`;
-    playerWhiteScore.innerText = `${gameModel.playerWhiteScore}`;
-    playerBlackScore.innerText = `${gameModel.playerBlackScore}`;
+    let tournamentId = document.querySelector('#tournamentId').value;
+
+    if (gameModel != null && gameModel.idTournament == tournamentId) {
+        let playerWhiteFIO = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerWhiteFIO`);
+        let playerWhiteScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerWhiteScore`);
+        let playerBlackFIO = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerBlackFIO`);
+        let playerBlackScore = document.querySelector(`#Tour${gameModel.idTour}Game${gameModel.idGame}PlayerBlackScore`);
+        playerWhiteFIO.innerText = `${gameModel.playerWhite.fio} \n ${gameModel.ratingWhite} ${gameModel.ratingWhiteChange}`;
+        playerBlackFIO.innerText = `${gameModel.playerBlack.fio} \n ${gameModel.ratingBlack} ${gameModel.ratingBlackChange}`;
+        playerWhiteScore.innerText = `${gameModel.playerWhiteScore}`;
+        playerBlackScore.innerText = `${gameModel.playerBlackScore}`;
+        UpdateResultTable(gameModel.idTournament);
+    }
+});
+
+async function UpdateResultTable(idTournament) {
+    console.log(idTournament);
+    const response = await fetch("/api/Tournament/GetTournamentResult/", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+            IdTournament: parseInt(idTournament),
+        })
+    });
+    if (response.ok === true) {
+        const roundRobinTournamentResult = await response.json();
+        
+        hubConnection.invoke("UpdateResultTable", roundRobinTournamentResult);
+    }
+    else {
+        console.dir(response);
+        console.log("Запрос на обновление результата турнира провалился")
+    }
+}
+
+hubConnection.on('UpdateResultTable', function (roundRobinTournamentResult) {
+    console.dir(roundRobinTournamentResult);
+    if (roundRobinTournamentResult != null) {
+        let tournamentResultTable = document.querySelector('#resultOfTournament');
+
+        if (tournamentResultTable == null) {
+            let resultDiv = document.querySelector('#results');
+            resultDiv.innerHTML = `<table id="resultOfTournament" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Место</th>
+                            <th scope="col">ФИО</th>
+                            <th scope="col">Рейтинг</th>
+                            <th scope="col">Очки</th>
+                            <th scope="col">Личная встреча</th>
+                            <th scope="col">Коэффициент Койя</th>
+                            <th scope="col">Коэффициент Соннеборна-Бергера</th>
+                            <th scope="col">Число выигранных партий</th>
+                        </tr>
+                    </thead>
+                    <tbody id="PlayersParticipatingInTournament">
+                    </tbody>
+                </table>
+            }`
+        }
+
+        tournamentResultTable = document.querySelector('#resultOfTournament');
+        console.dir(roundRobinTournamentResult.players);
+        let tournamentResultTableBodyInnerHTML = "";
+        for (let i = 0; i < roundRobinTournamentResult.players.length; i++) {
+            console.dir(roundRobinTournamentResult.players[i]);
+            tournamentResultTableBodyInnerHTML += `
+                <tr>
+                    <th scope="row">
+                        ${roundRobinTournamentResult.players[i].place.toString()}
+                    </th>
+                    <th scope="row">
+                        ${roundRobinTournamentResult.players[i].fio}
+                    </th>
+                    <th scope="row">
+                          ${roundRobinTournamentResult.players[i].rating.toString()}
+                    </th>
+                    <th scope="row">
+                        ${roundRobinTournamentResult.players[i].points.toString()}
+                    </th>
+                    <th scope="row">
+                        ${roundRobinTournamentResult.players[i].coefficientPersonalMeeting.toString()}
+                    </th>
+                    <th scope="row">
+                        ${roundRobinTournamentResult.players[i].coefficientKoya.toString()}
+                    </th>
+                    <th scope="row">
+                        ${String(roundRobinTournamentResult.players[i].сoefficientSonnebornBerger)}
+                    </th>
+                    <th scope="row">
+                        ${roundRobinTournamentResult.players[i].numberOfWonGames.toString()}
+                    </th>
+                </tr>`;
+        }
+        console.dir("tournamentResultTableBodyInnerHTML cгенерирован успешно");
+        const tbody = tournamentResultTable.getElementsByTagName("tbody")[0];
+        if (tbody) {
+            tbody.innerHTML = tournamentResultTableBodyInnerHTML;
+        }
+        
+    }
 });
 
 function SetGameResultSelects() {

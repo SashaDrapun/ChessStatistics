@@ -29,15 +29,16 @@ namespace ChessStatistics.Mappers
 
         public static PlayerOnPagePlayersModel MapPlayerToPlayerOnPlayersPage(Player player)
         {
-            PlayerOnPagePlayersModel model = new PlayerOnPagePlayersModel();
-
-            model.IdPlayer = player.IdPlayer;
-            model.Rank = player.Rank;
-            model.RankOutput = GetRankOutput(player.Rank);
-            model.FIO = player.FIO;
-            model.RatingBlitz = player.RatingBlitz;
-            model.RatingRapid = player.RatingRapid;
-            model.RatingClassic = player.RatingClassic;
+            PlayerOnPagePlayersModel model = new PlayerOnPagePlayersModel
+            {
+                IdPlayer = player.IdPlayer,
+                Rank = player.Rank,
+                RankOutput = GetRankOutput(player.Rank),
+                FIO = player.FIO,
+                RatingBlitz = player.RatingBlitz,
+                RatingRapid = player.RatingRapid,
+                RatingClassic = player.RatingClassic
+            };
             return model;
         }
 
@@ -49,7 +50,6 @@ namespace ChessStatistics.Mappers
             {
                 result.Add(MapPlayerToPlayerOnPlayersPage(player));
             }
-            PlayerOnPagePlayersModel model = new PlayerOnPagePlayersModel();
 
             return result;
         }

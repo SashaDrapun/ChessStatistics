@@ -1,6 +1,7 @@
 ﻿using ChessStatistics.BusinessLogic;
 using ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Round;
 using ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss;
+using ChessStatistics.BusinessLogic.TournamentResult;
 using ChessStatistics.Mappers;
 using ChessStatistics.Models;
 using ChessStatistics.Models.Enum;
@@ -57,6 +58,12 @@ namespace ChessStatistics.Controllers
 
             GameModel result = GameMapper.MapGame(GameSearcher.GetGame(gameModel.IdGame));
             return result;
+        }
+
+        [HttpPost("GetTournamentResult")]
+        public ActionResult<RoundRobinTournamentResult> GetTournamentResult([FromBody] TournamentModel tournamentModel)
+        {
+            return TournamentSearcher.GetRoundRobitResult(tournamentModel.IdTournament);
         }
     }
 }

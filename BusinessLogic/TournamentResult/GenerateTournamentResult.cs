@@ -21,26 +21,15 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
 
         public RoundRobinTournamentResult GenerateRoundRobinTournamentResult()
         {
-            bool IsAllGamesPlayed = true;
+            bool IsTournamentStarted = true;
 
             if (tournamentModel.TournamentDrawModel.Tours.Count == 0)
             {
-                IsAllGamesPlayed = false;
+                IsTournamentStarted = false;
             }
 
-            foreach (var tour in tournamentModel.TournamentDrawModel.Tours)
-            {
-                foreach (var game in tour.Games)
-                {
-                    if (!game.DidTheGamePassed)
-                    {
-                        IsAllGamesPlayed = false;
-                        break;
-                    }
-                }
-            }
 
-            if (IsAllGamesPlayed)
+            if (IsTournamentStarted)
             {
                 result.IsResultReady = true;
                 SetPlayers();
@@ -72,28 +61,6 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
             }
         }
 
-        private double ChoouseRatingByType(Player player)
-        {
-            double playerRating = 0;
-
-            if (tournamentModel.RatingType == RatingType.Blitz)
-            {
-                playerRating = player.RatingBlitz;
-            }
-
-            if (tournamentModel.RatingType == RatingType.Rapid)
-            {
-                playerRating = player.RatingRapid;
-            }
-
-            if (tournamentModel.RatingType == RatingType.Classic)
-            {
-                playerRating = player.RatingClassic;
-            }
-
-            return playerRating;
-        }
-
         private double ChoouseRatingByType(PlayerOnPagePlayersModel player)
         {
             double playerRating = 0;
@@ -122,6 +89,11 @@ namespace ChessStatistics.BusinessLogic.TournamentResult
             {
                 foreach (var game in tour.Games)
                 {
+                    if (!game.DidTheGamePassed)
+                    {
+                        continue;
+                    }
+
                     if (game.GameResult == GameResult.WhiteWin)
                     {
                         result.Players.Where(player => player.Id == game.IdPlayerWhite).FirstOrDefault().Points++;

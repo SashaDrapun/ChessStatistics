@@ -43,58 +43,60 @@ namespace ChessStatistics.Mappers
                 
                 foreach (var currentGame in games)
                 {
-                    if (currentGame.DidTheGamePassed)
+                    if (!currentGame.DidTheGamePassed)
                     {
-                        if (currentGame.IdPlayerWhite == game.IdPlayerWhite)
+                        continue;
+                    }
+                    
+                    if (currentGame.IdPlayerWhite == game.IdPlayerWhite)
+                    {
+                        if (currentGame.GameResult == GameResult.WhiteWin)
                         {
-                            if (currentGame.GameResult == GameResult.WhiteWin)
-                            {
-                                scoreWhite++;
-                            }
-
-                            if (currentGame.GameResult == GameResult.Draw)
-                            {
-                                scoreWhite += 0.5;
-                            }
+                            scoreWhite++;
                         }
 
-                        if (currentGame.IdPlayerBlack == game.IdPlayerWhite)
+                        if (currentGame.GameResult == GameResult.Draw)
                         {
-                            if (currentGame.GameResult == GameResult.BlackWin)
-                            {
-                                scoreWhite++;
-                            }
+                            scoreWhite += 0.5;
+                        }
+                    }
 
-                            if (currentGame.GameResult == GameResult.Draw)
-                            {
-                                scoreWhite += 0.5;
-                            }
+                    if (currentGame.IdPlayerBlack == game.IdPlayerWhite)
+                    {
+                        if (currentGame.GameResult == GameResult.BlackWin)
+                        {
+                            scoreWhite++;
                         }
 
-                        if (currentGame.IdPlayerWhite == game.IdPlayerBlack)
+                        if (currentGame.GameResult == GameResult.Draw)
                         {
-                            if (currentGame.GameResult == GameResult.WhiteWin)
-                            {
-                                scoreBlack++;
-                            }
+                            scoreWhite += 0.5;
+                        }
+                    }
 
-                            if (currentGame.GameResult == GameResult.Draw)
-                            {
-                                scoreBlack += 0.5;
-                            }
+                    if (currentGame.IdPlayerWhite == game.IdPlayerBlack)
+                    {
+                        if (currentGame.GameResult == GameResult.WhiteWin)
+                        {
+                            scoreBlack++;
                         }
 
-                        if (currentGame.IdPlayerBlack == game.IdPlayerBlack)
+                        if (currentGame.GameResult == GameResult.Draw)
                         {
-                            if (currentGame.GameResult == GameResult.BlackWin)
-                            {
-                                scoreBlack++;
-                            }
+                            scoreBlack += 0.5;
+                        }
+                    }
 
-                            if (currentGame.GameResult == GameResult.Draw)
-                            {
-                                scoreBlack += 0.5;
-                            }
+                    if (currentGame.IdPlayerBlack == game.IdPlayerBlack)
+                    {
+                        if (currentGame.GameResult == GameResult.BlackWin)
+                        {
+                            scoreBlack++;
+                        }
+
+                        if (currentGame.GameResult == GameResult.Draw)
+                        {
+                            scoreBlack += 0.5;
                         }
                     }
                 }

@@ -4,6 +4,7 @@ using System;
 using ChessStatistics.Models;
 using ChessStatistics.ViewModels;
 using ChessStatistics.Models.Enum;
+using ChessStatistics.BusinessLogic.TournamentResult;
 
 namespace ChessStatistics.Hubs
 {
@@ -22,6 +23,11 @@ namespace ChessStatistics.Hubs
         public async Task SetGameResult(GameModel gameModel)
         {
             await Clients.All.SendAsync("SetGameResult", gameModel);
+        }
+
+        public async Task UpdateResultTable(RoundRobinTournamentResult roundRobinTournamentResult)
+        {
+            await Clients.All.SendAsync("UpdateResultTable", roundRobinTournamentResult);
         }
     }
 }

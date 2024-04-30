@@ -23,6 +23,7 @@ namespace ChessStatistics.Mappers
                 FIO = player.FIO,
                 Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic, tournament.RatingType)
             };
+
             model.CurrentRating = RatingOperations.GetRating(model.Rating);
 
             return model;

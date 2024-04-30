@@ -15,6 +15,8 @@ namespace ChessStatistics.ViewModels
 
         public PlayerModel PlayerSkippingGame { get; set; }
 
+        public double PlayerSkippingGameScore { get; set; }
+
         public List<GameModel> Games { get; set; }
     }
 }

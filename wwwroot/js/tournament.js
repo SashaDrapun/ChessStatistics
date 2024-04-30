@@ -49,27 +49,19 @@ async function GeneratingTournamentDraw(idTournament) {
 
 hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
     let tournamentId = document.querySelector('#tournamentId').value;
-    
+    console.log("Зашли в GeneratingTournamentDraw");
     if (tournamentDraw != null && tournamentDraw.tours[0].idTournament == tournamentId) {
-        let tournamentType = document.querySelector('#tournamentType').value;
-        if (tournamentType == 0) {
-            for (let index = 0; index < tournamentDraw.tours.length; index++) {
-                DrawTournamentDraw(tournamentDraw, index);
-            }
+
+        DrawTournamentDraw(tournamentDraw, tournamentDraw.tours.length - 1);
+        let countTours = document.querySelector('#countTours').value;
+        if (countTours == tournamentDraw.tours.length) {
+            document.forms["GenerateNextTour"].parentNode.removeChild(document.forms["GenerateNextTour"]);
         }
-        else {
-            DrawTournamentDraw(tournamentDraw, tournamentDraw.tours.length - 1);
-            let countTours = document.querySelector('#countTours').value;
-            if (countTours == tournamentDraw.tours.length) {
-                document.forms["GenerateNextTour"].parentNode.removeChild(document.forms["GenerateNextTour"]);
-            }
-        }
-        
-        document.querySelector("#GenerateTournamentDraw").remove();
     }
 });
 
 function DrawTournamentDraw(tournamentDraw, index) {
+    console.log("Зашли в DrawTournamentDraw");
     let i = index + 1;
 
     let tourNumber = "Тур " + i;
@@ -80,7 +72,7 @@ function DrawTournamentDraw(tournamentDraw, index) {
     let tourNav = tourNavDiv.firstChild;
 
     let tourContentDiv = document.createElement('div');
-
+    console.log("Cоздали див");
     let tourContentText = `<div class="tab-pane fade show" id="nav-tour${i}" role="tabpanel" aria-labelledby="nav-tour${i}-tab">
                         <div class="d-flex justify-content-center">
                             <table id="usersParticipatingInTournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
@@ -130,7 +122,8 @@ function DrawTournamentDraw(tournamentDraw, index) {
                              </th>
                         </tr>`;
     }
-
+    console.log("123");
+    console.log(String(tournamentDraw.tours[index].playerSkippingGameScore));
     if (tournamentDraw.tours[index].idPlayerSkippingGame > 0) {
         tourContentText += `<tr>
             <th scope="row">
@@ -140,7 +133,7 @@ function DrawTournamentDraw(tournamentDraw, index) {
                 ${tournamentDraw.tours[index].playerSkippingGame.fio} 
             </th>
             <th scope="row">
-                1
+                ${String(tournamentDraw.tours[index].playerSkippingGameScore)}
             </th>
             <th scope="row">
                 Пропуск
@@ -318,22 +311,30 @@ if (document.forms["GeneratingTournamentDraw"] != null) {
 if (document.forms["GenerateNextTour"] != null) {
     document.forms["GenerateNextTour"].addEventListener("submit", e => {
         e.preventDefault();
+        let tournamentType = document.querySelector('#tournamentType').value;
         let table = document.getElementById('usersParticipatingInTournamentTable');
         let countPlayers = table.rows.length - 1;
-        let countTours = document.getElementById('countTours').value; 
-        let minimumNumberOfParticipants = 2 + parseInt(countTours);
 
-        if (countPlayers < minimumNumberOfParticipants) {
-            const alertContainer = document.getElementById('alertWhenInsufficientNumberOfParticipants');
-            const alertHtml = `
+        if (tournamentType == 0) {
+            document.querySelector('#countTours').value = parseInt(countPlayers) % 2 == 0 ? countPlayers - 1 : countPlayers;
+        }
+
+        if (tournamentType == 1) {
+            let countTours = document.getElementById('countTours').value;
+            let minimumNumberOfParticipants = 2 + parseInt(countTours);
+
+            if (countPlayers < minimumNumberOfParticipants) {
+                const alertContainer = document.getElementById('alertWhenInsufficientNumberOfParticipants');
+                const alertHtml = `
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <strong>Минимальное количество участников при ${countTours} турах = ${minimumNumberOfParticipants}</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>`;
-            alertContainer.innerHTML = alertHtml;
-            return;
+                alertContainer.innerHTML = alertHtml;
+                return;
+            }
         }
-        
+
         if (AreAllTheResultsEntered()) {
             const tournamentId = document.querySelector('#idTournament').value;
             GeneratingTournamentDraw(tournamentId);

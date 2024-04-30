@@ -12,6 +12,7 @@ namespace ChessStatistics.Mappers
 {
     public static class GameMapper
     {
+        
         public static GameModel MapGame(Game game)
         {
             Tour tour = TourSearcher.GetTourById(game.IdTour);

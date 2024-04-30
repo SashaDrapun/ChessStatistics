@@ -39,7 +39,11 @@ namespace ChessStatistics.Controllers
 
             if (tournament.TournamentType == TournamentType.Round)
             {
-                await GeneratingRoundTournamentDraw.GenerateTournamentDrawAsync(tournamentModel.IdTournament);
+                if (tournament.CountTours == 2)
+                {
+                    await TournamentUpdater.SetCountToursAsync(tournamentModel.IdTournament);
+                    await GeneratingRoundTournamentDraw.GenerateTournamentDrawAsync(tournamentModel.IdTournament);
+                }
             }
 
             if (tournament.TournamentType == TournamentType.Swiss)

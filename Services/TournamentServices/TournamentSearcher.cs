@@ -42,9 +42,19 @@ namespace ChessStatistics.Services.TournamentServices
                 if (tourModel.IdPlayerSkippingGame > 0)
                 {
                     tourModel.PlayerSkippingGame = PlayerMapper.MapPlayer(PlayerSearcher.GetPlayerById(tourModel.IdPlayerSkippingGame), idTournament);
+                    tourModel.PlayerSkippingGameScore = PlayerSearcher.GetPlayerScore(tourModel.IdPlayerSkippingGame, tourModel.IdTour);
                 }
 
                 tournamentDraw.Tours.Add(tourModel);
+
+                bool allGamesPassed = tourModel.Games.All(game => game.DidTheGamePassed);
+
+                if (!allGamesPassed)
+                {
+                    break;
+                }
+
+                
             }
 
             return tournamentDraw;

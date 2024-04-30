@@ -1,5 +1,6 @@
 ﻿using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
 using ChessStatistics.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,11 @@ namespace ChessStatistics.Services.TournamentServices
                 RatingType = tournamentModel.RatingType,
                 CountTours = tournamentModel.CountTours,
             };
+
+            if (tournamentModel.TournamentType == TournamentType.Round)
+            {
+                tournament.CountTours = 2;
+            }
 
             Database.db.Tournaments.Add(tournament);
             await Database.db.SaveChangesAsync();

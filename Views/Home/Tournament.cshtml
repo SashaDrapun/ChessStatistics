@@ -117,16 +117,6 @@
             </div>
             <div class="tab-pane fade" id="tours" role="tabpanel" aria-labelledby="tours-tab">
                 <h5 class="text-light"> Туры </h5>
-
-                @if (Model.TournamentDrawModel.Tours.Count == 0 && Model.TournamentType == TournamentType.Round)
-                {
-                <form name="GeneratingTournamentDraw">
-                    <button class="TournamentDraw" id="GenerateTournamentDraw" type="submit">
-                        Cгенерировать жеребьевку
-                    </button>
-                </form>
-                }
-                        
             <nav>
                 <div class="nav nav-tabs centered justify-content-center" id="nav-tabTours" role="tablist">
                     @if (Model.TournamentDrawModel.Tours.Count != 0)
@@ -219,7 +209,7 @@
                                                     @(Model.TournamentDrawModel.Tours[i].PlayerSkippingGame.CurrentRating)
                                                 </th>
                                                 <th scope="row">
-                                                    1
+                                                        @(Model.TournamentDrawModel.Tours[i].PlayerSkippingGameScore)
                                                 </th>
                                                 <th scope="row">
                                                     Пропуск
@@ -241,7 +231,7 @@
                    
             </div>
 
-            @if(Model.TournamentType == TournamentType.Swiss && (Model.CountTours != Model.TournamentDrawModel.Tours.Count))
+            @if(Model.CountTours != Model.TournamentDrawModel.Tours.Count)
             {
                     <form name="GenerateNextTour">
                         <button class = "TournamentDraw" id="GenerateNextTour" type="submit" class="btn btn-primary btn-lg btn-block">

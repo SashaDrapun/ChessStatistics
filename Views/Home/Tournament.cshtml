@@ -36,7 +36,11 @@
                         <th scope="col">ФИО</th>
                         <th scope="col">Рейтинг</th>
                         <th scope="col">Звание</th>
-                    </tr>
+                        @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+                            {
+                                <th scope="col">Удалить</th>
+                            }
+                        </tr>
                 </thead>
                 <tbody id="PlayersParticipatingInTournament">
                     @foreach (var player in Model.PlayersParticipatingInTournament)
@@ -65,6 +69,17 @@
                             <th scope="row">
                                 @player.RankOutput
                             </th>
+
+                            @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+                            {
+                                <th scope="row">
+                                    <button class="btn btn-danger m-2 deleteParticipant" data-toggle="modal"
+                                        tournamentId="@Model.IdTournament"
+                                        playerId="@player.IdPlayer">
+                                        Удаление участника 
+                                    </button>
+                                </th>
+                            }
                         </tr>
                     }
                 </tbody>
@@ -76,7 +91,6 @@
                     Добавление участника
                 </button>
             }
-            
 
             <div class='modal fade' id='AddParticipant' tabindex="-1" role="dialog"
                  aria-labelledby="createTournament" aria-hidden="true">

@@ -15,9 +15,6 @@ for (let i = 0; i < buttonsDeleteTournament.length; i++) {
     });
 }
 
-
-
-
 const buttonsEditTournament = document.querySelectorAll('.editTournament');
 
 for (let i = 0; i < buttonsEditTournament.length; i++) {

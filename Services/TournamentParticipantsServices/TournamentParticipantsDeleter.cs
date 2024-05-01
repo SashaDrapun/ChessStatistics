@@ -21,5 +21,17 @@ namespace ChessStatistics.Services.TournamentParticipantsServices
             
             await Database.db.SaveChangesAsync();
         }
+
+        public static async Task DeleteTournamentParticipant(int idTournament, int idPlayer)
+        {
+            List<TournamentParticipants> tournamentParticipants = TournamentParticipantsSearcher.GetTournamentParticipants(idTournament, idPlayer);
+
+            foreach (var  participant in tournamentParticipants)
+            {
+                Database.db.Remove(participant);
+            }
+            
+            await Database.db.SaveChangesAsync();
+        }
     }
 }

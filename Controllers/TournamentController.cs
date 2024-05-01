@@ -25,9 +25,17 @@ namespace ChessStatistics.Controllers
         }
 
         [HttpPost("AddTournamentParticipants")]
-        public async Task<ActionResult<Player>> AddTournamentParticipants([FromBody] TournamentAddParticipantModel tournamentAddParticipantModel)
+        public async Task<ActionResult<Player>> AddTournamentParticipants([FromBody]TournamentAddParticipantModel tournamentAddParticipantModel)
         {
             await TournamentParticipantsAdder.AddTournamentAsync(tournamentAddParticipantModel.IdPlayer, tournamentAddParticipantModel.IdTournament);
+            Player player = PlayerSearcher.GetPlayerById(tournamentAddParticipantModel.IdPlayer);
+            return Ok(PlayerMapper.MapPlayer(player, tournamentAddParticipantModel.IdTournament));
+        }
+
+        [HttpPost("DeleteTournamentParticipant")]
+        public async Task<ActionResult<Player>> DeleteTournamentParticipant([FromBody] TournamentAddParticipantModel tournamentAddParticipantModel)
+        {
+            await TournamentParticipantsDeleter.DeleteTournamentParticipant(tournamentAddParticipantModel.IdTournament, tournamentAddParticipantModel.IdPlayer);
             Player player = PlayerSearcher.GetPlayerById(tournamentAddParticipantModel.IdPlayer);
             return Ok(PlayerMapper.MapPlayer(player, tournamentAddParticipantModel.IdTournament));
         }

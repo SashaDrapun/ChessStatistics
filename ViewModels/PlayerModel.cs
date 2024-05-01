@@ -15,5 +15,7 @@ namespace ChessStatistics.ViewModels
         public double CurrentRating { get; set; }
 
         public Rating Rating { get; set; }
+
+        public int IdTournament { get; set; }
     }
 }

@@ -4,6 +4,114 @@
 
 hubConnection.start();
 
+
+
+
+function SetButtonsDeleteParicipant() {
+    const buttonsDeleteParticipant = document.querySelectorAll('.deleteParticipant');
+    for (let i = 0; i < buttonsDeleteParticipant.length; i++) {
+        buttonsDeleteParticipant[i].addEventListener('click', e => {
+            DeleteParticipant(e.target.getAttribute('playerId'), e.target.getAttribute('tournamentId'));
+        });
+    }
+}
+
+SetButtonsDeleteParicipant();
+
+
+async function DeleteParticipant(idPlayer, idTournament) {
+    const response = await fetch("/api/Tournament/DeleteTournamentParticipant/", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+            IdPlayer: parseInt(idPlayer),
+            IdTournament: parseInt(idTournament)
+        })
+    });
+    if (response.ok === true) {
+        const player = await response.json();
+        console.log("Запрос выполнен успешно");
+        hubConnection.invoke("DeleteTournamentParticipant", player);
+    }
+    else {
+        console.log("При удалении пользователя произошла ошибка");
+        console.dir(response);
+    }
+}
+
+function removeRowByFIO(fio) {
+    // Найти все строки таблицы
+    let table = $("#usersParticipatingInTournamentTable").DataTable();
+    console.log("Удаляем из таблицы " + fio);
+    // Перебрать все строки
+    table.rows().every(function (rowIdx) {
+        let rowData = this.data();
+        let fioCell = rowData[0]; // предполагаем, что ФИО находится в первой колонке
+
+        // Сравнить текст ячейки с искомым ФИО
+        if ($.trim(fioCell) === fio) {
+            // Удалить строку, если текст совпадает
+            table.row(rowIdx).remove().draw(false);
+            return false; // Прекратить поиск после первого совпадения
+        }
+    });
+}
+
+hubConnection.on('DeleteTournamentParticipant', function (player) {
+    console.log("Зашли в DeleteTournamentParticipant");
+    console.dir(player);
+
+    let newOption = document.createElement("option");
+
+    newOption.value = player.idPlayer;
+    newOption.textContent = player.fio;
+    newOption.id = player.idPlayer;
+    var selectElement = document.getElementById("playerId");
+    selectElement.appendChild(newOption);
+    console.log("перед удалением из таблицы");
+    removeRowByFIO(player.fio);
+});
+
+function addPlayerToTable(player) {
+    console.log("Добавляем " + player.fio);
+    let table = $("#usersParticipatingInTournamentTable").DataTable();
+
+    // Проверяем, существует ли столбец с кнопкой "Удаление участника"
+    let deleteButtonColumnExists = false;
+    let headers = $('#usersParticipatingInTournamentTable thead th');
+    headers.each(function () {
+        if ($(this).text().trim() === 'Удалить') {
+            deleteButtonColumnExists = true;
+            return false;
+        }
+    });
+
+    let rowData = [player.fio, player.currentRating, player.rankOutput];
+
+    if (deleteButtonColumnExists) {
+        // Создаем элемент кнопки
+        let deleteButton = document.createElement('button');
+        deleteButton.className = 'btn btn-danger m-2 deleteParticipant';
+        deleteButton.textContent = 'Удаление участника';
+        deleteButton.setAttribute('data-toggle', 'modal');
+        deleteButton.setAttribute('tournamentId', player.idTournament);
+        deleteButton.setAttribute('playerId', player.idPlayer);
+
+        // Добавляем обработчик события click
+        deleteButton.addEventListener('click', e => {
+            DeleteParticipant(e.target.getAttribute('playerId'), e.target.getAttribute('tournamentId'));
+        });
+
+        // Преобразуем элемент кнопки в строку
+        let deleteButtonHtml = deleteButton.outerHTML;
+        rowData.push(deleteButtonHtml);
+    }
+
+    table.row.add(rowData).draw();
+    SetButtonsDeleteParicipant();
+}
+
+
 async function AddParticipant(idPlayer, idTournament) {
     const response = await fetch("/api/Tournament/AddTournamentParticipants/", {
         method: "POST",
@@ -15,15 +123,15 @@ async function AddParticipant(idPlayer, idTournament) {
     });
     if (response.ok === true) {
         const player = await response.json();
-        hubConnection.invoke("AddTournamentParticipant", player.idPlayer, player.fio, player.currentRating, player.rankOutput);
+        hubConnection.invoke("AddTournamentParticipant", player);
     }
 }
 
-hubConnection.on('AddTournamentParticipant', function (playerId, playerFIO, playerRating, playerTitle) {
-    let option = document.getElementById(playerId);
+hubConnection.on('AddTournamentParticipant', function (player) {
+    let option = document.getElementById(player.idPlayer);
     option.parentNode.removeChild(option);
-    let table = $("#usersParticipatingInTournamentTable").DataTable();
-    table.row.add([playerFIO, playerRating, playerTitle]).draw();
+
+    addPlayerToTable(player);
 });
 
 async function GeneratingTournamentDraw(idTournament) {
@@ -49,7 +157,6 @@ async function GeneratingTournamentDraw(idTournament) {
 
 hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
     let tournamentId = document.querySelector('#tournamentId').value;
-    console.log("Зашли в GeneratingTournamentDraw");
     if (tournamentDraw != null && tournamentDraw.tours[0].idTournament == tournamentId) {
 
         DrawTournamentDraw(tournamentDraw, tournamentDraw.tours.length - 1);
@@ -61,7 +168,6 @@ hubConnection.on('GeneratingTournamentDraw', function (tournamentDraw) {
 });
 
 function DrawTournamentDraw(tournamentDraw, index) {
-    console.log("Зашли в DrawTournamentDraw");
     let i = index + 1;
 
     let tourNumber = "Тур " + i;
@@ -72,7 +178,6 @@ function DrawTournamentDraw(tournamentDraw, index) {
     let tourNav = tourNavDiv.firstChild;
 
     let tourContentDiv = document.createElement('div');
-    console.log("Cоздали див");
     let tourContentText = `<div class="tab-pane fade show" id="nav-tour${i}" role="tabpanel" aria-labelledby="nav-tour${i}-tab">
                         <div class="d-flex justify-content-center">
                             <table id="usersParticipatingInTournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
@@ -122,8 +227,7 @@ function DrawTournamentDraw(tournamentDraw, index) {
                              </th>
                         </tr>`;
     }
-    console.log("123");
-    console.log(String(tournamentDraw.tours[index].playerSkippingGameScore));
+
     if (tournamentDraw.tours[index].idPlayerSkippingGame > 0) {
         tourContentText += `<tr>
             <th scope="row">
@@ -193,7 +297,6 @@ hubConnection.on('SetGameResult', function (gameModel) {
 });
 
 async function UpdateResultTable(idTournament) {
-    console.log(idTournament);
     const response = await fetch("/api/Tournament/GetTournamentResult/", {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
@@ -213,7 +316,6 @@ async function UpdateResultTable(idTournament) {
 }
 
 hubConnection.on('UpdateResultTable', function (roundRobinTournamentResult) {
-    console.dir(roundRobinTournamentResult);
     if (roundRobinTournamentResult != null) {
         let tournamentResultTable = document.querySelector('#resultOfTournament');
 
@@ -239,10 +341,8 @@ hubConnection.on('UpdateResultTable', function (roundRobinTournamentResult) {
         }
 
         tournamentResultTable = document.querySelector('#resultOfTournament');
-        console.dir(roundRobinTournamentResult.players);
         let tournamentResultTableBodyInnerHTML = "";
         for (let i = 0; i < roundRobinTournamentResult.players.length; i++) {
-            console.dir(roundRobinTournamentResult.players[i]);
             tournamentResultTableBodyInnerHTML += `
                 <tr>
                     <th scope="row">
@@ -271,7 +371,6 @@ hubConnection.on('UpdateResultTable', function (roundRobinTournamentResult) {
                     </th>
                 </tr>`;
         }
-        console.dir("tournamentResultTableBodyInnerHTML cгенерирован успешно");
         const tbody = tournamentResultTable.getElementsByTagName("tbody")[0];
         if (tbody) {
             tbody.innerHTML = tournamentResultTableBodyInnerHTML;

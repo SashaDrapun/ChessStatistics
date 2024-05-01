@@ -21,7 +21,8 @@ namespace ChessStatistics.Mappers
                 Rank = player.Rank,
                 RankOutput = GetRankOutput(player.Rank),
                 FIO = player.FIO,
-                Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic, tournament.RatingType)
+                Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic, tournament.RatingType),
+                IdTournament = idTournament
             };
 
             model.CurrentRating = RatingOperations.GetRating(model.Rating);

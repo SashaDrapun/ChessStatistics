@@ -10,9 +10,14 @@ namespace ChessStatistics.Hubs
 {
     public class TournamentHub : Hub
     {
-        public async Task AddTournamentParticipant(int playerId, string playerFIO, double playerRating, string playerTitle)
+        public async Task AddTournamentParticipant(PlayerModel playerModel)
         {
-            await Clients.All.SendAsync("AddTournamentParticipant", playerId, playerFIO, playerRating, playerTitle.ToString());
+            await Clients.All.SendAsync("AddTournamentParticipant", playerModel);
+        }
+
+        public async Task DeleteTournamentParticipant(PlayerModel playerModel)
+        {
+            await Clients.All.SendAsync("DeleteTournamentParticipant", playerModel);
         }
 
         public async Task GeneratingTournamentDraw(TournamentDrawModel tournamentDrawModel)

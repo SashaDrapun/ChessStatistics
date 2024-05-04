@@ -30,7 +30,6 @@ async function DeleteParticipant(idPlayer, idTournament) {
     });
     if (response.ok === true) {
         const player = await response.json();
-        console.log("Запрос выполнен успешно");
         hubConnection.invoke("DeleteTournamentParticipant", player);
     }
     else {

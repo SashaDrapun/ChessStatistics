@@ -54,10 +54,10 @@ namespace ChessStatistics.Controllers
             return View(Database.db.Users.ToList());
         }
 
-        public async Task<IActionResult> Player(string idPlayer)
+        public async Task<IActionResult> Player(int idPlayer)
         {
             await SetViewBag();
-            return View(UserSearcher.GetUserById(idPlayer));
+            return View(PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(PlayerSearcher.GetPlayerById(idPlayer)));
         }
 
         public async Task<IActionResult> PersonalArea()
@@ -67,7 +67,9 @@ namespace ChessStatistics.Controllers
             ViewBag.IsUserConnectedToThePlayer = UserSearcher.IsUserConnectedToThePlayer(autorizeUser);
             ViewBag.IsUserRequestedLinkWithPlayer = LinkUserWithPlayerSearcher.IsUserRequestedLinkWithPlayer(autorizeUser);
             ViewBag.PlayersNotLinkedWithUser = PlayerSearcher.GetPlayersNotLinkedWithUser();
-            return View(UserSearcher.GetUserById(autorizeUser.Id));
+
+            User user = UserSearcher.GetUserById(autorizeUser.Id);
+            return View(UserMapper.MapUser(user));
         }
 
         public async Task<IActionResult> Tournaments()

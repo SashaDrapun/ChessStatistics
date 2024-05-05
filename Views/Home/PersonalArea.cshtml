@@ -1,4 +1,4 @@
-﻿ @model ChessStatistics.Models.User
+﻿ @model ChessStatistics.ViewModels.UserModel
 
 @{
     ViewData["CurrentPage"] = "PersonalArea";
@@ -23,43 +23,56 @@
                         </tr>
                         <tr>
                             <th>Рейтинг по блицу</th>
-                            <td>@Model.Player.RatingBlitz</td>
+                            <td>@Model.Player.Rating.RatingBlitz</td>
                         </tr>
                         <tr>
                             <th>Рейтинг по рапиду</th>
-                            <td>@Model.Player.RatingRapid</td>
+                            <td>@Model.Player.Rating.RatingRapid</td>
                         </tr>
                         <tr>
                             <th>Рейтинг по классике</th>
-                            <td>@Model.Player.RatingClassic</td>
+                            <td>@Model.Player.Rating.RatingClassic</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+        <h5 class="text-light">
+            Ваши игры
+        </h5>
+        <table id="gamesTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Игрoк за белых</th>
+                    <th scope="col">Игрoк за черных</th>
+                    <th scope="col">Результат</th>
+                    <th scope="col">Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var game in Model.Games)
+                {
+                    <tr>
+                        <th scope="row">
+                            <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerWhite">
+                                <h3 class='text-success' id="userFIO">@game.PlayerWhite.FIO</h3>
+                            </a>
 
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="card bg-dark text-white">
-                    <div class="card-header">
-                        <h4 class="card-title"><i class="fas fa-chart-bar"></i> Рейтинги по дисциплинам</h4>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="ratingChart"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card bg-dark text-white">
-                    <div class="card-header">
-                        <h4 class="card-title"><i class="fas fa-chart-pie"></i> Распределение рейтингов</h4>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="ratingDistributionChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+                            @(game.RatingWhite + " " + game.RatingWhiteChange)
+                        </th>
+                        <td>
+                            <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerBlack">
+                                <h3 class='text-success' id="userFIO">@game.PlayerBlack.FIO</h3>
+                            </a>
+
+                            @(game.RatingBlack + " " + game.RatingBlackChange)
+                        </td>
+                        <td>@(game.GameResult == GameResult.WhiteWin ? "1-0" : game.GameResult == GameResult.Draw ? "1/2" : "0-1")</td>
+                        <td>@game.Date</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     }
 else if(ViewBag.IsUserRequestedLinkWithPlayer)
 {
@@ -87,7 +100,7 @@ else
             <div class="modal-body">
                 <div class="container-fluid">
                     <form asp-controller="LinkUserWithPlayer" asp-action="LinkUser" method="post">
-                        <input id="IdUser" name="IdUser" value="@Model.Id" class="d-none">
+                        <input id="IdUser" name="IdUser" value="@Model.IdUser" class="d-none">
                         <div class="form-group">
                             <label for="PlayerProfile">Выберите ваш игровой профиль</label>
                             <select id="PlayerProfile"

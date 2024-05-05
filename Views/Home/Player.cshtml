@@ -1,6 +1,71 @@
 ﻿@{
-    @model ChessStatistics.Models.Player
+    @model ChessStatistics.ViewModels.PlayerOnPlayerPageModel
     ViewData["CurrentPage"] = "Player";
 }
 
+<div class="container justify-content-center">
+
 <h5 class="text-light"> Профиль игрока @Model.FIO </h5>
+
+        <div class="card bg-dark text-white">
+            <div class="card-header">
+                <h4 class="card-title"><i class="fas fa-chess-king"></i> Статистика профиля</h4>
+            </div>
+            <div class="card-body">
+                <table class="table mb-0 bg-secondary text-white">
+                    <tbody>
+                        <tr>
+                            <th>Звание</th>
+                            <td>@Model.RankOutput</td>
+                        </tr>
+                        <tr>
+                            <th>Рейтинг по блицу</th>
+                            <td>@Model.Rating.RatingBlitz</td>
+                        </tr>
+                        <tr>
+                            <th>Рейтинг по рапиду</th>
+                            <td>@Model.Rating.RatingRapid</td>
+                        </tr>
+                        <tr>
+                            <th>Рейтинг по классике</th>
+                            <td>@Model.Rating.RatingClassic</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+<table id="gamesTable" class="table table-responsive-sm table-bordered table-hover table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Игрoк за белых</th>
+            <th scope="col">Игрoк за черных</th>
+            <th scope="col">Результат</th>
+            <th scope="col">Дата</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var game in Model.Games)
+        {
+            <tr>
+                <th scope="row">
+                    <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerWhite">
+                        <h3 class='text-success' id="userFIO">@game.PlayerWhite.FIO</h3>
+                    </a>
+
+                    @(game.RatingWhite + " " + game.RatingWhiteChange)
+                </th>
+                <td>
+                    <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerBlack">
+                        <h3 class='text-success' id="userFIO">@game.PlayerBlack.FIO</h3>
+                    </a>
+
+                    @(game.RatingBlack + " " + game.RatingBlackChange)
+                </td>
+                <td>@(game.GameResult == GameResult.WhiteWin ? "1-0" : game.GameResult == GameResult.Draw ? "1/2" : "0-1")</td>
+                <td>@game.Date</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>

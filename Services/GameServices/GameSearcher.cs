@@ -9,12 +9,12 @@ namespace ChessStatistics.Services.GameServices
 {
     public static class GameSearcher
     {
-        public static List<Game> GetGamesByTour(int tourId) 
+        public static List<Game> GetGamesByTour(int tourId)
         {
             return Database.db.Games.Where(game => game.IdTour == tourId).ToList();
         }
 
-        public static List<Game> GetGamesByTournament(int tournamentId) 
+        public static List<Game> GetGamesByTournament(int tournamentId)
         {
             Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == tournamentId);
 
@@ -28,6 +28,11 @@ namespace ChessStatistics.Services.GameServices
             }
 
             return games;
+        }
+
+        public static List<Game> GetGamesByPlayer(int playerId)
+        {
+            return Database.db.Games.Where(game => (game.IdPlayerWhite == playerId) || (game.IdPlayerBlack == playerId)).ToList();
         }
 
         public static Game GetGame(int idGame)

@@ -1,6 +1,7 @@
 ﻿using ChessStatistics.Models;
 using ChessStatistics.Models.Enum;
 using ChessStatistics.Services;
+using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.Services.ToursServices;
 using ChessStatistics.ViewModels;
@@ -11,6 +12,40 @@ namespace ChessStatistics.Mappers
 {
     public static class PlayerMapper
     {
+        public static PlayerModel MapPlayer(Player player)
+        {
+
+            PlayerModel model = new()
+            {
+                IdPlayer = player.IdPlayer,
+                Rank = player.Rank,
+                RankOutput = GetRankOutput(player.Rank),
+                FIO = player.FIO,
+                Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic),
+            };
+
+            model.CurrentRating = RatingOperations.GetRating(model.Rating);
+
+            return model;
+        }
+
+        public static PlayerOnPlayerPageModel MapPlayerToPlayerOnPagePlayerModel(Player player)
+        {
+
+            PlayerOnPlayerPageModel model = new()
+            {
+                IdPlayer = player.IdPlayer,
+                Rank = player.Rank,
+                RankOutput = GetRankOutput(player.Rank),
+                FIO = player.FIO,
+                Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic),
+            };
+
+            model.Games = GameMapper.MapGames(GameSearcher.GetGamesByPlayer(model.IdPlayer));
+
+            return model;
+        }
+
         public static PlayerModel MapPlayer(Player player, int idTournament)
         {
             Tournament tournament = TournamentSearcher.GetTournamentById(idTournament);

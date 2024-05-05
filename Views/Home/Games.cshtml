@@ -15,21 +15,27 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var gameModel in Model)
-        {
-            <tr>
-                <th scope="row">
-                    @gameModel.PlayerWhite.FIO
-                    @(gameModel.RatingWhite + " " + gameModel.RatingWhiteChange)
-                </th>
-                <td>
-                    @gameModel.PlayerBlack.FIO
-                    @(gameModel.RatingBlack + " " + gameModel.RatingBlackChange)
-                </td>
-                <td>@(gameModel.GameResult == GameResult.WhiteWin ? "1-0" : gameModel.GameResult == GameResult.Draw ? "1/2" : "0-1")</td>
-                <td>@gameModel.Date</td>
-            </tr>
-        }
+            @foreach (var game in Model)
+            {
+                <tr>
+                    <th scope="row">
+                        <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerWhite">
+                            <h3 class='text-success' id="userFIO">@game.PlayerWhite.FIO</h3>
+                        </a>
+
+                        @(game.RatingWhite + " " + game.RatingWhiteChange)
+                    </th>
+                    <td>
+                        <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerBlack">
+                            <h3 class='text-success' id="userFIO">@game.PlayerBlack.FIO</h3>
+                        </a>
+
+                        @(game.RatingBlack + " " + game.RatingBlackChange)
+                    </td>
+                    <td>@(game.GameResult == GameResult.WhiteWin ? "1-0" : game.GameResult == GameResult.Draw ? "1/2" : "0-1")</td>
+                    <td>@game.Date</td>
+                </tr>
+            }
     </tbody>
 </table>
 </div>

@@ -69,11 +69,14 @@
         }
     </tbody>
 </table>
-
-<button type="submit" class="btn btn-primary" 
-        data-toggle="modal" data-target="#createPlayer">
-        Дoбавить
-</button>
+    @if (ViewBag.IsAdmin)
+    {
+        <button type="submit" class="btn btn-primary"
+                data-toggle="modal" data-target="#createPlayer">
+            Дoбавить
+        </button>
+    }
+    
 
 </div>
 

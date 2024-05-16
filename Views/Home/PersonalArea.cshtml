@@ -19,7 +19,7 @@
                     <tbody>
                         <tr>
                             <th>Звание</th>
-                            <td>@Model.Player.Rank</td>
+                            <td>@Model.Player.RankOutput</td>
                         </tr>
                         <tr>
                             <th>Рейтинг по блицу</th>
@@ -55,14 +55,14 @@
                     <tr>
                         <th scope="row">
                             <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerWhite">
-                                <h3 class='text-success' id="userFIO">@game.PlayerWhite.FIO</h3>
+                                <h5 class='text-text-info' id="userFIO">@game.PlayerWhite.FIO</h5>
                             </a>
 
                             @(game.RatingWhite + " " + game.RatingWhiteChange)
                         </th>
                         <td>
                             <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerBlack">
-                                <h3 class='text-success' id="userFIO">@game.PlayerBlack.FIO</h3>
+                                <h5 class='text-text-info' id="userFIO">@game.PlayerBlack.FIO</h5>
                             </a>
 
                             @(game.RatingBlack + " " + game.RatingBlackChange)

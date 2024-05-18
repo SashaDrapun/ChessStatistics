@@ -162,8 +162,7 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss
                                 groups[i + 1].Players.Add(firstPlayer);
                                 groups[i].Players.Remove(firstPlayer);
                                 isPairFind = false;
-                                break;
-                                // перенос игрока в следующую группу, если соперник не найден
+                                break; // перенос игрока в следующую группу, если соперник не найден
                             }
                             else
                             {
@@ -228,7 +227,6 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss
                 List<SwissPair> unsuitablePairsForThisLevel = new List<SwissPair>();
                 while (testGroups[i].Players.Count > 1) // пока в группе более 1 пользователя, мы ищем игроку соперника в его очковой группе. 
                 {
-
                     int halfCount = testGroups[i].Players.Count / 2;
                     int index = halfCount;
 
@@ -260,8 +258,7 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss
                                     testGroups[i + 1].Players.Add(firstPlayer);
                                     testGroups[i].Players.Remove(firstPlayer);
                                     isPairFind = false;
-                                    break;
-                                    // перенос игрока в следующую группу, если соперник не найден
+                                    break; // перенос игрока в следующую группу, если соперник не найден
                                 }
                             }
                             else
@@ -284,7 +281,6 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss
                         SwissPair pair1 = new SwissPair(firstPlayer.Id, secondPlayer.Id);
                         SwissPair pair2 = new SwissPair(secondPlayer.Id, firstPlayer.Id);
 
-
                         if (testGroups.Sum(x => x.Players.Count) >= 20)
                         {
                             testGroups[i].Players.Remove(firstPlayer);
@@ -303,8 +299,6 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss
                                 unsuitablePairsForThisLevel.Add(pair2);
                             }
                         }
-
-
                     }
                 }
 
@@ -433,8 +427,6 @@ namespace ChessStatistics.BusinessLogic.GeneratingTournamentDraw.Swiss
                 pairsPlayed.Add(new SwissPair(secondPlayer.Id, firstPlayer.Id));
 
             }
-
-            
 
             return tour;
         }

@@ -30,9 +30,9 @@
                 <th scope="row">
                     @user.FIO
                 </th>
-                <td>@user.DateLastLogin</td>
-                <td>@user.DateRegistration</td>
-                <td>@user.Birthday</td>
+                    <td>@user.DateLastLogin.ToString("D")</td>
+                    <td>@user.DateRegistration.ToString("D")</td>
+                    <td>@user.Birthday.ToString("D")</td>
 
                 @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
                 {

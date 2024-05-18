@@ -33,7 +33,7 @@
                         @(game.RatingBlack + " " + game.RatingBlackChange)
                     </td>
                     <td>@(game.GameResult == GameResult.WhiteWin ? "1-0" : game.GameResult == GameResult.Draw ? "1/2" : "0-1")</td>
-                    <td>@game.Date</td>
+                    <td>@game.Date.ToString("D")</td>
                 </tr>
             }
     </tbody>

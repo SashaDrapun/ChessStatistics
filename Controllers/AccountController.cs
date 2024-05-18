@@ -38,7 +38,34 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> Register(RegisterModel model)
         {
             User playerFromDatabaseByEmail = UserSearcher.GetUserByEmail(model.Email);
+            bool isAllValid = AreThereAnyProblems(model, playerFromDatabaseByEmail);
 
+            if (isAllValid)
+            {
+                User user = new(model.Email)
+                {
+                    UserName = model.Email,
+                    FIO = model.FIO,
+                    Birthday = model.Birthday,
+                    DateRegistration = DateTime.Now,
+                    DateLastLogin = DateTime.Now,
+                };
+                if (!Database.db.Users.Any())
+                {
+                    user.IsAdmin = true;
+                }
+                var result = await playerManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, false);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View();
+        }
+
+        private bool AreThereAnyProblems(RegisterModel model, User playerFromDatabaseByEmail)
+        {
             bool isAllValid = true;
 
             if (string.IsNullOrEmpty(model.Email))
@@ -50,12 +77,6 @@ namespace ChessStatistics.Controllers
             if (string.IsNullOrEmpty(model.FIO))
             {
                 ViewBag.FIOMessage = "Заполните поле";
-                isAllValid = false;
-            }
-
-            if (model.Birthday == null)
-            {
-                ViewBag.BirthdayMessage = "Введите дату рoждения";
                 isAllValid = false;
             }
 
@@ -83,28 +104,7 @@ namespace ChessStatistics.Controllers
                 isAllValid = false;
             }
 
-            if (isAllValid)
-            {
-                User user = new(model.Email)
-                {
-                    UserName = model.Email,
-                    FIO = model.FIO,
-                    Birthday = model.Birthday,
-                    DateRegistration = DateTime.Now,
-                    DateLastLogin = DateTime.Now,
-                };
-                if (!Database.db.Users.Any())
-                {
-                    user.IsAdmin = true;
-                }
-                var result = await playerManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            return View();
+            return isAllValid;
         }
 
         [HttpGet]

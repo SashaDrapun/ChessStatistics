@@ -183,7 +183,8 @@
                                                         @Model.TournamentDrawModel.Tours[i].Games[j].PlayerWhiteScore
                                                 </th>
                                                 <th scope="row">
-                                                    <select id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)GameResult"
+                                                        <select @(ViewBag.AutorizeUser == null || !ViewBag.AutorizeUser.IsAdmin ? "disabled" : "")
+                                                        id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)GameResult"
                                                         name="GameResult"
                                                         idGame="@Model.TournamentDrawModel.Tours[i].Games[j].IdGame"
                                                         class="form-control gameResultSelect">
@@ -249,7 +250,7 @@
             @if(Model.CountTours != Model.TournamentDrawModel.Tours.Count)
             {
                     <form name="GenerateNextTour">
-                        <button class = "TournamentDraw" id="GenerateNextTour" type="submit" class="btn btn-primary btn-lg btn-block">
+                        <button class="TournamentDraw btn btn-primary btn-lg btn-block" id="GenerateNextTour" type="submit">
                             <i class="fas fa-chess-clock"></i>
                             Генерация следующего тура
                         </button>

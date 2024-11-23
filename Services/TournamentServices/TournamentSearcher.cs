@@ -72,6 +72,15 @@ namespace ChessStatistics.Services.TournamentServices
                 TournamentName = tournament.TournamentName,
                 RatingType = tournament.RatingType,
                 TournamentType = tournament.TournamentType,
+                City = tournament.City,
+                Address = tournament.Adress,
+                OnlineOffline = tournament.OnlineOrOffline,
+                Platform = tournament.Platform,
+                TournamentLink = tournament.Link,
+                MinYear = tournament.MinimumYearOfBirth,
+                MaxRating = tournament.MaxRating,
+                MaxCountPlayers = tournament.MaxCountOfPlayers,
+                IsPlatformCalculated = tournament.IsTheTournamentHeldUsingThePlatform
             };
 
             return tournamentModel;

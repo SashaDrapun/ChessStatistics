@@ -20,6 +20,15 @@ namespace ChessStatistics.Services.TournamentServices
                 TournamentType = tournamentModel.TournamentType,
                 RatingType = tournamentModel.RatingType,
                 CountTours = tournamentModel.CountTours,
+                City = tournamentModel.City,
+                Adress = tournamentModel.Address,
+                OnlineOrOffline = tournamentModel.OnlineOffline,
+                Platform = tournamentModel.Platform,
+                Link = tournamentModel.TournamentLink,
+                MinimumYearOfBirth = tournamentModel.MinYear,
+                MaxRating = tournamentModel.MaxRating,
+                MaxCountOfPlayers = tournamentModel.MaxCountPlayers,
+                IsTheTournamentHeldUsingThePlatform = tournamentModel.IsPlatformCalculated
             };
 
             if (tournamentModel.TournamentType == TournamentType.Round)

@@ -18,6 +18,16 @@ namespace ChessStatistics.Services.TournamentServices
             tournament.TournamentName = tournamentModel.TournamentName;
             tournament.TournamentType = tournamentModel.TournamentType;
             tournament.RatingType = tournamentModel.RatingType;
+            tournament.City = tournamentModel.City;
+            tournament.Adress = tournament.Adress;
+            tournament.OnlineOrOffline = tournamentModel.OnlineOffline;
+            tournament.Platform = tournamentModel.Platform;
+            tournament.Link = tournamentModel.TournamentLink;
+            tournament.MinimumYearOfBirth = tournamentModel.MinYear;
+            tournament.MaxRating = tournamentModel.MaxRating;
+            tournament.MaxCountOfPlayers = tournamentModel.MaxCountPlayers;
+            tournament.IsTheTournamentHeldUsingThePlatform = tournamentModel.IsPlatformCalculated;
+
             Database.db.Tournaments.Update(tournament);
             await Database.db.SaveChangesAsync();
         }

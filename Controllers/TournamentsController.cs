@@ -2,8 +2,6 @@
 using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
 using ChessStatistics.Services;
-using ChessStatistics.Services.PlayerServices;
-using ChessStatistics.Services.TournamentParticipantsServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
 using Microsoft.AspNetCore.Mvc;

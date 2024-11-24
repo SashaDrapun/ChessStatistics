@@ -3,7 +3,7 @@
     const countToursElementEdit = document.getElementById('countToursEditTournament');
     const platformGroup = document.getElementById('platformGroup');
     const platformGroupEdit = document.getElementById('platformGroupEdit');
-
+    
     countToursElement.style.display = 'none';
     countToursElementEdit.style.display = 'none';
 
@@ -29,7 +29,6 @@
     document.getElementById('ageFilter').addEventListener('change', filterTournaments);
 
     // Initial check for the tournament type
-    handleTournamentTypeEditChange({ target: document.getElementById('TournamentTypeEdit') });
 });
 
 function handleDeleteButtonClick(e) {
@@ -41,6 +40,7 @@ function handleDeleteButtonClick(e) {
 
 function handleEditButtonClick(e) {
     e.preventDefault();
+    handleTournamentTypeEditChange({ target: document.getElementById('TournamentTypeEdit') });
     const button = e.target;
     const tournamentData = getTournamentDataFromButton(button);
     populateEditForm(tournamentData);
@@ -91,9 +91,16 @@ function togglePlatformGroupEdit(tournamentStatus) {
 }
 
 function toggleCountToursEdit(tournamentType) {
-    countToursElementEdit.style.display = tournamentType === "1" ? 'block' : 'none';
-    const countToursEditInput = document.getElementById('countToursEdit');
-    countToursEditInput.required = tournamentType === "1";
+    const countToursElementEdit = document.getElementById('countToursEditTournament');
+    if (countToursElementEdit)
+    {
+        countToursElementEdit.style.display = tournamentType === "1" ? 'block' : 'none';
+        
+        const countToursEditInput = document.getElementById('countToursEdit');
+        if (countToursEditInput){
+            countToursEditInput.required = tournamentType === "1";
+        }
+    }
 }
 
 function handleOnlineOfflineChange() {
@@ -101,9 +108,17 @@ function handleOnlineOfflineChange() {
 }
 
 function handleTournamentTypeChange() {
-    const countToursInput = document.getElementById('countTours');
-    countToursElement.style.display = this.value === "1" ? 'block' : 'none';
-    countToursInput.required = this.value === "1";
+    const countToursElement = document.getElementById('countToursAddTournament');
+    if (countToursElement)
+    {
+        countToursElement.style.display = this.value === "1" ? 'block' : 'none';
+        const countToursInput = document.getElementById('countTours');
+   
+        if (countToursInput)
+        {
+            countToursInput.required = this.value === "1";
+        }
+    }
 }
 
 function handleStatusEditChange(e) {
@@ -111,6 +126,7 @@ function handleStatusEditChange(e) {
 }
 
 function handleTournamentTypeEditChange(e) {
+    const countToursElementEdit = document.getElementById('countToursEditTournament');
     countToursElementEdit.style.display = e.target.value === "1" ? 'block' : 'none';
     const countToursEditInput = document.getElementById('countToursEdit');
     countToursEditInput.required = e.target.value === "1";
@@ -150,6 +166,15 @@ function validateInput(input, min, max) {
 }
 document.getElementById('TournamentTypeEdit').addEventListener('change', function(e) {
     var countToursEditTournament = document.getElementById('countToursEditTournament');
+    if (e.target.value == 0) {
+        countToursEditTournament.style.display = 'none';
+    } else {
+        countToursEditTournament.style.display = 'block';
+    }
+});
+
+document.getElementById('TournamentType').addEventListener('change', function(e) {
+    var countToursEditTournament = document.getElementById('countToursAddTournament');
     if (e.target.value == 0) {
         countToursEditTournament.style.display = 'none';
     } else {

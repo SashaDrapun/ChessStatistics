@@ -154,37 +154,50 @@
                 <div class="tournament-info">
                     <h2>@tournament.TournamentName</h2>
                     <p><i class="far fa-clock"></i>@tournament.DateStart</p>
-                    <p><i class="fas fa-chess-board"></i>@tournament.MinYear и моложе</p>
+                    <p><i class="far fa-clock"></i>@tournament.TournamentType</p>
+                    <p><i class="far fa-clock"></i>@tournament.CountTours</p>
+                    <p><i class="far fa-clock"></i>@tournament.RatingType</p>
                     <p><i class="fas fa-map-marker-alt"></i>@tournament.City @tournament.Address</p>
+                    <p><i class="far fa-clock"></i>@tournament.OnlineOffline</p>
+                    <p><i class="far fa-clock"></i>@tournament.Platform</p>
+                    <p><i class="far fa-clock"></i>@tournament.TournamentLink</p>
+                    <p><i class="fas fa-chess-board"></i>@tournament.MinYear и моложе</p>
+                    <p><i class="far fa-clock"></i>@tournament.MaxRating</p>
+                    <p><i class="far fa-clock"></i>@tournament.MaxCountPlayers</p>
                 </div>
                 <form asp-controller="Home" asp-action="Tournament" asp-route-idTournament="@tournament.IdTournament">
                     <button class="details-button" idTournament="@tournament.IdTournament">Подробнее</button>
                 </form>
-                <button type="button" class="edit-button editTournament"
-                        tournamentId="@tournament.IdTournament"
-                        tournamentName="@tournament.TournamentName"
-                        tournamentDateStart="@tournament.DateStart.ToString("yyyy-MM-dd")"
-                        tournamentType="@((int)tournament.TournamentType)"
-                        ratingType="@((int)tournament.RatingType)"
-                        tournamentCountTours="@tournament.CountTours"
-                        tournamentCity="@tournament.City"
-                        tournamentAdress="@tournament.Address"
-                        tournamentStatus="@tournament.OnlineOffline"
-                        tournamentPlatform="@tournament.Platform"
-                        tournamentLink="@tournament.TournamentLink"
-                        tournamentMinYear="@tournament.MinYear"
-                        tournamentMaxRating="@tournament.MaxRating"
-                        tournamentMaxCountPlayers="@tournament.MaxCountPlayers"
-                        tournamentIsPlatformCalculated="@tournament.IsPlatformCalculated"
-                        data-toggle="modal" data-target="#editTournament">
-                    Редактировать
-                </button>
-                <button type="button" class="delete-button deleteTournament"
-                        tournamentId="@tournament.IdTournament"
-                        tournamentName="@tournament.TournamentName"
-                        data-toggle="modal" data-target="#deleteTournament">
-                    Удалить
-                </button>
+
+                @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+                {
+                    <button type="button" class="edit-button editTournament"
+                            tournamentId="@tournament.IdTournament"
+                            tournamentName="@tournament.TournamentName"
+                            tournamentDateStart="@tournament.DateStart.ToString("yyyy-MM-dd")"
+                            tournamentType="@((int)tournament.TournamentType)"
+                            ratingType="@((int)tournament.RatingType)"
+                            tournamentCountTours="@tournament.CountTours"
+                            tournamentCity="@tournament.City"
+                            tournamentAdress="@tournament.Address"
+                            tournamentStatus="@tournament.OnlineOffline"
+                            tournamentPlatform="@tournament.Platform"
+                            tournamentLink="@tournament.TournamentLink"
+                            tournamentMinYear="@tournament.MinYear"
+                            tournamentMaxRating="@tournament.MaxRating"
+                            tournamentMaxCountPlayers="@tournament.MaxCountPlayers"
+                            tournamentIsPlatformCalculated="@tournament.IsPlatformCalculated"
+                            data-toggle="modal" data-target="#editTournament">
+                        Редактировать
+                    </button>
+                    <button type="button" class="delete-button deleteTournament"
+                            tournamentId="@tournament.IdTournament"
+                            tournamentName="@tournament.TournamentName"
+                            data-toggle="modal" data-target="#deleteTournament">
+                        Удалить
+                    </button>
+                }
+                
             </div>
         }
     </div>

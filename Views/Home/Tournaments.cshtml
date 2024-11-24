@@ -191,13 +191,13 @@
                             tournamentCountTours="@tournament.CountTours"
                             tournamentCity="@tournament.City"
                             tournamentAdress="@tournament.Address"
-                            tournamentStatus="@tournament.OnlineOffline"
+                            tournamentStatus="@((int)tournament.OnlineOffline)"
                             tournamentPlatform="@tournament.Platform"
                             tournamentLink="@tournament.TournamentLink"
                             tournamentMinYear="@tournament.MinYear"
                             tournamentMaxRating="@tournament.MaxRating"
                             tournamentMaxCountPlayers="@tournament.MaxCountPlayers"
-                            tournamentIsPlatformCalculated="@tournament.IsPlatformCalculated"
+                            tournamentIsPlatformCalculated="@tournament.IsPlatformCalculated.ToString().ToLower()"
                             data-toggle="modal" data-target="#editTournament">
                         Редактировать
                     </button>
@@ -325,30 +325,6 @@
             </div>
         </div>
 
-        <script>
-            document.getElementById('OnlineOffline').addEventListener('change', function () {
-                const platformGroup = document.getElementById('platformGroup');
-                if (this.value === 'online') {
-                    platformGroup.style.display = 'block';
-                } else {
-                    platformGroup.style.display = 'none';
-                }
-            });
-
-            document.getElementById('TournamentType').addEventListener('change', function () {
-                const countToursDiv = document.getElementById('countToursAddTournament');
-                const countToursInput = document.getElementById('countTours');
-                console.log(this.value);
-                if (this.value === '0') {
-                    countToursInput.removeAttribute('required');
-                    countToursDiv.style.display = 'none';
-                } else {
-                    countToursDiv.style.display = 'block';
-                    countToursInput.setAttribute('required', 'required');
-                }
-            });
-        </script>
-
         <div class='modal fade' id='editTournament' tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content text-light bg-dark">
@@ -374,16 +350,17 @@
 
                                 <div class="form-group">
                                     <label for="TournamentTypeEdit">Тип турнира</label>
-                                    <select id="TournamentTypeEdit" name="TournamentType" class="form-control">
-                                        <option value="0">Круговая система</option>
-                                        <option value="1">Швейцарская система</option>
-                                    </select>
+                                        <select id="TournamentTypeEdit" name="TournamentType" class="form-control">
+                                            <option value="0">Круговая система</option>
+                                            <option value="1">Швейцарская система</option>
+                                        </select>
                                 </div>
 
                                 <div class="form-group" id="countToursEditTournament" style="display:none">
                                     <label for="countToursEdit">Количество туров</label>
                                     <input type="number" id="countToursEdit" name="countTours" class="form-control" />
                                 </div>
+
 
                                 <div class="form-group">
                                     <label for="RatingTypeEdit">Контроль времени</label>
@@ -405,12 +382,12 @@
 
                                 <div class="form-group">
                                     <label for="addressEdit">Адрес</label>
-                                    <input type="text" id="addressEdit" name="address" class="form-control" required />
+                                    <input type="text" id="addressEdit" name="Address" class="form-control" required />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="statusEdit">Статус турнира</label>
-                                    <select id="statusEdit" name="status" class="form-control" required>
+                                    <select id="statusEdit" name="OnlineOffline" class="form-control" required>
                                         <option value="0">Online</option>
                                         <option value="1">Offline</option>
                                     </select>
@@ -418,7 +395,7 @@
 
                                 <div class="form-group" id="platformGroupEdit">
                                     <label for="platformEdit">Платформа</label>
-                                    <select id="platformEdit" name="platform" class="form-control">
+                                    <select id="platformEdit" name="Platform" class="form-control">
                                         <option value="lichess">Lichess</option>
                                         <option value="chesscom">ChessCom</option>
                                     </select>
@@ -426,7 +403,7 @@
 
                                 <div class="form-group">
                                     <label for="tournamentLinkEdit">Ссылка на турнир</label>
-                                    <input type="text" id="tournamentLinkEdit" name="tournamentLink" class="form-control" required />
+                                    <input type="text" id="tournamentLinkEdit" name="TournamentLink" class="form-control" required />
                                 </div>
 
                                 <div class="form-group">
@@ -441,12 +418,12 @@
 
                                 <div class="form-group">
                                     <label for="maxParticipantsEdit">Максимальное количество участников</label>
-                                    <input type="number" id="maxParticipantsEdit" name="maxParticipants" class="form-control" min="0" max="500" value="500" />
+                                    <input type="number" id="maxParticipantsEdit" name="MaxCountPlayers" class="form-control" min="0" max="500" value="500" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="isPlatformCalculatedEdit">Обсчитывается турнир с помощью платформы</label>
-                                    <select id="isPlatformCalculatedEdit" name="isPlatformCalculated" class="form-control">
+                                    <select id="isPlatformCalculatedEdit" name="IsPlatformCalculated" class="form-control">
                                         <option value="true">Да</option>
                                         <option value="false">Нет</option>
                                     </select>
@@ -465,66 +442,6 @@
             </div>
         </div>
 
-        <script>
-            document.getElementById('statusEdit').addEventListener('change', function () {
-                const platformGroupEdit = document.getElementById('platformGroupEdit');
-                if (this.value === 'online') {
-                    platformGroupEdit.style.display = 'block';
-                } else {
-                    platformGroupEdit.style.display = 'none';
-                }
-            });
-
-            document.getElementById('TournamentTypeEdit').addEventListener('change', function () {
-                const countToursEditDiv = document.getElementById('countToursEditTournament');
-                const countToursEditInput = document.getElementById('countToursEdit');
-                console.log(this.value);
-                if (this.value === '0') {
-                    countToursEditInput.removeAttribute('required');
-                    countToursEditDiv.style.display = 'none';
-                } else {
-                    countToursEditDiv.style.display = 'block';
-                    countToursEditInput.setAttribute('required', 'required');
-                }
-            });
-        </script>
-
-
-    <script>
-        document.getElementById('statusFilter').addEventListener('change', filterTournaments);
-        document.getElementById('typeFilter').addEventListener('change', filterTournaments);
-        document.getElementById('cityFilter').addEventListener('change', filterTournaments);
-        document.getElementById('ratingFilter').addEventListener('change', filterTournaments);
-        document.getElementById('ageFilter').addEventListener('change', filterTournaments);
-
-        function filterTournaments() {
-            const statusFilter = document.getElementById('statusFilter').value;
-            const typeFilter = document.getElementById('typeFilter').value;
-            const cityFilter = document.getElementById('cityFilter').value;
-            const ratingFilter = document.getElementById('ratingFilter').value;
-            const ageFilter = document.getElementById('ageFilter').value;
-
-            const cards = document.querySelectorAll('.tournament-card');
-            cards.forEach(card => {
-                const status = card.getAttribute('data-status');
-                const type = card.getAttribute('data-type');
-                const city = card.getAttribute('data-city');
-                const rating = card.getAttribute('data-rating');
-                const age = card.getAttribute('data-age');
-
-                const shouldShow = (statusFilter === 'all' || statusFilter === status) &&
-                    (typeFilter === 'all' || typeFilter === type) &&
-                    (cityFilter === 'all' || cityFilter === city) &&
-                    (ratingFilter === 'all' || ratingFilter === rating) &&
-                    (ageFilter === 'all' || ageFilter === age);
-
-                card.style.display = shouldShow ? 'flex' : 'none';
-            });
-        }
-    </script>
-
-
-    
 
     <div class='modal fade' id='deleteTournament' tabindex="-1" role="dialog"
          aria-hidden="true">
@@ -560,16 +477,4 @@
 </div>
 </div>
 <div class="emptySpace"></div>
-<script>
-    function validateInput(input, min, max) {
-        let value = input.value.replace(/\D/g, ''); // Удаляем все нецифровые символы
-        if (value === '') value = min;
-        if (value < min) {
-            value = min;
-        } else if (value > max) {
-            value = max;
-        }
-        input.value = value;
-    }
-</script>
 <script src="~/js/tournaments.js"></script>

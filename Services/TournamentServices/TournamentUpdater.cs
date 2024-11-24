@@ -19,7 +19,7 @@ namespace ChessStatistics.Services.TournamentServices
             tournament.TournamentType = tournamentModel.TournamentType;
             tournament.RatingType = tournamentModel.RatingType;
             tournament.City = tournamentModel.City;
-            tournament.Adress = tournament.Adress;
+            tournament.Adress = tournamentModel.Address;
             tournament.OnlineOrOffline = tournamentModel.OnlineOffline;
             tournament.Platform = tournamentModel.Platform;
             tournament.Link = tournamentModel.TournamentLink;

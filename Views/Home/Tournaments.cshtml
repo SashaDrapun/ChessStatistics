@@ -7,14 +7,12 @@
         body {
             background-color: #343a40;
             color: #fff;
-            font-family: Arial, sans-serif;
         }
 
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 20px;
         }
 
         h1 {
@@ -167,8 +165,8 @@
                 <option value="moscow">Москва</option>
                 <!-- Add more cities as needed -->
             </select>
-           <input type="number" id="ratingFilter" placeholder="Рейтинг" min="0" max="3000" oninput="validateInput(this, 0, 3000)">
-        <input type="number" id="ageFilter" placeholder="Возраст" min="10" max="100" oninput="validateInput(this, 0, 120)">
+           <input type="number" id="ratingFilter" placeholder="Рейтинг" min="0" max="3000" pattern="\d*" oninput="validateInput(this, 0, 3000)">
+        <input type="number" id="ageFilter" placeholder="Возраст" min="10" max="100" pattern="\d*" oninput="validateInput(this, 0, 120)">
         </div>
         @foreach (var tournament in Model)
         {
@@ -564,11 +562,14 @@
 <div class="emptySpace"></div>
 <script>
     function validateInput(input, min, max) {
-        if (input.value < min) {
-            input.value = min;
-        } else if (input.value > max) {
-            input.value = max;
+        let value = input.value.replace(/\D/g, ''); // Удаляем все нецифровые символы
+        if (value === '') value = min;
+        if (value < min) {
+            value = min;
+        } else if (value > max) {
+            value = max;
         }
+        input.value = value;
     }
 </script>
 <script src="~/js/tournaments.js"></script>

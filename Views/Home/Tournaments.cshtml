@@ -149,47 +149,6 @@
 
         @foreach (var tournament in Model)
         {
-                    <div class="text-light tournament-card" data-status="planned" data-type="offline" data-city="minsk" data-rating="intermediate1" data-age="adults">
-                        <img src="https://via.placeholder.com/80" alt="Поединок">
-                        <div class="tournament-info">
-                            <h2>@tournament.TournamentName</h2>
-                            <p><i class="far fa-clock"></i>@tournament.DateStart</p>
-                            <p><i class="fas fa-chess-board"></i>@tournament.MinYear и моложе </p>
-                            <p><i class="fas fa-map-marker-alt"></i>@tournament.City  @tournament.Address</p>
-                        </div>
-                    <form asp-controller="Home" asp-action="Tournament" asp-route-idTournament="@tournament.IdTournament">
-                        <button class="details-button" idTournament="@tournament.IdTournament">Подробнее</button>
-                    </form>
-
-                    <button type="button" class="edit-button editTournament"
-                            tournamentId="@tournament.IdTournament"
-                            tournamentName="@tournament.TournamentName"
-                            tournamentDateStart="@tournament.DateStart.ToString("yyyy-MM-dd")"
-                            tournamentType="@((int)tournament.TournamentType)"
-                            ratingType="@((int)tournament.RatingType)"
-                            tournamentCountTours="@tournament.CountTours"
-                            tournamentCity="@tournament.City"
-                            tournamentAdress="@tournament.Address"
-                            tournamentStatus="@((int)tournament.OnlineOffline)"
-                            tournamentPlatform="@tournament.Platform"
-                            tournamentLink="@tournament.TournamentLink"
-                            tournamentMinYear="@tournament.MinYear"
-                            tournamentMaxRating="@tournament.MaxRating"
-                            tournamentMaxCountPlayers="@tournament.MaxCountPlayers"
-                            tournamentIsPlatformCalculated="@tournament.IsPlatformCalculated.ToString().ToLower()"
-                            data-toggle="modal" data-target="#editTournament">
-                        Редактировать
-                    </button>
-
-                    <button type="button" class="delete-button deleteTournament"
-                            tournamentId="@tournament.IdTournament"
-                            tournamentName="@tournament.TournamentName"
-                            data-toggle="modal" data-target="#deleteTournament">
-                        Удалить
-                    </button>
-                    </div>   
-    }
-
             <div class="text-light tournament-card" data-status="@tournament.OnlineOffline" data-type="@tournament.OnlineOffline" data-city="@tournament.City" data-rating="@tournament.RatingType" data-age="@tournament.MinYear">
                 <img src="https://via.placeholder.com/80" alt="Поединок">
                 <div class="tournament-info">
@@ -328,119 +287,6 @@
         </div>
     </div>
 
-        <div class='modal fade' id='editTournament' tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content text-light bg-dark">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-info">Редактирование турнира</h5>
-                        <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <form asp-controller="Tournaments" asp-action="EditTournament" method="post">
-                                <input id="IdTournamentEdit" name="idTournament" class="d-none">
-                                <div class="form-group">
-                                    <label for="TournamentNameEdit">Введите название турнира</label>
-                                    <input type="text" id="TournamentNameEdit" name="TournamentName" class="form-control" placeholder="Название турнира" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="DateStartEdit">Дата начала турнира</label>
-                                    <input type="date" id="DateStartEdit" name="dateStart" class="form-control" required />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="TournamentTypeEdit">Тип турнира</label>
-                                        <select id="TournamentTypeEdit" name="TournamentType" class="form-control">
-                                            <option value="0">Круговая система</option>
-                                            <option value="1">Швейцарская система</option>
-                                        </select>
-                                </div>
-
-                                <div class="form-group" id="countToursEditTournament" style="display:none">
-                                    <label for="countToursEdit">Количество туров</label>
-                                    <input type="number" id="countToursEdit" name="countTours" class="form-control" />
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="RatingTypeEdit">Контроль времени</label>
-                                    <select id="RatingTypeEdit" name="RatingType" class="form-control">
-                                        <option value="0">Блиц</option>
-                                        <option value="1">Рапид</option>
-                                        <option value="2">Классика</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="cityEdit">Город</label>
-                                    <select id="cityEdit" name="city" class="form-control" required>
-                                        <option value="minsk">Минск</option>
-                                        <option value="moscow">Москва</option>
-                                        <!-- Add more cities as needed -->
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="addressEdit">Адрес</label>
-                                    <input type="text" id="addressEdit" name="Address" class="form-control" required />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="statusEdit">Статус турнира</label>
-                                    <select id="statusEdit" name="OnlineOffline" class="form-control" required>
-                                        <option value="0">Online</option>
-                                        <option value="1">Offline</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group" id="platformGroupEdit">
-                                    <label for="platformEdit">Платформа</label>
-                                    <select id="platformEdit" name="Platform" class="form-control">
-                                        <option value="lichess">Lichess</option>
-                                        <option value="chesscom">ChessCom</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="tournamentLinkEdit">Ссылка на турнир</label>
-                                    <input type="text" id="tournamentLinkEdit" name="TournamentLink" class="form-control" required />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="minYearEdit">Минимальный год рождения</label>
-                                    <input type="number" id="minYearEdit" name="minYear" class="form-control" min="1900" max="2024" value="1900" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="maxRatingEdit">Максимальный рейтинг</label>
-                                    <input type="number" id="maxRatingEdit" name="maxRating" class="form-control" min="0" max="3300" value="3300" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="maxParticipantsEdit">Максимальное количество участников</label>
-                                    <input type="number" id="maxParticipantsEdit" name="MaxCountPlayers" class="form-control" min="0" max="500" value="500" />
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="isPlatformCalculatedEdit">Обсчитывается турнир с помощью платформы</label>
-                                    <select id="isPlatformCalculatedEdit" name="IsPlatformCalculated" class="form-control">
-                                        <option value="true">Да</option>
-                                        <option value="false">Нет</option>
-                                    </select>
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">
-                                    Применить изменения
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-
     <div class='modal fade' id='editTournament' tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content text-light bg-dark">
@@ -543,15 +389,8 @@
         </div>
     </div>
 
-
-    <div class='modal fade' id='deleteTournament' tabindex="-1" role="dialog"
-         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered " role="document">
-
-
     <div class='modal fade' id='deleteTournament' tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-
             <div class="modal-content text-light bg-dark">
                 <div class="modal-header">
                     <h5 class="modal-title text-danger">Удаление турнира</h5>

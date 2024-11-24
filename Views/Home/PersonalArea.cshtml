@@ -4,52 +4,195 @@
     ViewData["CurrentPage"] = "PersonalArea";
     Layout = "_Layout";
 }
+ <style>
+    body {
+        background-color: #f4f4f4;
+    }
+    .container {
+        width: 80%;
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .user-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .user-info img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+    .user-info h2 {
+        margin: 0 0 10px;
+        color: #333;
+        font-size: 32px;
+    }
+    .card-row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .card {
+        background: #2c3e50;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 20px;
+        width: calc(33% - 20px);
+        text-align: center;
+        color: #ecf0f1;
+    }
+    .card p {
+        margin: 5px 0;
+        color: #3498db;
+        font-size: 16px;
+    }
+    .progress-bar-container {
+        margin: 20px 0;
+    }
+    .progress-bar-container p {
+        margin-bottom: 5px;
+    }
+    .progress-bar {
+        background-color: #e0e0e0;
+        border-radius: 20px;
+        overflow: hidden;
+        height: 20px;
+        position: relative;
+    }
+    .progress-bar div {
+        height: 100%;
+        width: 0;
+        background-color: #3498db;
+        transition: width 0.3s;
+    }
+    .progress-bar span {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 12px;
+    }
+    .ratings {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+    }
+    .ratings div {
+        text-align: center;
+    }
+    .ratings div i {
+        font-size: 24px;
+        color: #3498db;
+        margin-bottom: 5px;
+    }
+    .games-list {
+        width: 100%;
+        max-width: 800px;
+        margin-top: 20px;
+    }
+    .game-item {
+        background: #2c3e50;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 10px 0;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #ecf0f1;
+    }
+    .game-item div {
+        flex: 1;
+        text-align: center;
+        padding: 5px;
+    }
+    .game-item i {
+        margin-right: 5px;
+        color: #3498db;
+    }
+</style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <div class="emptySpace"></div>
 <div id="content" class="container justify-content-center">
-    <h3 class="text-light"> Личный кабинет: @Model.FIO </h3>
+    
 
     @if (ViewBag.IsUserConnectedToThePlayer)
     {
-        <div class="card bg-dark text-white">
-            <div class="card-header">
-                <h4 class="card-title"><i class="fas fa-chess-king"></i> Статистика профиля</h4>
+        <div class="user-info">
+            <img src="https://via.placeholder.com/150" alt="Профиль">
+            <h2 class="text-light"> Личный кабинет: @Model.FIO </h2>
+        </div>
+        <div class="card-row">
+            <div class="card">
+                <p id="classicRank">Текущий разряд (Классика): Мастер ФИДЕ</p>
+                <div class="ratings">
+                    <div>
+                        <i class="fas fa-clock"></i>
+                        <p>Классика: @Model.Player.Rating.RatingClassic</p>
+                    </div>
+                </div>
+                <p id="classicNextRank">Прогресс до следующего разряда (Классика):</p>
+                <div class="progress-bar">
+                    <div id="classicProgressBar"></div>
+                    <span id="classicProgressText">60%</span>
+                </div>
             </div>
-            <div class="card-body">
-                <table class="table mb-0 bg-secondary text-white">
-                    <tbody>
-                        <tr>
-                            <th>Звание</th>
-                            <td>@Model.Player.RankOutput</td>
-                        </tr>
-                        <tr>
-                            <th>Рейтинг по блицу</th>
-                            <td>@Model.Player.Rating.RatingBlitz</td>
-                        </tr>
-                        <tr>
-                            <th>Рейтинг по рапиду</th>
-                            <td>@Model.Player.Rating.RatingRapid</td>
-                        </tr>
-                        <tr>
-                            <th>Рейтинг по классике</th>
-                            <td>@Model.Player.Rating.RatingClassic</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="card">
+                <p id="rapidRank">Текущий разряд (Рапид): Международный мастер</p>
+                <div class="ratings">
+                    <div>
+                        <i class="fas fa-stopwatch"></i>
+                        <p>Рапид: @Model.Player.Rating.RatingRapid</p>
+                    </div>
+                </div>
+                <p id="rapidNextRank">Прогресс до следующего разряда (Рапид):</p>
+                <div class="progress-bar">
+                    <div id="rapidProgressBar"></div>
+                    <span id="rapidProgressText">70%</span>
+                </div>
+            </div>
+            <div class="card">
+                <p id="blitzRank">Текущее (Блиц): Мастер ФИДЕ</p>
+                <div class="ratings">
+                    <div>
+                        <i class="fas fa-tachometer-alt"></i>
+                        <p>Блиц: @Model.Player.Rating.RatingBlitz</p>
+                    </div>
+                </div>
+                <p id="blitzNextRank">Прогресс до следующего разряда (Блиц):</p>
+                <div class="progress-bar">
+                    <div id="blitzProgressBar"></div>
+                    <span id="blitzProgressText">80%</span>
+                </div>
             </div>
         </div>
-        <h5 class="text-light">
-            Ваши игры
-        </h5>
-        <table id="gamesTable" class="table table-responsive-sm table-bordered table-hover table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">Игрoк за белых</th>
-                    <th scope="col">Игрoк за черных</th>
-                    <th scope="col">Результат</th>
-                    <th scope="col">Дата</th>
-                </tr>
-            </thead>
+
+        <h5 class="text-light">Ваши игры</h5>
+            <div class="game-item">
+                    <div><i class="fas fa-user"></i>@Model.FIO</div>
+                    <div><i class="fas fa-chess-king"></i>Белые</div>
+                    <div><i class="fas fa-trophy"></i>результат</div>
+                    <div><i class="fas fa-calendar-alt"></i>Дата</div>
+                    </div>
             <tbody>
                 @foreach (var game in Model.Games)
                 {
@@ -73,7 +216,7 @@
                     </tr>
                 }
             </tbody>
-        </table>
+            
     }
 else if(ViewBag.IsUserRequestedLinkWithPlayer)
 {
@@ -127,4 +270,114 @@ else
     </div>
 </div>
 </div>
+<script>
+        function getCurrentRank(rating) {
+            if (rating >= 2500) return "Гроссмейстер";
+            if (rating < 2500 && rating >= 2400) return "Международный мастер";
+            if (rating < 2400 && rating >= 2300) return "Мастер ФИДЕ";
+            if (rating < 2300 && rating >= 2000) return "Кандидат в мастера спорта";
+            if (rating < 2000 && rating >= 1800) return "Первый разряд";
+            if (rating < 1800 && rating >= 1600) return "Второй разряд";
+            if (rating < 1600 && rating >= 1400) return "Третий разряд";
+            if (rating < 1400 && rating >= 1200) return "Четвертый разряд";
+            if (rating < 1200) return "Без разряда";
+        }
+
+        function getNextRank(currentRank) {
+            const ranks = [
+                "Без разряда",
+                "Четвертый разряд",
+                "Третий разряд",
+                "Второй разряд",
+                "Первый разряд",
+                "Кандидат в мастера спорта",
+                "Мастер ФИДЕ",
+                "Международный мастер",
+                "Гроссмейстер"
+            ];
+            const ranksGenitive = [
+                "Без разряда",
+                "Четвертого разряда",
+                "Третьего разряда",
+                "Второго разряда",
+                "Первого разряда",
+                "Кандидата в мастера спорта",
+                "Мастера ФИДЕ",
+                "Международного мастера",
+                "Гроссмейстера"
+            ];
+            const currentIndex = ranks.indexOf(currentRank);
+            return ranksGenitive[currentIndex + 1];
+        }
+
+        function getProgressInPercents(currentRating) {
+            let progress = 0;
+            let lengthOfProgress = 0;
+
+            if (currentRating >= 1200) {
+                progress = currentRating - 1200;
+                lengthOfProgress = 1200;
+            }
+
+            if (currentRating >= 1400) {
+                progress = currentRating - 1400;
+                lengthOfProgress = 200;
+            }
+
+            if (currentRating >= 1600) {
+                progress = currentRating - 1600;
+                lengthOfProgress = 200;
+            }
+
+            if (currentRating >= 1800) {
+                progress = currentRating - 1800;
+                lengthOfProgress = 200;
+            }
+
+            if (currentRating >= 2000) {
+                progress = currentRating - 2000;
+                lengthOfProgress = 300;
+            }
+
+            if (currentRating >= 2300) {
+                progress = currentRating - 2300;
+                lengthOfProgress = 100;
+            }
+
+            if (currentRating >= 2400) {
+                progress = currentRating - 2400;
+                lengthOfProgress = 100;
+            }
+            if (currentRating >= 2500) return 100;
+            console.log(progress);
+            console.log(lengthOfProgress);
+            return (progress / lengthOfProgress) * 100;
+        }
+
+        function updateProgressBar(bar, text, currentRating) {
+            const progress = getProgressInPercents(currentRating);
+            bar.style.width = progress + '%';
+            text.textContent = progress.toFixed(0) + '%';
+        }
+
+        const currentRatingClassic = 2450;
+        const currentRatingRapid = 1450;
+        const currentRatingBlitz = 1550;
+
+        const classicRank = getCurrentRank(currentRatingClassic);
+        const rapidRank = getCurrentRank(currentRatingRapid);
+        const blitzRank = getCurrentRank(currentRatingBlitz);
+
+        document.getElementById('classicRank').textContent = `Текущий разряд (Классика): ${classicRank}`;
+        document.getElementById('rapidRank').textContent = `Текущий разряд (Рапид): ${rapidRank}`;
+        document.getElementById('blitzRank').textContent = `Текущий разряд (Блиц): ${blitzRank}`;
+
+        document.getElementById('classicNextRank').textContent = `Осталось до: ${getNextRank(classicRank)}`;
+        document.getElementById('rapidNextRank').textContent = `Осталось до: ${getNextRank(rapidRank)}`;
+        document.getElementById('blitzNextRank').textContent = `Осталось до: ${getNextRank(blitzRank)}`;
+
+        updateProgressBar(document.getElementById('classicProgressBar'), document.getElementById('classicProgressText'), currentRatingClassic);
+        updateProgressBar(document.getElementById('rapidProgressBar'), document.getElementById('rapidProgressText'), currentRatingRapid);
+        updateProgressBar(document.getElementById('blitzProgressBar'), document.getElementById('blitzProgressText'), currentRatingBlitz);
+    </script>
 <div class="emptySpace"></div>

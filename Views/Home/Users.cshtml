@@ -4,125 +4,236 @@
     ViewData["CurrentPage"] = "Users";
 }
 
-<div class="emptySpace"></div>
-<div id="content" class="container justify-content-center">
- 
-<h5 class="text-light">Пользователи</h5>
+<style>
+    body {
+        background-color: #f4f4f4;
+    }
 
-<table id="usersTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
-    <thead>
-        <tr>
-            <th scope="col">Фамилия и имя</th>
-            <th scope="col">Дата последнего входа</th>
-            <th scope="col">Дата регистрации</th>
-            <th scope="col">Дата рождения</th>
-            @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
-            {
-                <th scope="col">Удалить</th>
-                <th scope="col">Назначить администратором</th>
-            }
-            <th scope="col">Перейти</th>
-        </tr>
-    </thead>
-    <tbody>
+    h5 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 20px;
+        margin-top: 20px; /* Добавлен отступ сверху */
+    }
+    .search-container {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .search-input {
+        width: 50%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        font-size: 14px;
+        color: #333;
+    }
+    .search-input:focus {
+        outline: none;
+        border-color: #3498db;
+    }
+    .card-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .card {
+        background: #2c3e50;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 10px;
+        padding: 20px;
+        width: calc(33% - 20px);
+        text-align: center;
+        color: #ecf0f1;
+    }
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .card-title {
+        margin-bottom: 10px;
+    }
+    .card p {
+        margin: 5px 0;
+        color: #3498db;
+        font-size: 16px;
+        white-space: nowrap; /* Предотвращает перенос строки */
+    }
+    .action-buttons {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        margin-top: 10px;
+        padding: 5px 10px;
+        gap: 5px;
+    }
+    .action-buttons button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 12px;
+        transition: background-color 0.3s;
+    }
+    .action-buttons button:hover {
+        background-color: #2980b9;
+    }
+    .btn-danger {
+        background-color: #f44336;
+        border-color: #f44336;
+    }
+    .btn-danger:hover {
+        background-color: #d32f2f;
+        border-color: #d32f2f;
+    }
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+    }
+    .btn-primary:hover {
+        background-color: #2980b9;
+        border-color: #2980b9;
+    }
+    .modal-content {
+        background-color: #2c3e50;
+        color: #ecf0f1;
+    }
+    .modal-header {
+        background-color: #3498db;
+        color: #ecf0f1;
+    }
+    .modal-footer {
+        background-color: #2c3e50;
+    }
+    .text-info {
+        color: #3498db;
+    }
+    .single-button {
+        width: 100%;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div class="emptySpace"></div>
+<div id="content">
+    <h5 class="text-light">Список зарегистрированных пользователей:</h5>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Поиск по пользователям...">
+    </div>
+
+    <div class="card-row" id="userCards">
         @foreach (var user in Model)
         {
-            <tr>
-                <th scope="row">
-                    @user.FIO
-                </th>
-                    <td>@user.DateLastLogin.ToString("D")</td>
-                    <td>@user.DateRegistration.ToString("D")</td>
-                    <td>@user.Birthday.ToString("D")</td>
-
-                @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
-                {
-                    @if (!user.IsAdmin)
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@user.FIO</h5>
+                    <p><i class="fas fa-calendar-alt"></i> Последний вход: @user.DateLastLogin.ToString("D")</p>
+                    <p><i class="fas fa-calendar-alt"></i> Регистрация: @user.DateRegistration.ToString("D")</p>
+                    <p><i class="fas fa-birthday-cake"></i> Дата рождения: @user.Birthday.ToString("D")</p>
+                    @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
                     {
-                        <td>
-                            <button class="btn btn-danger deleteUser"
-                                idUser="@user.Id"
-                                data-toggle="modal" data-target="#deleteUser">
-                                Удалить
-                            </button>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger setAdmin"
-                                idUser="@user.Id"
-                                data-toggle="modal" data-target="#setAdmin">
-                                Назначить администратором
-                            </button>
-                        </td>
+                        <div class="action-buttons">
+                            @if (!user.IsAdmin)
+                            {
+                                <button class="btn btn-danger deleteUser" idUser="@user.Id" data-toggle="modal" data-target="#deleteUser">
+                                    <i class="fas fa-trash-alt"></i> Удалить
+                                </button>
+                                <button class="btn btn-danger setAdmin" idUser="@user.Id" data-toggle="modal" data-target="#setAdmin">
+                                    <i class="fas fa-user-shield"></i> Назначить администратором
+                                </button>
+                            }
+                            else
+                            {
+                                <p class="text-info single-button">Администратор</p>
+                            }
+                            <form asp-controller="Home" asp-action="Player" asp-route-idPlayer="@user.Id">
+                                <button class="btn btn-primary @(user.IsAdmin ? "single-button" : "")">
+                                    <i class="fas fa-arrow-right"></i> Перейти
+                                </button>
+                            </form>
+                        </div>
                     }
                     else
                     {
-                        <td>
-                            <p class="text-info">Администратор</p>
-                        </td>
-                        <td>
-                            <p class="text-info">Администратор</p>
-                        </td>
+                        <form asp-controller="Home" asp-action="Player" asp-route-idPlayer="@user.Id">
+                            <button class="btn btn-primary single-button">
+                                <i class="fas fa-arrow-right"></i> Перейти
+                            </button>
+                        </form>
                     }
-                }
-
-                <td>
-                    <form asp-controller="Home" asp-action="Player" asp-route-idPlayer="@user.Id">
-                        <button class="btn btn-primary">
-                            Перейти
-                        </button>
-                    </form>
-                </td>
-            </tr>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
-   
+    </div>
 
-<div class='modal fade' id='deleteUser' tabindex="-1" role="dialog"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document">
-        <div class="modal-content text-light bg-dark">
-            <div class="modal-header ">
-                <h5 class="modal-title text-danger">Удаление пользователя</h5>
-                <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="text-danger">Вы уверены, что хотите удалить пользователя?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                <form id="deleteUserForm" method="post">
-                    <button type="submit" class="btn btn-primary">Удалить</button>
-                </form>
+    <div class='modal fade' id='deleteUser' tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content text-light bg-dark">
+                <div class="modal-header ">
+                    <h5 class="modal-title text-danger">Удаление пользователя</h5>
+                    <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger">Вы уверены, что хотите удалить пользователя?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <form id="deleteUserForm" method="post">
+                        <button type="submit" class="btn btn-primary">Удалить</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class='modal fade' id='setAdmin' tabindex="-1" role="dialog"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document">
-        <div class="modal-content text-white bg-dark">
-            <div class="modal-header ">
-                <h5 class="modal-title text-danger">Назначение администратора</h5>
-                <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="text-danger">Вы уверены, что хотите сделать пользователя администратором?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-                <form id="setAdminForm" method="post">
-                    <button type="submit" class="btn btn-primary">Назначить</button>
-                </form>
+    <div class='modal fade' id='setAdmin' tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content text-white bg-dark">
+                <div class="modal-header ">
+                    <h5 class="modal-title text-danger">Назначение администратора</h5>
+                    <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger">Вы уверены, что хотите сделать пользователя администратором?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <form id="setAdminForm" method="post">
+                        <button type="submit" class="btn btn-primary">Назначить</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <div class="emptySpace"></div>
 <script src="~/js/users.js"></script>
+
+<script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            if (title.includes(query)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+</script>

@@ -15,7 +15,8 @@ namespace ChessStatistics.Services.PlayerServices
                 Rank = playerModel.Rank,
                 RatingBlitz = playerModel.CurrentRating,
                 RatingRapid = playerModel.CurrentRating,
-                RatingClassic = playerModel.CurrentRating
+                RatingClassic = playerModel.CurrentRating,
+                Photo = playerModel.Photo
             };
 
             Database.db.Players.Add(player);

@@ -17,5 +17,7 @@ namespace ChessStatistics.ViewModels
         public Rating Rating { get; set; }
 
         public int IdTournament { get; set; }
+
+        public byte[] Photo { get; set; }
     }
 }

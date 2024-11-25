@@ -3,7 +3,9 @@ using ChessStatistics.Models;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace ChessStatistics.Controllers
@@ -16,8 +18,16 @@ namespace ChessStatistics.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePlayer(PlayerModel playerModel)
+        public async Task<IActionResult> CreatePlayer(PlayerModel playerModel, IFormFile photo)
         {
+            if (photo != null && photo.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await photo.CopyToAsync(memoryStream);
+                    playerModel.Photo = memoryStream.ToArray();
+                }
+            }
             await PlayerAdder.AddPlayerAsync(playerModel);
             return RedirectToAction("Players", "Home");
         }

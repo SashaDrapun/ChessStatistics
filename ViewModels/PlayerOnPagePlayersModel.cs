@@ -17,5 +17,7 @@ namespace ChessStatistics.ViewModels
         public double RatingRapid { get; set; }
 
         public double RatingClassic { get; set; }
+
+        public string PhotoBase64 { get; set; }
     }
 }

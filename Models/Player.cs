@@ -23,5 +23,7 @@ namespace ChessStatistics.Models
         public Rank Rank { get; set; }
 
         public string FIO { get; set; }
+
+        public byte[] Photo { get; set; }
     }
 }

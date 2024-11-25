@@ -5,6 +5,7 @@ using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.Services.ToursServices;
 using ChessStatistics.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 
@@ -74,7 +75,8 @@ namespace ChessStatistics.Mappers
                 FIO = player.FIO,
                 RatingBlitz = player.RatingBlitz,
                 RatingRapid = player.RatingRapid,
-                RatingClassic = player.RatingClassic
+                RatingClassic = player.RatingClassic,
+                PhotoBase64 = player.Photo != null ? Convert.ToBase64String(player.Photo) : null
             };
             return model;
         }

@@ -60,16 +60,19 @@ namespace ChessStatistics.Controllers
             return View(PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(PlayerSearcher.GetPlayerById(idPlayer)));
         }
 
-        public async Task<IActionResult> PersonalArea()
+        public async Task<IActionResult> PersonalArea(int idPlayer)
         {
             await SetViewBag();
             User autorizeUser = await GetAutorizeUser();
-            ViewBag.IsUserConnectedToThePlayer = UserSearcher.IsUserConnectedToThePlayer(autorizeUser);
-            ViewBag.IsUserRequestedLinkWithPlayer = LinkUserWithPlayerSearcher.IsUserRequestedLinkWithPlayer(autorizeUser);
-            ViewBag.PlayersNotLinkedWithUser = PlayerSearcher.GetPlayersNotLinkedWithUser();
-
-            User user = UserSearcher.GetUserById(autorizeUser.Id);
-            Player player = PlayerSearcher.GetPlayerById(user.IdPlayer);
+            if (autorizeUser != null)
+            {
+                ViewBag.IsUserConnectedToThePlayer = UserSearcher.IsUserConnectedToThePlayer(autorizeUser);
+                ViewBag.IsUserRequestedLinkWithPlayer = LinkUserWithPlayerSearcher.IsUserRequestedLinkWithPlayer(autorizeUser);
+                ViewBag.PlayersNotLinkedWithUser = PlayerSearcher.GetPlayersNotLinkedWithUser();
+            }
+            
+            // User user = UserSearcher.GetUserById(autorizeUser.Id);
+            Player player = PlayerSearcher.GetPlayerById(idPlayer);
             return View(PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(player));
         }
 

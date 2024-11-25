@@ -178,9 +178,24 @@
                     <p><i class="fas fa-clock"></i> Классика: @player.RatingClassic</p>
                 </div>
                 <div class="action-buttons">
-                    <button class="edit-button">Редактировать</button>
-                    <button class="delete-button">Удалить</button>
-                    <button>Перейти</button>
+                    <form asp-controller="Home" asp-action="PersonalArea" asp-route-idPlayer="@player.IdPlayer">
+                        <button class="details-button" idPlayer="@player.IdPlayer">Подробнее</button>
+                    </form>
+                   
+                    <button type="button" class="edit-button editPlayer"
+                        idPlayer="@player.IdPlayer"
+                        fioPlayer="@player.FIO"
+                        titlePlayer="@((int)player.Rank)"
+                        ratingPlayer="@player.RatingRapid"
+                        data-toggle="modal" data-target="#editPlayer">
+                        Редактировать
+                    </button>
+
+                    <button type="button" class="delete-button deletePlayer" 
+                            idPlayer="@player.IdPlayer"
+                            data-toggle="modal" data-target="#deletePlayer">
+                            Удалить
+                     </button>
                 </div>
             </div>
         }

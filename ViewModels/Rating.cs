@@ -28,6 +28,12 @@ namespace ChessStatistics.ViewModels
 
         public double RatingClassic { get; set; }
 
+         public string RatingBlitzOutput {get => RatingBlitz.ToString("F2"); }
+
+        public string RatingRapidOutput {get => RatingRapid.ToString("F2"); }
+
+        public string RatingClassicOutput {get => RatingClassic.ToString("F2");}
+
         public RatingType RatingType { get; set; }
     }
 }

@@ -9,12 +9,10 @@ namespace ChessStatistics.ViewModels
 
         public string FIO { get; set; }
 
-        public Rank Rank { get; set; }
-
         public string RankOutput { get; set; }
 
         public Rating Rating { get; set; }
 
-        public List<GameModel> Games { get; set; }
+        public List<GameOnPlayerPageModel> Games { get; set; }
     }
 }

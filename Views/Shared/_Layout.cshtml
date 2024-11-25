@@ -68,9 +68,7 @@
                     <li class="nav-item d-flex justify-content-center align-items-center @(ViewData["CurrentPage"].ToString() == "Tournaments"?"active":"")">
                     <a class="nav-link" asp-controller="Home" asp-action="Tournaments">Турниры</a>
                 </li>
-                <li class="nav-item d-flex justify-content-center align-items-center @(ViewData["CurrentPage"].ToString() == "Games"?"active":"")">
-                    <a class="nav-link" asp-controller="Home" asp-action="Games">Игры</a>
-                </li>
+                
                 @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
                 {
                         <li class="nav-item d-flex justify-content-center align-items-center @(ViewData["CurrentPage"].ToString() == "Users"?"active":"")">

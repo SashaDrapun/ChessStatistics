@@ -1,4 +1,4 @@
-﻿ @model ChessStatistics.ViewModels.UserModel
+﻿ @model ChessStatistics.ViewModels.PlayerOnPlayerPageModel
 
 @{
     ViewData["CurrentPage"] = "PersonalArea";
@@ -147,7 +147,7 @@
                 <div class="ratings">
                     <div>
                         <i class="fas fa-clock"></i>
-                        <p>Классика: @Model.Player.Rating.RatingClassic</p>
+                        <p>Классика: @Model.Rating.RatingClassicOutput</p>
                     </div>
                 </div>
                 <p id="classicNextRank">Прогресс до следующего разряда (Классика):</p>
@@ -161,7 +161,7 @@
                 <div class="ratings">
                     <div>
                         <i class="fas fa-stopwatch"></i>
-                        <p>Рапид: @Model.Player.Rating.RatingRapid</p>
+                        <p>Рапид: @Model.Rating.RatingRapidOutput</p>
                     </div>
                 </div>
                 <p id="rapidNextRank">Прогресс до следующего разряда (Рапид):</p>
@@ -175,7 +175,7 @@
                 <div class="ratings">
                     <div>
                         <i class="fas fa-tachometer-alt"></i>
-                        <p>Блиц: @Model.Player.Rating.RatingBlitz</p>
+                        <p>Блиц: @Model.Rating.RatingBlitzOutput</p>
                     </div>
                 </div>
                 <p id="blitzNextRank">Прогресс до следующего разряда (Блиц):</p>
@@ -187,33 +187,18 @@
         </div>
 
         <h5 class="text-light">Ваши игры</h5>
-            <div class="game-item">
-                    <div><i class="fas fa-user"></i>@Model.FIO</div>
-                    <div><i class="fas fa-chess-king"></i>Белые</div>
-                    <div><i class="fas fa-trophy"></i>результат</div>
-                    <div><i class="fas fa-calendar-alt"></i>Дата</div>
-                    </div>
+           
             <tbody>
                 @foreach (var game in Model.Games)
                 {
-                    <tr>
-                        <th scope="row">
-                            <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerWhite">
-                                <h5 class='text-text-info' id="userFIO">@game.PlayerWhite.FIO</h5>
-                            </a>
-
-                            @(game.RatingWhite + " " + game.RatingWhiteChange)
-                        </th>
-                        <td>
-                            <a asp-controller="Home" asp-action="Player" asp-route-idPlayer="@game.IdPlayerBlack">
-                                <h5 class='text-text-info' id="userFIO">@game.PlayerBlack.FIO</h5>
-                            </a>
-
-                            @(game.RatingBlack + " " + game.RatingBlackChange)
-                        </td>
-                        <td>@(game.GameResult == GameResult.WhiteWin ? "1-0" : game.GameResult == GameResult.Draw ? "1/2" : "0-1")</td>
-                        <td>@game.Date.ToString("D")</td>
-                    </tr>
+                         <div class="game-item">
+                        <div><i class="fas fa-chess-king"></i>Ваш цвет: @game.YourColor </div>
+                        <div><i class="fas fa-trophy"></i>Ваш рейтинг @game.YourRatingInMomentOfTheGame</div>
+                        <div><i class="fas fa-trophy"></i>Изменение вашего рейтинга @game.YourRatingChanged</div>
+                         <div><i class="fas fa-chess-king"></i>Ваш cоперник @game.FIOYourOpponent </div>
+                         <div><i class="fas fa-trophy"></i>Рейтинг вашего соперника @game.RatingYourOpponent</div>
+                        <div><i class="fas fa-calendar-alt"></i>Дата @game.DateInOutputFormat</div>
+                        </div>
                 }
             </tbody>
             
@@ -232,7 +217,7 @@ else
 }
 
 
-<div class='modal fade' id='linkUserWithPlayer' tabindex="-1" role="dialog" aria-hidden="true">
+@* <div class='modal fade' id='linkUserWithPlayer' tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered " role="document">
         <div class="modal-content text-light bg-dark">
             <div class="modal-header ">
@@ -268,7 +253,7 @@ else
             </div>
         </div>
     </div>
-</div>
+</div> *@
 </div>
 <script>
         function getCurrentRank(rating) {

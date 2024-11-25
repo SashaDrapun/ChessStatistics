@@ -35,13 +35,12 @@ namespace ChessStatistics.Mappers
             PlayerOnPlayerPageModel model = new()
             {
                 IdPlayer = player.IdPlayer,
-                Rank = player.Rank,
                 RankOutput = GetRankOutput(player.Rank),
                 FIO = player.FIO,
                 Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic),
             };
 
-            model.Games = GameMapper.MapGames(GameSearcher.GetGamesByPlayer(model.IdPlayer));
+            model.Games = GameMapper.MapGamesIntoGamesOnPlayerPageModel(GameSearcher.GetGamesByPlayer(model.IdPlayer), player);
 
             return model;
         }

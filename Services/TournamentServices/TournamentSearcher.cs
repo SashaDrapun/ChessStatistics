@@ -123,5 +123,10 @@ namespace ChessStatistics.Services.TournamentServices
 
             return generateTournamentResult.GenerateRoundRobinTournamentResult();
         }
+
+        public static int GetTournamentIdByTourId(int tourId)
+        {
+            return TourSearcher.GetTourById(tourId).IdTournament;
+        }
     }
 }

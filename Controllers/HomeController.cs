@@ -69,7 +69,8 @@ namespace ChessStatistics.Controllers
             ViewBag.PlayersNotLinkedWithUser = PlayerSearcher.GetPlayersNotLinkedWithUser();
 
             User user = UserSearcher.GetUserById(autorizeUser.Id);
-            return View(UserMapper.MapUser(user));
+            Player player = PlayerSearcher.GetPlayerById(user.IdPlayer);
+            return View(PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(player));
         }
 
         public async Task<IActionResult> Tournaments()
@@ -86,12 +87,6 @@ namespace ChessStatistics.Controllers
             TournamentModel tournamentModel = TournamentSearcher.GetTournamentModelById(idTournament);
             tournamentModel = TournamentSearcher.SetRoundRobitResult(tournamentModel);
             return View(tournamentModel);
-        }
-
-        public async Task<IActionResult> Games()
-        {
-            await SetViewBag();
-            return View(GameMapper.MapGames(GameSearcher.GetAllGames()));
         }
 
         public async Task<IActionResult> AdminPanel()

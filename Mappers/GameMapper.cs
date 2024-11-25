@@ -7,6 +7,7 @@ using ChessStatistics.Services.ToursServices;
 using ChessStatistics.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ChessStatistics.Mappers
 {
@@ -132,6 +133,34 @@ namespace ChessStatistics.Mappers
             }
 
             return gameModels;
+        }
+
+        public static GameOnPlayerPageModel MapGameIntoGameOnPlayerPageModel(Game game, Player currentPlayer)
+        {
+            GameOnPlayerPageModel gameOnPlayerPageModel = new GameOnPlayerPageModel();
+            gameOnPlayerPageModel.IdGame = game.IdGame;
+            gameOnPlayerPageModel.IdYourOpponent = game.IdPlayerWhite == currentPlayer.IdPlayer ? game.IdPlayerBlack : game.IdPlayerWhite;
+            gameOnPlayerPageModel.YourColor = game.IdPlayerWhite == currentPlayer.IdPlayer ? "Белые" : "Черные";
+            gameOnPlayerPageModel.IdTournament = TournamentSearcher.GetTournamentIdByTourId(game.IdTour);
+            gameOnPlayerPageModel.TourNumber = TourSearcher.GetTourNumberByTourId(game.IdTour);
+            gameOnPlayerPageModel.GameResult = game.GameResult == GameResult.WhiteWin ? "1-0" : game.GameResult == GameResult.Draw ? "1/2" : "0-1";
+            gameOnPlayerPageModel.DateInOutputFormat = game.Date.ToString("dd MMMM yyyy HH:mm", new CultureInfo("ru-RU"));
+            gameOnPlayerPageModel.FIOYourOpponent = PlayerSearcher.GetPlayerFIOById(gameOnPlayerPageModel.IdYourOpponent);
+            gameOnPlayerPageModel.YourRatingInMomentOfTheGame = ((int)Math.Round(game.IdPlayerWhite == currentPlayer.IdPlayer ? game.RatingWhite : game.RatingBlack)).ToString();
+            gameOnPlayerPageModel.RatingYourOpponent = ((int)Math.Round(game.IdPlayerWhite != currentPlayer.IdPlayer ? game.RatingWhite : game.RatingBlack)).ToString();
+            gameOnPlayerPageModel.YourRatingChanged = (game.IdPlayerWhite == currentPlayer.IdPlayer ? game.RatingWhiteChange: game.RatingBlackChange).ToString("F2");
+            return gameOnPlayerPageModel;
+        }
+
+        public static List<GameOnPlayerPageModel> MapGamesIntoGamesOnPlayerPageModel(List<Game> games, Player currentPlayer)
+        {
+            var result = new List<GameOnPlayerPageModel>();
+            foreach (var game in games)
+            {
+                result.Add(MapGameIntoGameOnPlayerPageModel(game, currentPlayer));
+            }
+
+            return result;
         }
     }
 }

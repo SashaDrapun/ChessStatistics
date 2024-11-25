@@ -19,6 +19,11 @@ namespace ChessStatistics.Services.PlayerServices
             return Database.db.Players.FirstOrDefault(player => player.IdPlayer == idPlayer);
         }
 
+        public static string GetPlayerFIOById(int idPlayer)
+        {
+            return Database.db.Players.FirstOrDefault(player => player.IdPlayer == idPlayer).FIO;
+        }
+
         public static double GetPlayerScore(int idPlayerSkippingGame, int idTour)
         {
             double scorePlayer = 0;

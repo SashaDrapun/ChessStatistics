@@ -18,5 +18,10 @@ namespace ChessStatistics.Services.ToursServices
         {
             return Database.db.Tours.Where(t => t.IdTournament == idTournament).ToList();
         }
+
+        public static int GetTourNumberByTourId(int idTour)
+        {
+            return Database.db.Tours.FirstOrDefault(t => t.IdTour == idTour).TourNumber;
+        }
     }
 }

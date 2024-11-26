@@ -41,6 +41,13 @@ namespace ChessStatistics.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Clubs()
+        {
+            await SetViewBag();
+            
+            return View();
+        }
+
         public async Task<IActionResult> Players()
         {
             await SetViewBag();

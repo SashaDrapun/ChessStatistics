@@ -63,17 +63,33 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> PersonalArea(int idPlayer)
         {
             await SetViewBag();
-            User autorizeUser = await GetAutorizeUser();
-            if (autorizeUser != null)
+            PlayerOnPlayerPageModel playerOnPlayerPageModel = new PlayerOnPlayerPageModel();
+
+            if (idPlayer == 0)
             {
-                ViewBag.IsUserConnectedToThePlayer = UserSearcher.IsUserConnectedToThePlayer(autorizeUser);
-                ViewBag.IsUserRequestedLinkWithPlayer = LinkUserWithPlayerSearcher.IsUserRequestedLinkWithPlayer(autorizeUser);
-                ViewBag.PlayersNotLinkedWithUser = PlayerSearcher.GetPlayersNotLinkedWithUser();
+                playerOnPlayerPageModel.IsPersonalArea = true;
+                User autorizeUser = await GetAutorizeUser();
+
+                if (UserSearcher.IsUserConnectedToThePlayer(autorizeUser))
+                {
+                    playerOnPlayerPageModel = PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(PlayerSearcher.GetPlayerById(idPlayer));
+                    playerOnPlayerPageModel.IsPersonalArea = true;
+                }
+                else
+                {
+                    playerOnPlayerPageModel = PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(autorizeUser.Id);
+                    playerOnPlayerPageModel.IsPersonalArea = true;
+                }
+                 
+            }
+            else 
+            {
+                playerOnPlayerPageModel = PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(PlayerSearcher.GetPlayerById(idPlayer));
+                playerOnPlayerPageModel.IsPersonalArea = false;
             }
             
-            // User user = UserSearcher.GetUserById(autorizeUser.Id);
-            Player player = PlayerSearcher.GetPlayerById(idPlayer);
-            return View(PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(player));
+            ViewBag.PlayersNotLinkedWithUser = PlayerSearcher.GetPlayersNotLinkedWithUser();
+            return View(playerOnPlayerPageModel);
         }
 
         public async Task<IActionResult> Tournaments()

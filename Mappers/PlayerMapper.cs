@@ -2,6 +2,8 @@
 using ChessStatistics.Models.Enum;
 using ChessStatistics.Services;
 using ChessStatistics.Services.GameServices;
+using ChessStatistics.Services.LinkUserWithPlayerService;
+using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.Services.ToursServices;
 using ChessStatistics.ViewModels;
@@ -30,20 +32,46 @@ namespace ChessStatistics.Mappers
             return model;
         }
 
+        public static PlayerOnPlayerPageModel MapPlayerToPlayerOnPagePlayerModel(string idUser)
+        {
+            PlayerOnPlayerPageModel model = new()
+            {
+                IdUser = idUser,
+                IsUserConnectedToPlayer = false,
+                IsPlayerConnectedToUser = false,
+                IsUserRequestedLinkWithPlayer = LinkUserWithPlayerSearcher.IsUserRequestedLinkWithPlayer(UserSearcher.GetUserById(idUser))
+            };
+
+            return model;
+        }
+
         public static PlayerOnPlayerPageModel MapPlayerToPlayerOnPagePlayerModel(Player player)
         {
-
             PlayerOnPlayerPageModel model = new()
             {
                 IdPlayer = player.IdPlayer,
                 RankOutput = GetRankOutput(player.Rank),
                 FIO = player.FIO,
                 Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic),
+                IsPlayerConnectedToUser = PlayerSearcher.IsPlayerConnectedToUser(player.IdPlayer),
+                IsUserRequestedLinkWithPlayer = LinkUserWithPlayerSearcher.IsPlayerRequestedLinkWithUser(player.IdPlayer)
             };
 
             model.Games = GameMapper.MapGamesIntoGamesOnPlayerPageModel(GameSearcher.GetGamesByPlayer(model.IdPlayer), player);
 
             return model;
+        }
+
+        public static List<PlayerOnPagePlayersModel> MapListPlayersToListPlayerOnPlayersPage(List<Player> players)
+        {
+            List<PlayerOnPagePlayersModel> result = [];
+
+            foreach (Player player in players)
+            {
+                result.Add(MapPlayerToPlayerOnPlayersPage(player));
+            }
+
+            return result;
         }
 
         public static PlayerModel MapPlayer(Player player, int idTournament)
@@ -81,17 +109,7 @@ namespace ChessStatistics.Mappers
             return model;
         }
 
-        public static List<PlayerOnPagePlayersModel> MapListPlayersToListPlayerOnPlayersPage(List<Player> players)
-        {
-            List<PlayerOnPagePlayersModel> result = [];
-
-            foreach (Player player in players)
-            {
-                result.Add(MapPlayerToPlayerOnPlayersPage(player));
-            }
-
-            return result;
-        }
+        
 
         private static string GetRankOutput(Rank rank)
         {

@@ -134,8 +134,7 @@
 <div class="emptySpace"></div>
 <div id="content" class="container justify-content-center">
     
-
-    @if (ViewBag.IsUserConnectedToThePlayer)
+    @if (!Model.IsPersonalArea || Model.IsPlayerConnectedToUser)
     {
         <div class="user-info">
             <img src="https://via.placeholder.com/150" alt="Профиль">
@@ -203,7 +202,7 @@
             </tbody>
             
     }
-else if(ViewBag.IsUserRequestedLinkWithPlayer)
+else if(Model.IsUserRequestedLinkWithPlayer)
 {
     <h5 class="text-info"> Вы запросили связку своего аккаунта с профилем игрока, ожидайте подтвержения администратора</h5>
 }
@@ -217,7 +216,7 @@ else
 }
 
 
-@* <div class='modal fade' id='linkUserWithPlayer' tabindex="-1" role="dialog" aria-hidden="true">
+<div class='modal fade' id='linkUserWithPlayer' tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered " role="document">
         <div class="modal-content text-light bg-dark">
             <div class="modal-header ">
@@ -253,7 +252,7 @@ else
             </div>
         </div>
     </div>
-</div> *@
+</div>
 </div>
 <script>
         function getCurrentRank(rating) {

@@ -1,6 +1,7 @@
 ﻿using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
 using ChessStatistics.Services.PlayerServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,6 +36,11 @@ namespace ChessStatistics.Services.LinkUserWithPlayerService
         public static bool IsUserRequestedLinkWithPlayer(User user)
         {
             return Database.db.LinksUser.FirstOrDefault(link => link.IdUser == user.Id) != null;
+        }
+
+        public static bool IsPlayerRequestedLinkWithUser(int idPlayer)
+        {
+            return Database.db.LinksUser.FirstOrDefault(link => link.IdPlayer == idPlayer) != null;
         }
     }
 }

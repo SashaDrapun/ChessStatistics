@@ -101,7 +101,7 @@
                 @if (ViewBag.AutorizeUser != null)
                 {
                         <li class="nav-item d-flex justify-content-center align-items-center mr-2">
-                        <a asp-controller="Home" asp-action="PersonalArea">
+                        <a asp-controller="Home" asp-action="PersonalArea" asp-route-idPlayer="0">
                             <h3 class='text-success' id="userFIO">@ViewBag.AutorizeUser.FIO</h3>
                         </a>
                     </li>

@@ -121,6 +121,20 @@ namespace ChessStatistics.Services.PlayerServices
             return PlayersNotLinkedWithUser;
         }
 
+        public static bool IsPlayerConnectedToUser(int idPlayer)
+        {
+            var player = GetPlayerById(idPlayer);
+
+            if (player.IdUser == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public static List<Player> GetPlayersParticipatingOrNotParticipatingInTournament(int tournamentId, bool isParticipating)
         {
             List<Player> players = GetAllPlayers();

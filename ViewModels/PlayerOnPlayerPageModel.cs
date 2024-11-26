@@ -1,4 +1,5 @@
-﻿using ChessStatistics.Models.Enum;
+﻿using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
 using System.Collections.Generic;
 
 namespace ChessStatistics.ViewModels
@@ -7,12 +8,22 @@ namespace ChessStatistics.ViewModels
     {
         public int IdPlayer { get; set; }
 
+        public string IdUser {get; set;}
+
         public string FIO { get; set; }
 
         public string RankOutput { get; set; }
 
         public Rating Rating { get; set; }
 
+        public bool IsUserConnectedToPlayer {get; set;}
+
+        public bool IsPlayerConnectedToUser {get; set;}
+
+        public bool IsUserRequestedLinkWithPlayer {get; set;}
+
+        public bool IsPersonalArea {get; set;}
+        
         public List<GameOnPlayerPageModel> Games { get; set; }
     }
 }

@@ -12,9 +12,10 @@ for (let i = 0; i < buttonsEditPlayer.length; i++) {
     buttonsEditPlayer[i].addEventListener('click', e => {
         document.querySelector('#IdPlayerEdit').value = e.target.getAttribute('idPlayer');
         document.querySelector('#FIOEdit').value = e.target.getAttribute('fioPlayer');
-        console.log(e.target.getAttribute('titlePlayer'));
         document.querySelector('#TitlePlayerEdit').value = e.target.getAttribute('titlePlayer');
-        console.log(document.querySelector('#TitlePlayerEdit').value);
+        document.querySelector('#CurrentRatingClassicEdit').value = e.target.getAttribute('ratingPlayerClassic');
+        document.querySelector('#CurrentRatingRapidEdit').value = e.target.getAttribute('ratingPlayerRapid');
+        document.querySelector('#CurrentRatingBlitzEdit').value = e.target.getAttribute('ratingPlayerBlitz');
     });
 }
 

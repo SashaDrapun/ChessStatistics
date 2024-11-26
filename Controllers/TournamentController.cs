@@ -11,7 +11,6 @@ using ChessStatistics.Services.TournamentParticipantsServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace ChessStatistics.Controllers

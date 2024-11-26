@@ -38,6 +38,9 @@ namespace ChessStatistics.Controllers
             Player player = PlayerSearcher.GetPlayerById(playerModel.IdPlayer);
             player.Rank = playerModel.Rank;
             player.FIO = playerModel.FIO;
+            player.RatingClassic = playerModel.CurrentRatingClassic;
+            player.RatingRapid = playerModel.CurrentRatingRapid;
+            player.RatingBlitz = playerModel.CurrentRatingBlitz;
             await PlayerUpdater.UpdatePlayerAsync(player);
             return RedirectToAction("Players", "Home");
         }

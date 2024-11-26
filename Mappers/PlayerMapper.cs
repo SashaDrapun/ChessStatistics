@@ -5,11 +5,9 @@ using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.LinkUserWithPlayerService;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.TournamentServices;
-using ChessStatistics.Services.ToursServices;
 using ChessStatistics.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 
 namespace ChessStatistics.Mappers
 {
@@ -25,6 +23,9 @@ namespace ChessStatistics.Mappers
                 RankOutput = GetRankOutput(player.Rank),
                 FIO = player.FIO,
                 Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic),
+                CurrentRatingClassic = player.RatingClassic,
+                CurrentRatingRapid = player.RatingRapid,
+                CurrentRatingBlitz = player.RatingBlitz,
             };
 
             model.CurrentRating = RatingOperations.GetRating(model.Rating);
@@ -86,7 +87,10 @@ namespace ChessStatistics.Mappers
                 RankOutput = GetRankOutput(player.Rank),
                 FIO = player.FIO,
                 Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic, tournament.RatingType),
-                IdTournament = idTournament
+                IdTournament = idTournament,
+                CurrentRatingClassic = player.RatingClassic,
+                CurrentRatingRapid = player.RatingRapid,
+                CurrentRatingBlitz = player.RatingBlitz
             };
 
             model.CurrentRating = RatingOperations.GetRating(model.Rating);

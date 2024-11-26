@@ -188,7 +188,9 @@
                         idPlayer="@player.IdPlayer"
                         fioPlayer="@player.FIO"
                         titlePlayer="@((int)player.Rank)"
-                        ratingPlayer="@player.RatingRapid"
+                        ratingPlayerClassic="@player.RatingClassic"
+                        ratingPlayerRapid="@player.RatingRapid"
+                        ratingPlayerBlitz="@player.RatingBlitz"
                         data-toggle="modal" data-target="#editPlayer">
                         Редактировать
                     </button>
@@ -240,8 +242,16 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="CurrentRating">Введите рейтинг</label>
-                            <input type="number" id="CurrentRating" name="CurrentRating" class="form-control" step="0.1" min="400" required />
+                            <label for="CurrentRating">Введите рейтинг игрока в классические шахматы</label>
+                            <input type="number" id="CurrentRatingClassic" name="CurrentRatingClassic" class="form-control" step="0.1" min="400" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="CurrentRating">Введите рейтинг игрока в быстрые шахматы</label>
+                            <input type="number" id="CurrentRatingRapid" name="CurrentRatingRapid" class="form-control" step="0.1" min="400" required />
+                        </div>
+                         <div class="form-group">
+                            <label for="CurrentRating">Введите рейтинг игрока в блиц шахматы</label>
+                            <input type="number" id="CurrentRatingBlitz" name="CurrentRatingBlitz" class="form-control" step="0.1" min="400" required />
                         </div>
                         <div class="form-group">
                             <label for="Photo">Загрузите фото</label>
@@ -288,6 +298,22 @@
                                 <option value="7">Международный мастер</option>
                                 <option value="8">Гроссмейстер</option>
                             </select>
+                        </div>
+                         <div class="form-group">
+                            <label for="CurrentRating">Введите рейтинг игрока в классические шахматы</label>
+                            <input type="number" id="CurrentRatingClassicEdit" name="CurrentRatingClassic" class="form-control" step="0.1" min="400" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="CurrentRating">Введите рейтинг игрока в быстрые шахматы</label>
+                            <input type="number" id="CurrentRatingRapidEdit" name="CurrentRatingRapid" class="form-control" step="0.1" min="400" required />
+                        </div>
+                         <div class="form-group">
+                            <label for="CurrentRating">Введите рейтинг игрока в блиц шахматы</label>
+                            <input type="number" id="CurrentRatingBlitzEdit" name="CurrentRatingBlitz" class="form-control" step="0.1" min="400" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="Photo">Загрузите фото</label>
+                            <input type="file" id="Photo" name="Photo" class="form-control" accept="image/*" />
                         </div>
                         <button type="submit" class="btn btn-primary">Применить изменения</button>
                     </form>

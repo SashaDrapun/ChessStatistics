@@ -18,6 +18,16 @@ namespace ChessStatistics.Services.PlayerServices
         {
             return Database.db.Players.FirstOrDefault(player => player.IdPlayer == idPlayer);
         }
+        public static Player GetPlayerByIdUser(string userId)
+        {
+            return Database.db.Players.FirstOrDefault(player => player.IdUser == userId);
+        }
+
+        public static int GetPlayerIdByIdUser(string userId)
+        {
+            return Database.db.Players.FirstOrDefault(player => player.IdUser == userId).IdPlayer;
+        }
+
 
         public static string GetPlayerFIOById(int idPlayer)
         {

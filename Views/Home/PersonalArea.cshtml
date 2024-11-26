@@ -137,7 +137,7 @@
     @if (!Model.IsPersonalArea || Model.IsPlayerConnectedToUser)
     {
         <div class="user-info">
-            <img src="https://via.placeholder.com/150" alt="Профиль">
+            <img src="data:image/jpeg;base64,@Model.PhotoBase64" alt="Профиль" />
             <h2 class="text-light"> Личный кабинет: @Model.FIO </h2>
         </div>
         <div class="card-row">

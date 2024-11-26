@@ -54,7 +54,8 @@ namespace ChessStatistics.Mappers
                 FIO = player.FIO,
                 Rating = new Rating(player.RatingBlitz, player.RatingRapid, player.RatingClassic),
                 IsPlayerConnectedToUser = PlayerSearcher.IsPlayerConnectedToUser(player.IdPlayer),
-                IsUserRequestedLinkWithPlayer = LinkUserWithPlayerSearcher.IsPlayerRequestedLinkWithUser(player.IdPlayer)
+                IsUserRequestedLinkWithPlayer = LinkUserWithPlayerSearcher.IsPlayerRequestedLinkWithUser(player.IdPlayer),
+                PhotoBase64 = player.Photo != null ? Convert.ToBase64String(player.Photo) : null
             };
 
             model.Games = GameMapper.MapGamesIntoGamesOnPlayerPageModel(GameSearcher.GetGamesByPlayer(model.IdPlayer), player);

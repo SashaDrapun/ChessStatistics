@@ -79,7 +79,7 @@ namespace ChessStatistics.Controllers
 
                 if (UserSearcher.IsUserConnectedToThePlayer(autorizeUser))
                 {
-                    playerOnPlayerPageModel = PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(PlayerSearcher.GetPlayerById(idPlayer));
+                    playerOnPlayerPageModel = PlayerMapper.MapPlayerToPlayerOnPagePlayerModel(PlayerSearcher.GetPlayerById(autorizeUser.IdPlayer));
                     playerOnPlayerPageModel.IsPersonalArea = true;
                 }
                 else

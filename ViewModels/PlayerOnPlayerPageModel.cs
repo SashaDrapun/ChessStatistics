@@ -24,6 +24,8 @@ namespace ChessStatistics.ViewModels
 
         public bool IsPersonalArea {get; set;}
         
+        public string PhotoBase64 { get; set; }
+        
         public List<GameOnPlayerPageModel> Games { get; set; }
     }
 }

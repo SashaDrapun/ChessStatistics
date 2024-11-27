@@ -5,6 +5,7 @@ namespace ChessStatistics.Models
 {
     public class ApplicationContext : IdentityDbContext<User>
     {
+        public DbSet<Club> Clubs { get; set; }
         public DbSet<Player> Players { get; set; }
 
         public DbSet<LinkUserWithPlayer> LinksUser { get; set; }

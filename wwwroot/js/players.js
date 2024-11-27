@@ -19,10 +19,29 @@ for (let i = 0; i < buttonsEditPlayer.length; i++) {
     });
 }
 
-function validateInput(input, min, max) {
-    if (input.value < min) {
-        input.value = min;
-    } else if (input.value > max) {
-        input.value = max;
-    }
+document.getElementById('rankFilter').addEventListener('change', filterPlayers);
+document.getElementById('blitzFilter').addEventListener('input', filterPlayers);
+document.getElementById('rapidFilter').addEventListener('input', filterPlayers);
+document.getElementById('classicFilter').addEventListener('input', filterPlayers);
+
+function filterPlayers() {
+    const rankFilter = document.getElementById('rankFilter').value;
+    const blitzFilter = document.getElementById('blitzFilter').value;
+    const rapidFilter = document.getElementById('rapidFilter').value;
+    const classicFilter = document.getElementById('classicFilter').value;
+
+    const cards = document.querySelectorAll('.player-card');
+    cards.forEach(card => {
+        const rank = card.getAttribute('data-rank');
+        const blitz = card.getAttribute('data-blitz');
+        const rapid = card.getAttribute('data-rapid');
+        const classic = card.getAttribute('data-classic');
+
+        const shouldShow = (rankFilter === 'all' || rankFilter === rank) &&
+                          (blitzFilter === '' || blitz >= blitzFilter) &&
+                          (rapidFilter === '' || rapid >= rapidFilter) &&
+                          (classicFilter === '' || classic >= classicFilter);
+
+        card.style.display = shouldShow ? 'flex' : 'none';
+    });
 }

@@ -162,12 +162,19 @@ function filterTournaments() {
 }
 
 function validateInput(input, min, max) {
-    if (input.value < min) {
+    if (input.value === '') {
+        return; // Если значение пустое, ничего не делаем
+    }
+    let value = parseFloat(input.value);
+    if (isNaN(value)) {
+        input.value = ''; // Если значение не является числом, очищаем поле
+    } else if (value < min) {
         input.value = min;
-    } else if (input.value > max) {
+    } else if (value > max) {
         input.value = max;
     }
 }
+
 document.getElementById('TournamentTypeEdit').addEventListener('change', function(e) {
     var countToursEditTournament = document.getElementById('countToursEditTournament');
     if (e.target.value == 0) {

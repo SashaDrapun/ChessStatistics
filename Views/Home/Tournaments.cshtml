@@ -160,8 +160,8 @@
                 <option value="moscow">Москва</option>
                 <!-- Add more cities as needed -->
             </select>
-            <input type="number" id="ratingFilter" placeholder="Рейтинг" pattern="\d*" oninput="validateInput(this, 0, 3000)">
-            <input type="number" id="ageFilter" placeholder="Возраст" pattern="\d*" oninput="validateInput(this, 0, 120)">
+            <input type="number" id="ratingFilter" placeholder="Рейтинг" pattern="\d*" onchange="validateInput(this, 0, 3000)">
+            <input type="number" id="ageFilter" placeholder="Возраст" pattern="\d*" onchange="validateInput(this, 0, 120)">
         </div>
 
         @foreach (var tournament in Model)

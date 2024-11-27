@@ -35,6 +35,8 @@
         appearance: none;
         font-size: 14px;
         color: #fff;
+        flex: 1;
+        min-width: 150px;
     }
     .filters select:focus, .filters input:focus {
         outline: none;
@@ -305,8 +307,7 @@
                         </div>
                         <div class="form-group">
                             <label for="CurrentRating">Введите рейтинг игрока в быстрые шахматы</label>
-                            <input type="number" id="CurrentRatingRapidEdit" placeholder="Рейтинг игрока в быстрые шахматы" pattern="\d*" oninput="validateInput(this, 0, 3000)">
-                            @* <input type="number" id="CurrentRatingRapidEdit" name="CurrentRatingRapid" placeholder="Рейтинг игрока в быстрые шахматы" class="form-control" pattern="\d*" oninput="validateInput(this, 0, 3000)"/> *@
+                            <input type="number" id="CurrentRatingRapidEdit" name="CurrentRatingRapid" placeholder="Рейтинг игрока в быстрые шахматы" class="form-control" pattern="\d*" oninput="validateInput(this, 0, 3000)"/>
                         </div>
                          <div class="form-group">
                             <label for="CurrentRating">Введите рейтинг игрока в блиц шахматы</label>
@@ -351,42 +352,19 @@
 
 <div class="emptySpace"></div>
 <script>
-    document.getElementById('rankFilter').addEventListener('change', filterPlayers);
-    document.getElementById('blitzFilter').addEventListener('input', filterPlayers);
-    document.getElementById('rapidFilter').addEventListener('input', filterPlayers);
-    document.getElementById('classicFilter').addEventListener('input', filterPlayers);
-
-    function filterPlayers() {
-        const rankFilter = document.getElementById('rankFilter').value;
-        const blitzFilter = document.getElementById('blitzFilter').value;
-        const rapidFilter = document.getElementById('rapidFilter').value;
-        const classicFilter = document.getElementById('classicFilter').value;
-
-        const cards = document.querySelectorAll('.player-card');
-        cards.forEach(card => {
-            const rank = card.getAttribute('data-rank');
-            const blitz = card.getAttribute('data-blitz');
-            const rapid = card.getAttribute('data-rapid');
-            const classic = card.getAttribute('data-classic');
-
-            const shouldShow = (rankFilter === 'all' || rankFilter === rank) &&
-                              (blitzFilter === '' || blitz >= blitzFilter) &&
-                              (rapidFilter === '' || rapid >= rapidFilter) &&
-                              (classicFilter === '' || classic >= classicFilter);
-
-            card.style.display = shouldShow ? 'flex' : 'none';
-        });
+    
+   function validateInput(input, min, max) {
+    if (input.value === '') {
+        return; // Если значение пустое, ничего не делаем
     }
-
-    function validateInput(input, min, max) {
-        let value = input.value.replace(/\D/g, '');
-        if (value === '') value = min;
-        if (value < min) {
-            value = min;
-        } else if (value > max) {
-            value = max;
-        }
-        input.value = value;
+    let value = parseFloat(input.value);
+    if (isNaN(value)) {
+        input.value = ''; // Если значение не является числом, очищаем поле
+    } else if (value < min) {
+        input.value = min;
+    } else if (value > max) {
+        input.value = max;
     }
+}
 </script>
 <script src="~/js/players.js"></script>

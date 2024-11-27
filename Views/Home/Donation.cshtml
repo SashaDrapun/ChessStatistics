@@ -1,0 +1,242 @@
+@{
+    ViewData["Title"] = "Поддержка разработчиков";
+    ViewData["CurrentPage"] = "Donation";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поддержка разработчиков</title>
+    <style>
+        body {
+            background-color: #27272f;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .content {
+            width: 100%;
+            text-align: center;
+        }
+
+        .content p {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+
+        .donation-form {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .donation-form h2 {
+            margin-bottom: 20px;
+        }
+
+        .donation-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .donation-form input, .donation-form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #444;
+            color: #fff;
+        }
+
+        .donation-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .donation-form button:hover {
+            background-color: #458B00;
+        }
+
+        .faq {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .faq h3 {
+            margin-bottom: 10px;
+        }
+
+        .faq p {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .nav-item.active .nav-link {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .payment-options {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .payment-options button {
+            flex: 1;
+            margin: 0 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .payment-options button:hover {
+            background-color: #458B00;
+        }
+
+        .section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-left, .section-right {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .section-left {
+            text-align: left;
+        }
+
+        .section-right {
+            text-align: right;
+        }
+
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .main-content-left, .main-content-right {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .main-content-left {
+            text-align: left;
+        }
+
+        .main-content-right {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Поддержите разработчиков!</h1>
+        </div>
+
+        <div class="main-content">
+            <div class="main-content-left">
+                <p>Мы некоммерческая ассоциация, потому что мы считаем, что все должны иметь бесплатный и свободный доступ к шахматной платформе мирового класса.</p>
+                <p>Мы полагаемся на поддержку таких людей как вы. Если вам нравится Lichess, пожалуйста, поддержите нас, сделайте пожертвование и станьте его спонсором!</p>
+            </div>
+            <div class="main-content-right">
+                <div class="donation-form">
+                    <h2>Сделайте пожертвование</h2>
+                    <form>
+                        <div class="section">
+                            <div class="section-left">
+                                <label for="sponsor">Пожертвование как:</label>
+                                <input type="text" id="sponsor" placeholder="Ваше имя или псевдоним">
+                            </div>
+                            <div class="section-right">
+                                <label for="duration">Подарить крылья спонсора другому игроку</label>
+                                <select id="duration">
+                                    <option value="1">Однократно</option>
+                                    <option value="12">Ежемесячно</option>
+                                    <option value="365">Пожизненно</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="section-left">
+                                <label for="amount">Другое</label>
+                                <input type="number" id="amount" placeholder="Сумма пожертвования">
+                            </div>
+                            <div class="section-right">
+                                <div class="payment-options">
+                                    <button type="button">Поддержать проект</button>
+                                    <button type="button">PayPal</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq">
+            <h3>Часто задаваемые вопросы</h3>
+            <p><strong>Куда пойдут деньги от пожертвований?</strong> Прежде всего, мощные серверы. Также мы оплачиваем пожертвования разработчикам, которые работают над Lichess. Посмотрите детальную калькуляцию расходов.</p>
+            <p><strong>Правда, что Lichess официально некоммерческий?</strong> Да, вот документ (на французском языке).</p>
+            <p><strong>Могу ли я изменить или отменить мою ежемесячную поддержку?</strong> Да, в любое время с этой страницы. Или вы можете связаться со службой поддержки Lichess.</p>
+            <p><strong>Есть ли другие способы сделать пожертвование?</strong> Lichess зарегистрирована на Liberapay. Мы также принимаем биткойны через переводы. Пожалуйста, обратите внимание, что только форма пожертвований выше предоставляет статус покровителя.</p>
+        </div>
+    </div>
+</body>
+</html>

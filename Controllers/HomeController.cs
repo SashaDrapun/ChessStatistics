@@ -48,6 +48,13 @@ namespace ChessStatistics.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Donation()
+        {
+            await SetViewBag();
+            
+            return View();
+        }
+
         public async Task<IActionResult> Players()
         {
             await SetViewBag();

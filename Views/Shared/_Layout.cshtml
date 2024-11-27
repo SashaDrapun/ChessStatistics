@@ -74,6 +74,10 @@
                     <li class="nav-item d-flex justify-content-center align-items-center @(ViewData["CurrentPage"].ToString() == "Tournaments"?"active":"")">
                     <a class="nav-link" asp-controller="Home" asp-action="Tournaments">Турниры</a>
                     </li>
+
+                    <li class="nav-item d-flex justify-content-center align-items-center @(ViewData["CurrentPage"].ToString() == "Donation"?"active":"")">
+                    <a class="nav-link" asp-controller="Home" asp-action="Donation" style= "color: orange;">Поддержать проект</a>
+                    </li>
                 
                 @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
                 {

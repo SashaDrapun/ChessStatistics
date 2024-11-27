@@ -19,3 +19,10 @@ for (let i = 0; i < buttonsEditPlayer.length; i++) {
     });
 }
 
+function validateInput(input, min, max) {
+    if (input.value < min) {
+        input.value = min;
+    } else if (input.value > max) {
+        input.value = max;
+    }
+}

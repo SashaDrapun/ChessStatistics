@@ -305,7 +305,8 @@
                         </div>
                         <div class="form-group">
                             <label for="CurrentRating">Введите рейтинг игрока в быстрые шахматы</label>
-                            <input type="number" id="CurrentRatingRapidEdit" name="CurrentRatingRapid" class="form-control" step="0.1" min="400" required />
+                            <input type="number" id="CurrentRatingRapidEdit" placeholder="Рейтинг игрока в быстрые шахматы" pattern="\d*" oninput="validateInput(this, 0, 3000)">
+                            @* <input type="number" id="CurrentRatingRapidEdit" name="CurrentRatingRapid" placeholder="Рейтинг игрока в быстрые шахматы" class="form-control" pattern="\d*" oninput="validateInput(this, 0, 3000)"/> *@
                         </div>
                          <div class="form-group">
                             <label for="CurrentRating">Введите рейтинг игрока в блиц шахматы</label>

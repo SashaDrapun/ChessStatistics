@@ -39,7 +39,8 @@
     .card-row {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: center; /* Центрирование карточек */
+        gap: 20px; /* Отступы между карточками */
         width: 100%;
         margin-bottom: 20px;
     }
@@ -48,9 +49,8 @@
         background: #2c3e50;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin: 10px;
         padding: 20px;
-        width: calc(45% - 20px); /* Увеличена ширина карточки */
+        width: 300px; /* Фиксированная ширина карточки */
         text-align: center;
         color: #ecf0f1;
     }
@@ -146,7 +146,6 @@
     }
 </style>
 
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <div class="emptySpace"></div>
@@ -162,53 +161,12 @@
         { *@
             <div class="card">
                 <div class="card-body">
-                    <img src="image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0TAAAAAAAACg4AAAASUVORK5CYII=" style="width: 80px; height: 80px;">
-                    <h5 class="card-title"></h5>
-                    <p><i class="fas fa-users"></i> Участников:</p>
-                    <p><i class="fas fa-chess"></i> Тип клуба: </p>
-                    <p><i class="fas fa-star"></i> Средний рейтинг:</p>
-                    <p>Описание</p>
-                    <form asp-controller="Home" asp-action="ClubDetails" asp-route-id="Клуб id">
-                        <button class="btn btn-primary single-button">
-                            <i class="fas fa-arrow-right"></i> Перейти
-                        </button>
-                    </form>
-                </div>
-            </div>
-        @* } *@
-    </div>
-    <div class="card-row" id="clubCards">
-        @* @foreach (var club in Model)
-        { *@
-            <div class="card">
-                <div class="card-body">
-                    <img src="image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0TAAAAAAAACg4AAAASUVORK5CYII=" style="width: 80px; height: 80px;">
-                    <h5 class="card-title"></h5>
-                    <p><i class="fas fa-users"></i> Участников:</p>
-                    <p><i class="fas fa-chess"></i> Тип клуба: </p>
-                    <p><i class="fas fa-star"></i> Средний рейтинг:</p>
-                    <p>Описание</p>
-                    <form asp-controller="Home" asp-action="ClubDetails" asp-route-id="Клуб id">
-                        <button class="btn btn-primary single-button">
-                            <i class="fas fa-arrow-right"></i> Перейти
-                        </button>
-                    </form>
-                </div>
-            </div>
-        @* } *@
-    </div>
-    <div class="card-row" id="clubCards">
-        @* @foreach (var club in Model)
-        { *@
-           <div class="card-row" id="clubCards">
-            <div class="card">
-                <div class="card-body">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0TAAAAAAAACg4AAAASUVORK5CYII=" style="width: 80px; height: 80px;">
-                    <h5 class="card-title">Название клуба</h5>
-                    <p><i class="fas fa-users"></i> Участников: 78</p>
+                    <h5 class="card-title">название клуба</h5>
+                    <p><i class="fas fa-users"></i> Участников: 33</p>
                     <p><i class="fas fa-chess"></i> Тип клуба: Открытый</p>
                     <p><i class="fas fa-star"></i> Средний рейтинг: 2100</p>
-                    <p>Описание клуба</p>
+                    <p>Описание клуба...</p>
                     <form asp-controller="Home" asp-action="ClubDetails" asp-route-id="123">
                         <button class="btn btn-primary single-button">
                             <i class="fas fa-arrow-right"></i> Перейти
@@ -216,24 +174,38 @@
                     </form>
                 </div>
             </div>
-    </div>
-        @* } *@
-    </div>
-    <div class="card">
+            <div class="card">
                 <div class="card-body">
-                    <img src="image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0TAAAAAAAACg4AAAASUVORK5CYII=" style="width: 80px; height: 80px;">
-                    <h5 class="card-title"></h5>
-                    <p><i class="fas fa-users"></i> Участников:</p>
-                    <p><i class="fas fa-chess"></i> Тип клуба: </p>
-                    <p><i class="fas fa-star"></i> Средний рейтинг:</p>
-                    <p>Описание</p>
-                    <form asp-controller="Home" asp-action="ClubDetails" asp-route-id="Клуб id">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0TAAAAAAAACg4AAAASUVORK5CYII=" style="width: 80px; height: 80px;">
+                    <h5 class="card-title">название клуба</h5>
+                    <p><i class="fas fa-users"></i> Участников: 33</p>
+                    <p><i class="fas fa-chess"></i> Тип клуба: Открытый</p>
+                    <p><i class="fas fa-star"></i> Средний рейтинг: 2100</p>
+                    <p>Описание клуба...</p>
+                    <form asp-controller="Home" asp-action="ClubDetails" asp-route-id="123">
                         <button class="btn btn-primary single-button">
                             <i class="fas fa-arrow-right"></i> Перейти
                         </button>
                     </form>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-body">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0TAAAAAAAACg4AAAASUVORK5CYII=" style="width: 80px; height: 80px;">
+                    <h5 class="card-title">название клуба</h5>
+                    <p><i class="fas fa-users"></i> Участников: 33</p>
+                    <p><i class="fas fa-chess"></i> Тип клуба: Открытый</p>
+                    <p><i class="fas fa-star"></i> Средний рейтинг: 2100</p>
+                    <p>Описание клуба...</p>
+                    <form asp-controller="Home" asp-action="ClubDetails" asp-route-id="123">
+                        <button class="btn btn-primary single-button">
+                            <i class="fas fa-arrow-right"></i> Перейти
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @* } *@
+    </div>
 </div>
 <div class="emptySpace"></div>
 

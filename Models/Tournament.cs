@@ -41,6 +41,6 @@ namespace ChessStatistics.Models
 
         public bool IsTheTournamentHeldUsingThePlatform { get; set; }
 
-        public Сost Cost {get; set;}
+        public Cost Cost {get; set;}
     }
 }

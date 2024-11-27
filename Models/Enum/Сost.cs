@@ -1,6 +1,6 @@
 namespace ChessStatistics.Models.Enum
 {
-    public enum Сost
+    public enum Cost
     {
         Free,
         Paid

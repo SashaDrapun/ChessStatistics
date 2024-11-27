@@ -204,13 +204,14 @@
                                 tournamentCountTours="@tournament.CountTours"
                                 tournamentCity="@tournament.City"
                                 tournamentAdress="@tournament.Address"
-                                tournamentStatus="@tournament.OnlineOffline"
+                                tournamentStatus="@((int)tournament.OnlineOffline)"
                                 tournamentPlatform="@tournament.Platform"
                                 tournamentLink="@tournament.TournamentLink"
                                 tournamentMinYear="@tournament.MinYear"
                                 tournamentMaxRating="@tournament.MaxRating"
                                 tournamentMaxCountPlayers="@tournament.MaxCountPlayers"
-                                tournamentIsPlatformCalculated="@tournament.IsPlatformCalculated"
+                                tournamentIsPlatformCalculated="@tournament.IsPlatformCalculated.ToString()"
+                                tournamentCost="@((int)tournament.Cost)"
                                 data-toggle="modal" data-target="#editTournament">
                             Редактировать
                         </button>
@@ -269,7 +270,7 @@
                                 <label for="city">Город</label>
                                 <select id="City" name="City" class="form-control" required>
                                     <option value="Минск">Минск</option>
-                                    <option value="moscow">Москва</option>
+                                    <option value="Москва">Москва</option>
                                     <!-- Add more cities as needed -->
                                 </select>
                             </div>
@@ -310,10 +311,19 @@
                             <div class="form-group">
                                 <label for="isPlatformCalculated">Обсчитывается турнир с помощью платформы</label>
                                 <select id="IsPlatformCalculated" name="IsPlatformCalculated" class="form-control">
-                                    <option value="true">Да</option>
-                                    <option value="false">Нет</option>
+                                    <option value="True">Да</option>
+                                    <option value="False">Нет</option>
                                 </select>
                             </div>
+
+                            <div class="form-group" id="Сost">
+                                <label for="cost">Платный или бесплатный</label>
+                                <select id="Cost" name="Cost" class="form-control">
+                                    <option value="0">Бесплатный</option>
+                                    <option value="1">Платный</option>
+                                </select>
+                            </div>
+
                             <button asp-controller="Tournaments" asp-action="CreateTournament" class="btn btn-primary m-2">
                                 Сохранить
                             </button>
@@ -367,8 +377,8 @@
                             <div class="form-group">
                                 <label for="cityEdit">Город</label>
                                 <select id="cityEdit" name="city" class="form-control" required>
-                                    <option value="minsk">Минск</option>
-                                    <option value="moscow">Москва</option>
+                                    <option value="Минск">Минск</option>
+                                    <option value="Москва">Москва</option>
                                     <!-- Add more cities as needed -->
                                 </select>
                             </div>
@@ -406,13 +416,23 @@
                                 <label for="maxParticipantsEdit">Максимальное количество участников</label>
                                 <input type="number" id="maxParticipantsEdit" name="maxParticipants" class="form-control" min="0" max="500" value="500" />
                             </div>
+
                             <div class="form-group">
-                                <label for="isPlatformCalculatedEdit">Обсчитывается турнир с помощью платформы</label>
-                                <select id="isPlatformCalculatedEdit" name="isPlatformCalculated" class="form-control">
-                                    <option value="true">Да</option>
-                                    <option value="false">Нет</option>
-                                </select>
-                            </div>
+                            <label for="isPlatformCalculated">Обсчитывается турнир с помощью платформы</label>
+                            <select id="isPlatformCalculatedEdit" name="IsPlatformCalculated" class="form-control">
+                                <option value="True">Да</option>
+                                <option value="False">Нет</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="Cost">
+                            <label for="cost">Платный или бесплатный</label>
+                            <select id="CostEdit" name="Cost" class="form-control">
+                                <option value="0">Бесплатный</option>
+                                <option value="1">Платный</option>
+                            </select>
+                        </div>
+
                             <button type="submit" class="btn btn-primary">
                                 Применить изменения
                             </button>

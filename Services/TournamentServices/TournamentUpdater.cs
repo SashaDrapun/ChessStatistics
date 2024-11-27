@@ -27,6 +27,7 @@ namespace ChessStatistics.Services.TournamentServices
             tournament.MaxRating = tournamentModel.MaxRating;
             tournament.MaxCountOfPlayers = tournamentModel.MaxCountPlayers;
             tournament.IsTheTournamentHeldUsingThePlatform = tournamentModel.IsPlatformCalculated;
+            tournament.Cost = tournamentModel.Cost;
 
             Database.db.Tournaments.Update(tournament);
             await Database.db.SaveChangesAsync();

@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using TournamentTypeT = ChessStatistics.Models.Enum.TournamentType;
 using RatingTypeT = ChessStatistics.Models.Enum.RatingType;
 
-
 namespace ChessStatistics.ViewModels
 {
     public class TournamentModel
@@ -48,6 +47,8 @@ namespace ChessStatistics.ViewModels
         public bool IsPlatformCalculated { get; set; }
 
         public int MaxCountPlayers { get; set; }
+
+        public Cost Cost {get; set;}
 
         public string GetTournamentType()
         {

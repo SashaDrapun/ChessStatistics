@@ -28,7 +28,8 @@ namespace ChessStatistics.Services.TournamentServices
                 MinimumYearOfBirth = tournamentModel.MinYear,
                 MaxRating = tournamentModel.MaxRating,
                 MaxCountOfPlayers = tournamentModel.MaxCountPlayers,
-                IsTheTournamentHeldUsingThePlatform = tournamentModel.IsPlatformCalculated
+                IsTheTournamentHeldUsingThePlatform = tournamentModel.IsPlatformCalculated,
+                Cost = tournamentModel.Cost
             };
 
             if (tournamentModel.TournamentType == TournamentType.Round)

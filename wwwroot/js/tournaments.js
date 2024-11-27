@@ -64,7 +64,8 @@ function getTournamentDataFromButton(button) {
         tournamentMinYear: button.getAttribute('tournamentMinYear'),
         tournamentMaxRating: button.getAttribute('tournamentMaxRating'),
         tournamentMaxCountPlayers: button.getAttribute('tournamentMaxCountPlayers'),
-        tournamentIsPlatformCalculated: button.getAttribute('tournamentIsPlatformCalculated')
+        tournamentIsPlatformCalculated: button.getAttribute('tournamentIsPlatformCalculated'),
+        tournamentCost: button.getAttribute('tournamentCost')
     };
 }
 
@@ -75,15 +76,18 @@ function populateEditForm(tournamentData) {
     document.querySelector('#RatingTypeEdit').value = tournamentData.ratingType;
     document.querySelector('#countToursEdit').value = tournamentData.tournamentCountTours;
     document.querySelector('#TournamentTypeEdit').value = tournamentData.tournamentType;
-    document.querySelector('#cityEdit').value = tournamentData.tournamentCity;
+    document.getElementById('cityEdit').value = tournamentData.tournamentCity;
     document.querySelector('#addressEdit').value = tournamentData.tournamentAdress;
-    document.querySelector('#statusEdit').value = tournamentData.tournamentStatus;
+    document.getElementById('statusEdit').value = tournamentData.tournamentStatus;
     document.querySelector('#platformEdit').value = tournamentData.tournamentPlatform;
     document.querySelector('#tournamentLinkEdit').value = tournamentData.tournamentLink;
     document.querySelector('#minYearEdit').value = tournamentData.tournamentMinYear;
     document.querySelector('#maxRatingEdit').value = tournamentData.tournamentMaxRating;
     document.querySelector('#maxParticipantsEdit').value = tournamentData.tournamentMaxCountPlayers;
     document.getElementById('isPlatformCalculatedEdit').value = tournamentData.tournamentIsPlatformCalculated;
+    document.getElementById('CostEdit').value = tournamentData.tournamentCost.toString();
+    console.log(tournamentData.tournamentCost.toString());
+    
 }
 
 function togglePlatformGroupEdit(tournamentStatus) {

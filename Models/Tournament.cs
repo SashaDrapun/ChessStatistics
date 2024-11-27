@@ -40,5 +40,7 @@ namespace ChessStatistics.Models
         public int MaxCountOfPlayers {  get; set; }
 
         public bool IsTheTournamentHeldUsingThePlatform { get; set; }
+
+        public Сost Cost {get; set;}
     }
 }

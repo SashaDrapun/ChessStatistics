@@ -17,6 +17,8 @@ namespace ChessStatistics.Models
 
         public DbSet<TournamentParticipants> TournamentParticipants { get; set; }
 
+        public DbSet<TournamentRequests> TournamentRequests { get; set; }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {

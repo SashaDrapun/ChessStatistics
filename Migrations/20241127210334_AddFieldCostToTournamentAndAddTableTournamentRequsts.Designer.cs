@@ -4,6 +4,7 @@ using ChessStatistics.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ChessStatistics.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20241127210334_AddFieldCostToTournamentAndAddTableTournamentRequsts")]
+    partial class AddFieldCostToTournamentAndAddTableTournamentRequsts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,9 +157,6 @@ namespace ChessStatistics.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Cost")
-                        .HasColumnType("int");
-
                     b.Property<int>("CountTours")
                         .HasColumnType("int");
 
@@ -218,28 +218,6 @@ namespace ChessStatistics.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TournamentParticipants");
-                });
-
-            modelBuilder.Entity("ChessStatistics.Models.TournamentRequests", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("IdTournament")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("varbinary(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TournamentRequests");
                 });
 
             modelBuilder.Entity("ChessStatistics.Models.User", b =>

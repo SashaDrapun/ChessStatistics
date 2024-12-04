@@ -53,8 +53,6 @@ namespace ChessStatistics.Services.TournamentServices
                 {
                     break;
                 }
-
-                
             }
 
             return tournamentDraw;

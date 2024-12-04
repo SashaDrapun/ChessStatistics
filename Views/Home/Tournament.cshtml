@@ -93,6 +93,17 @@
                 </button>
             }
 
+            @if (Model.UserInfo.IdUser != null && Model.UserInfo.IsUserConnectedToThePlayer)
+            {
+                <form name="AddingRequestToParticipateInTournament" method="post" action="/api/Tournament/AddingRequestToParticipateInTournament">
+                    <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.IdTournament">
+                    <input type="hidden" name="IdUser" id="idUser" value="@Model.UserInfo.IdPlayer">
+                    <button type="submit" class="btn btn-primary m-2">
+                        Принять участие в турнире
+                    </button>
+                </form>
+            }
+
             <div class='modal fade' id='AddParticipant' tabindex="-1" role="dialog"
                  aria-labelledby="createTournament" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered " role="document">

@@ -7,6 +7,7 @@ using ChessStatistics.Models;
 using ChessStatistics.Models.Enum;
 using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.PlayerServices;
+using ChessStatistics.Services.RequestsToParticipateInTournamentServices;
 using ChessStatistics.Services.TournamentParticipantsServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace ChessStatistics.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class TournamentController : Controller
     {
@@ -29,6 +31,14 @@ namespace ChessStatistics.Controllers
             await TournamentParticipantsAdder.AddTournamentAsync(tournamentAddParticipantModel.IdPlayer, tournamentAddParticipantModel.IdTournament);
             Player player = PlayerSearcher.GetPlayerById(tournamentAddParticipantModel.IdPlayer);
             return Ok(PlayerMapper.MapPlayer(player, tournamentAddParticipantModel.IdTournament));
+        }
+
+        [HttpPost("AddingRequestToParticipateInTournament")]
+        public async Task<ActionResult> AddingRequestToParticipateInTournament([FromForm] AddRequestToParticipateInTournamentModel addRequestToParticipateInTournamentModel)
+        {
+            await RequestToParticipateInTournamentAdder.AddTournamentRequestAsync(addRequestToParticipateInTournamentModel);
+            
+             return RedirectToAction("Tournament", "Home", new { idTournament = addRequestToParticipateInTournamentModel.IdTournament });
         }
 
         [HttpPost("DeleteTournamentParticipant")]

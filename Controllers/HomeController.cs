@@ -119,6 +119,14 @@ namespace ChessStatistics.Controllers
             await SetViewBag();
             TournamentModel tournamentModel = TournamentSearcher.GetTournamentModelById(idTournament);
             tournamentModel = TournamentSearcher.SetRoundRobitResult(tournamentModel);
+            User autorizeUser = await GetAutorizeUser();
+            tournamentModel.UserInfo = new UserModel();
+
+            if (autorizeUser != null)
+            {
+                tournamentModel.UserInfo = UserMapper.MapUser(autorizeUser);
+            }
+
             return View(tournamentModel);
         }
 

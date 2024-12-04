@@ -30,6 +30,8 @@ namespace ChessStatistics.ViewModels
 
         public RoundRobinTournamentResult RoundRobinTournamentResult { get; set; }
 
+        public UserModel UserInfo {get; set;}
+
         public string City { get; set; }
 
         public string Address { get; set; }

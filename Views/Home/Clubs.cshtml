@@ -1,5 +1,8 @@
+@using ChessStatistics.ViewModels
+
 @{
-    ViewData["Title"] = "Шахматные клубы";
+    @model List<ClubModel>
+    ViewData["Title"] = "Клубы";
     ViewData["CurrentPage"] = "Clubs";
 }
 
@@ -157,58 +160,190 @@
     </div>
 
     <div class="card-row" id="clubCards">
-        @* @foreach (var club in Model)
-        { *@
+        @foreach (var club in Model)
+        { 
             <div class="card">
                 <div class="card-body">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0TAAAAAAAACg4AAAASUVORK5CYII=" style="width: 80px; height: 80px;">
-                    <h5 class="card-title">название клуба</h5>
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(club.Photo)" alt="@club.Name" />
+                    <h5 class="card-title">@club.Name</h5>
                     <p><i class="fas fa-users"></i> Участников: 33</p>
-                    <p><i class="fas fa-chess"></i> Тип клуба: Открытый</p>
                     <p><i class="fas fa-star"></i> Средний рейтинг: 2100</p>
-                    <p>Описание клуба...</p>
+                    <p>@club.Description</p>
                     <form asp-controller="Home" asp-action="ClubDetails" asp-route-id="123">
                         <button class="btn btn-primary single-button">
                             <i class="fas fa-arrow-right"></i> Перейти
                         </button>
                     </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0TAAAAAAAACg4AAAASUVORK5CYII=" style="width: 80px; height: 80px;">
-                    <h5 class="card-title">название клуба</h5>
-                    <p><i class="fas fa-users"></i> Участников: 33</p>
-                    <p><i class="fas fa-chess"></i> Тип клуба: Открытый</p>
-                    <p><i class="fas fa-star"></i> Средний рейтинг: 2100</p>
-                    <p>Описание клуба...</p>
-                    <form asp-controller="Home" asp-action="ClubDetails" asp-route-id="123">
-                        <button class="btn btn-primary single-button">
-                            <i class="fas fa-arrow-right"></i> Перейти
-                        </button>
-                    </form>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0TAAAAAAAACg4AAAASUVORK5CYII=" style="width: 80px; height: 80px;">
-                    <h5 class="card-title">название клуба</h5>
-                    <p><i class="fas fa-users"></i> Участников: 33</p>
-                    <p><i class="fas fa-chess"></i> Тип клуба: Открытый</p>
-                    <p><i class="fas fa-star"></i> Средний рейтинг: 2100</p>
-                    <p>Описание клуба...</p>
-                    <form asp-controller="Home" asp-action="ClubDetails" asp-route-id="123">
-                        <button class="btn btn-primary single-button">
-                            <i class="fas fa-arrow-right"></i> Перейти
-                        </button>
-                    </form>
-                </div>
-            </div>
-        @* } *@
-    </div>
-</div>
-<div class="emptySpace"></div>
 
+                    <div class="club-buttons">
+                        <button type="button" class="edit-button editClub"
+                                clubId="@club.Id"
+                                clubName="@club.Name"
+                                clubDescription="@club.Description"
+                                data-toggle="modal" data-target="#editClub">
+                            Редактировать
+                        </button>
+                        <button type="button" class="delete-button deleteClub"
+                                clubId="@club.Id"
+                                clubName="@club.Name"
+                                data-toggle="modal" data-target="#deleteClub">
+                            Удалить
+                        </button>
+                    </div>
+                </div>
+            </div>
+         }
+
+        <div class="container text-center">
+            <button class="btn btn-primary m-2" data-toggle="modal" data-target="#createClub">
+                Создание клуба
+            </button>
+        </div>
+
+        <div class='modal fade' id='createClub' tabindex="-1" role="dialog" aria-labelledby="createClub" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content text-light bg-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel">Создание клуба</h5>
+                        <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form name="CreateClub" method="post" enctype="multipart/form-data" asp-controller="Clubs" asp-action="Create">
+                                <div class="form-group">
+                                    <label for="clubName">Введите название клуба</label>
+                                    <input type="text" name="Name" class="form-control" id="clubName" placeholder="Название клуба" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="clubDescription">Описание клуба</label>
+                                    <textarea name="Description" class="form-control" id="clubDescription" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="clubPhoto">Фото клуба</label>
+                                    <input type="file" name="Photo" class="form-control" id="clubPhoto" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary m-2">
+                                    Сохранить
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class='modal fade' id='editClub' tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content text-light bg-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-info">Редактирование клуба</h5>
+                        <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form asp-controller="Clubs" asp-action="Edit" method="post">
+                                <input id="IdClubEdit" name="Id" class="d-none">
+                                <div class="form-group">
+                                    <label for="ClubNameEdit">Введите название клуба</label>
+                                    <input type="text" id="ClubNameEdit" name="Name" class="form-control" placeholder="Название клуба" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ClubDescriptionEdit">Описание клуба</label>
+                                    <textarea id="ClubDescriptionEdit" name="Description" class="form-control" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ClubPhotoEdit">Фото клуба</label>
+                                    <input type="file" id="ClubPhotoEdit" name="Photo" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    Применить изменения
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class='modal fade' id='deleteClub' tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content text-light bg-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-danger">Удаление клуба</h5>
+                        <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="beforeDeleteClubText" class="text-danger"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                        <form id="deleteClubForm" method="post" enctype="multipart/form-data">
+                            <button type="submit" class="btn btn-primary">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <div class="emptySpace"></div>
+    
+    
+</div>
+<script src="~/js/clubs.js"></script>
+<div class="emptySpace"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttonsDeleteClub = document.querySelectorAll('.deleteClub');
+        buttonsDeleteClub.forEach(button => {
+            button.addEventListener('click', handleDeleteButtonClick);
+        });
+
+        const buttonsEditClub = document.querySelectorAll('.editClub');
+        buttonsEditClub.forEach(button => {
+            button.addEventListener('click', handleEditButtonClick);
+        });
+    });
+
+    function handleDeleteButtonClick(e) {
+        const clubName = e.target.getAttribute('clubName');
+        const clubId = e.target.getAttribute('clubId');
+        document.querySelector('#beforeDeleteClubText').textContent = `Вы уверены, что хотите удалить клуб с названием: ${clubName}?`;
+        document.querySelector('#deleteClubForm').action = `/Clubs/Delete?idClub=${clubId}`;
+    }
+
+    function handleEditButtonClick(e) {
+        e.preventDefault();
+        const button = e.target;
+        const clubData = getClubDataFromButton(button);
+        populateEditForm(clubData);
+    }
+
+    function getClubDataFromButton(button) {
+        return {
+            clubId: button.getAttribute('clubId'),
+            clubName: button.getAttribute('clubName'),
+            clubDescription: button.getAttribute('clubDescription')
+        };
+    }
+
+    function populateEditForm(clubData) {
+        document.querySelector('#IdClubEdit').value = clubData.clubId;
+        document.querySelector('#ClubNameEdit').value = clubData.clubName;
+        document.querySelector('#ClubDescriptionEdit').value = clubData.clubDescription;
+    }
+</script>
 <script>
     document.getElementById('searchInput').addEventListener('input', function() {
         const query = this.value.toLowerCase();

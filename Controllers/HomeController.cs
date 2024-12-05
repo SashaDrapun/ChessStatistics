@@ -15,6 +15,7 @@ using ChessStatistics.Mappers;
 using ChessStatistics.ViewModels;
 using ChessStatistics.BusinessLogic.ParseInformationFromLichess;
 using ChessStatistics.Services.RequestsToParticipateInTournamentServices;
+using ChessStatistics.Services.ClubServices;
 
 namespace ChessStatistics.Controllers
 {
@@ -46,7 +47,7 @@ namespace ChessStatistics.Controllers
         {
             await SetViewBag();
             
-            return View();
+            return View(ClubMapper.MapClubs(ClubSearcher.GetClubs()));
         }
 
         public async Task<IActionResult> Donation()

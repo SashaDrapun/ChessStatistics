@@ -9,7 +9,7 @@ namespace ChessStatistics.Services.TournamentParticipantsServices
 {
     public static class TournamentParticipantsAdder
     {
-        public static  async Task<TournamentParticipants> AddTournamentParticipantAsync(int idPlayer, int idTournament)
+        public static async Task<TournamentParticipants> AddTournamentParticipantAsync(int idPlayer, int idTournament)
         {
             TournamentParticipants tournamentParticipants = new TournamentParticipants
             {

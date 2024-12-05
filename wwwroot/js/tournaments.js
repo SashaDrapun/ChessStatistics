@@ -151,11 +151,12 @@ function filterTournaments() {
         const rating = card.getAttribute('data-rating');
         const age = card.getAttribute('data-age');
 
+        console.log(type);
         const shouldShow = (statusFilter === 'all' || statusFilter === status) &&
             (typeFilter === 'all' || typeFilter === type) &&
             (cityFilter === 'all' || cityFilter === city) &&
-            (ratingFilter === 'all' || ratingFilter === rating) &&
-            (ageFilter === 'all' || ageFilter === age);
+            (ratingFilter === '' || ratingFilter <= rating) &&
+            (ageFilter === '' || ageFilter >= age);
 
         card.style.display = shouldShow ? 'flex' : 'none';
     });

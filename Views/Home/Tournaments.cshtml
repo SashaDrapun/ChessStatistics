@@ -151,8 +151,8 @@
             </select>
             <select id="typeFilter">
                 <option value="all">Все</option>
-                <option value="online">Онлайн</option>
-                <option value="offline">Офлайн</option>
+                <option value="Online">Онлайн</option>
+                <option value="Offline">Офлайн</option>
             </select>
             <select id="cityFilter">
                 <option value="all">Все города</option>
@@ -160,13 +160,17 @@
                 <option value="moscow">Москва</option>
                 <!-- Add more cities as needed -->
             </select>
-            <input type="number" id="ratingFilter" placeholder="Рейтинг" pattern="\d*" onchange="validateInput(this, 0, 3000)">
+            <input type="number" id="ratingFilter" placeholder="Максимальный рейтинг" pattern="\d*" onchange="validateInput(this, 0, 3000)">
             <input type="number" id="ageFilter" placeholder="Возраст" pattern="\d*" onchange="validateInput(this, 0, 120)">
         </div>
 
         @foreach (var tournament in Model)
         {
-            <div class="text-light tournament-card" data-status="@tournament.OnlineOffline" data-type="@tournament.OnlineOffline" data-city="@tournament.City" data-rating="@tournament.RatingType" data-age="@tournament.MinYear">
+            <div class="text-light tournament-card" data-status="@tournament.OnlineOffline"
+                                                    data-type="@tournament.OnlineOffline"
+                                                    data-city="@tournament.City"
+                                                    data-rating="@tournament.MaxRating"
+                                                    data-age="@tournament.MinYear">
                 <div class="tournament-info">
                     <div class="tournament-header">
                         <h2>@tournament.TournamentName</h2>
@@ -266,13 +270,10 @@
                                     <option value="2">Классика</option>
                                 </select>
                             </div>
+                            
                             <div class="form-group">
-                                <label for="city">Город</label>
-                                <select id="City" name="City" class="form-control" required>
-                                    <option value="Минск">Минск</option>
-                                    <option value="Москва">Москва</option>
-                                    <!-- Add more cities as needed -->
-                                </select>
+                                <label for="address">Город</label>
+                                <input type="text" id="City" name="City" class="form-control" required />
                             </div>
                             <div class="form-group">
                                 <label for="address">Адрес</label>
@@ -376,11 +377,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="cityEdit">Город</label>
-                                <select id="cityEdit" name="city" class="form-control" required>
-                                    <option value="Минск">Минск</option>
-                                    <option value="Москва">Москва</option>
-                                    <!-- Add more cities as needed -->
-                                </select>
+                                <input type="text" id="cityEdit" name="city" class="form-control" required />
                             </div>
                             <div class="form-group">
                                 <label for="addressEdit">Адрес</label>

@@ -14,6 +14,7 @@ using ChessStatistics.Services.LinkUserWithPlayerService;
 using ChessStatistics.Mappers;
 using ChessStatistics.ViewModels;
 using ChessStatistics.BusinessLogic.ParseInformationFromLichess;
+using ChessStatistics.Services.RequestsToParticipateInTournamentServices;
 
 namespace ChessStatistics.Controllers
 {
@@ -125,6 +126,14 @@ namespace ChessStatistics.Controllers
             if (autorizeUser != null)
             {
                 tournamentModel.UserInfo = UserMapper.MapUser(autorizeUser);
+                TournamentRequests tournamentRequest =  RequestToParticipateInTournamentSearcher.GetTournamentRequestByUserIdAndTournamentId(autorizeUser.Id, idTournament);
+                tournamentModel.IsUserSendRequestToParticipateInTournament = tournamentRequest == null ? false : true;
+            }
+
+            var requestsToParticipateInTournament = RequestToParticipateInTournamentSearcher.GetAllTournamentInTournamentRequests(idTournament);
+            if (requestsToParticipateInTournament != null)
+            {
+                tournamentModel.RequestsToParticipateInTournamentModels = RequestToParticipateInTournamentMapper.MapRequestsToParticipateInTournament(requestsToParticipateInTournament);
             }
 
             return View(tournamentModel);

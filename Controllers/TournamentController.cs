@@ -28,7 +28,7 @@ namespace ChessStatistics.Controllers
         [HttpPost("AddTournamentParticipants")]
         public async Task<ActionResult<Player>> AddTournamentParticipants([FromBody]TournamentAddParticipantModel tournamentAddParticipantModel)
         {
-            await TournamentParticipantsAdder.AddTournamentAsync(tournamentAddParticipantModel.IdPlayer, tournamentAddParticipantModel.IdTournament);
+            await TournamentParticipantsAdder.AddTournamentParticipantAsync(tournamentAddParticipantModel.IdPlayer, tournamentAddParticipantModel.IdTournament);
             Player player = PlayerSearcher.GetPlayerById(tournamentAddParticipantModel.IdPlayer);
             return Ok(PlayerMapper.MapPlayer(player, tournamentAddParticipantModel.IdTournament));
         }
@@ -40,6 +40,24 @@ namespace ChessStatistics.Controllers
             
              return RedirectToAction("Tournament", "Home", new { idTournament = addRequestToParticipateInTournamentModel.IdTournament });
         }
+
+        [HttpPost("ImproveOrDeclineRequestToParticipateInTournament")]
+        public async Task<ActionResult> ImproveOrDeclineRequestToParticipateInTournament([FromForm] ImproveOrDeclineRequestToParticipateInTournamentModel improveOrDeclineRequestToParticipateInTournamentModel)
+        {
+            string userId = improveOrDeclineRequestToParticipateInTournamentModel.IdUser;
+            int tournamentId = improveOrDeclineRequestToParticipateInTournamentModel.IdTournament;
+
+            if (improveOrDeclineRequestToParticipateInTournamentModel.DeclineOrImprove == DeclineOrImprove.Improve)
+            {
+                Player player = PlayerSearcher.GetPlayerByIdUser(userId);
+                await TournamentParticipantsAdder.AddTournamentParticipantAsync(player.IdPlayer, tournamentId);
+            }
+
+            await RequestToParticipateInTournamentDeleter.DeleteRequestToParticipateInTournament(userId, tournamentId);
+
+            return RedirectToAction("Tournament", "Home", new { idTournament = improveOrDeclineRequestToParticipateInTournamentModel.IdTournament });
+        }
+
 
         [HttpPost("DeleteTournamentParticipant")]
         public async Task<ActionResult<Player>> DeleteTournamentParticipant([FromBody] TournamentAddParticipantModel tournamentAddParticipantModel)

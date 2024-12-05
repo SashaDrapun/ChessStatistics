@@ -95,14 +95,76 @@
 
             @if (Model.UserInfo.IdUser != null && Model.UserInfo.IsUserConnectedToThePlayer)
             {
+                if (!Model.IsUserSendRequestToParticipateInTournament)
+                {
                 <form name="AddingRequestToParticipateInTournament" method="post" action="/api/Tournament/AddingRequestToParticipateInTournament">
                     <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.IdTournament">
-                    <input type="hidden" name="IdUser" id="idUser" value="@Model.UserInfo.IdPlayer">
+                    <input type="hidden" name="IdUser" id="idUser" value="@Model.UserInfo.IdUser">
                     <button type="submit" class="btn btn-primary m-2">
                         Принять участие в турнире
                     </button>
                 </form>
+                }
+                else
+                {
+                    <h1>Ваш Запрос об участии в турнире на рассмотрении у организатора</h1>
+                }
+                
             }
+
+             @if (Model.UserInfo.IdUser != null && Model.UserInfo.IsAdmin)
+             {
+                <h1>Запросы на участие в турнире</h1>
+                <table id="usersParticipatingInTournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
+                <thead>
+                    <tr>
+                        <th scope="col">ФИО</th>
+                        <th scope="col">Рейтинг</th>
+                        <th scope="col">Звание</th>
+                        <th scope="col">Подтвердить заявку</th>
+                         <th scope="col">Отклонить заявку</th>   
+                    </tr>
+                </thead>
+                <tbody id="PlayersParticipatingInTournament">
+                    @foreach (var request in Model.RequestsToParticipateInTournamentModels)
+                    {
+                        <tr>
+                            <th scope="row">
+                                @request.PlayerFIO
+                            </th>
+                            <th scope="row">
+                                 @request.PlayerRating
+                            </th>
+                            <th scope="row">
+                                @request.PlayerRank
+                            </th>
+                            <th scope="row">
+                                        <form name="AddingRequestToParticipateInTournament" method="post" action="/api/Tournament/ImproveOrDeclineRequestToParticipateInTournament">
+                                            <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.IdTournament">
+                                            <input type="hidden" name="IdUser" id="idUser" value="@request.IdUser">
+                                            <input type="hidden" name="DeclineOrImprove" id=" declineOrImprove" value="Improve">
+                                           
+                                            <button type="submit" class="btn btn-primary m-2">
+                                                Подтвердить заявку
+                                            </button>
+                                        </form>
+                            </th>
+                            <th scope="row">
+                                        <form name="AddingRequestToParticipateInTournament" method="post" action="/api/Tournament/ImproveOrDeclineRequestToParticipateInTournament">
+                                            <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.IdTournament">
+                                            <input type="hidden" name="IdUser" id="idUser" value="@Model.UserInfo.IdUser">
+                                            <input type="hidden" name="DeclineOrImprove" id="declineOrImprove" value="Decline">
+                                            <button type="submit" class="btn btn-primary m-2">
+                                                Отклонить заявку
+                                            </button>
+                                        </form>
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+                
+             }
 
             <div class='modal fade' id='AddParticipant' tabindex="-1" role="dialog"
                  aria-labelledby="createTournament" aria-hidden="true">

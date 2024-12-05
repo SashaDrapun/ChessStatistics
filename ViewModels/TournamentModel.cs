@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using TournamentTypeT = ChessStatistics.Models.Enum.TournamentType;
 using RatingTypeT = ChessStatistics.Models.Enum.RatingType;
+using Microsoft.Identity.Client;
 
 namespace ChessStatistics.ViewModels
 {
@@ -50,7 +51,11 @@ namespace ChessStatistics.ViewModels
 
         public int MaxCountPlayers { get; set; }
 
+        public bool IsUserSendRequestToParticipateInTournament {get; set; }
+
         public Cost Cost {get; set;}
+
+        public List<RequestToParticipateInTournamentModel> RequestsToParticipateInTournamentModels {get; set;}
 
         public string GetTournamentType()
         {

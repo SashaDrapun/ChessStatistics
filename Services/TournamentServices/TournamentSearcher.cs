@@ -2,6 +2,7 @@
 using ChessStatistics.BusinessLogic.TournamentResult;
 using ChessStatistics.Mappers;
 using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
 using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.ToursServices;
@@ -17,6 +18,16 @@ namespace ChessStatistics.Services.TournamentServices
         public static Tournament GetTournamentById(int IdTournament)
         {
             return Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == IdTournament);
+        }
+
+        public static TournamentType GetTournamentTypeById(int IdTournament)
+        {
+            return Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == IdTournament).TournamentType;
+        }
+
+        public static RatingType GetTournamentRatingTypeById(int IdTournament)
+        {
+            return Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == IdTournament).RatingType;
         }
 
         public static TournamentDrawModel GetTournamentDraw(int idTournament)

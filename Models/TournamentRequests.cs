@@ -12,7 +12,7 @@ namespace ChessStatistics.Models
         public int IdTournament { get; set; }
 
         [ForeignKey("User")]
-        public int IdUser { get; set; }
+        public string IdUser { get; set; }
 
         public byte[] Photo { get; set; }
     }

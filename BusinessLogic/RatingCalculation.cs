@@ -6,6 +6,21 @@ namespace ChessStatistics.BusinessLogic
 {
     public static class RatingCalculation
     {
+        public static double GetCurrentRating(double ratingBlitz, double ratingRapid, double ratingClassic, RatingType currentRating)
+        {
+            if (currentRating == RatingType.Blitz)
+            {
+                return ratingBlitz;
+            }
+
+            if (currentRating == RatingType.Rapid)
+            {
+                return ratingRapid;
+            }
+
+            return ratingClassic;
+        }
+
         public static PlayersRating ReturnNewPlayersRating(double ratingWhite, double ratingBlack, GameResult gameResult)
         {
             bool IsWhiteWeaker = ratingWhite - ratingBlack < 0;

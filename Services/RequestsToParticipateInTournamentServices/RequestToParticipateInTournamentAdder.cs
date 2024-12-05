@@ -12,7 +12,7 @@ namespace ChessStatistics.Services.RequestsToParticipateInTournamentServices
     {
         public static async Task<TournamentRequests> AddTournamentRequestAsync(AddRequestToParticipateInTournamentModel addRequestToParticipateInTournamentModel)
         {
-            TournamentRequests tournamentRequests = new TournamentRequests
+            TournamentRequests tournamentRequests = new()
             {
                 IdTournament = addRequestToParticipateInTournamentModel.IdTournament,
                 IdUser = addRequestToParticipateInTournamentModel.IdUser

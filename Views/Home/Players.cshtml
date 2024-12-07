@@ -73,8 +73,8 @@
         height: 80px;
         border-radius: 50%;
         margin-top: 10px;
-        object-fit: cover; 
-        object-position: center; 
+        object-fit: cover;
+        object-position: center;
     }
     .player-info {
         padding: 10px;
@@ -133,81 +133,108 @@
         -webkit-appearance: none;
         margin: 0;
     }
+    .add-button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        margin: 20px auto;
+        display: block;
+        width: 150px; /* Уменьшен размер кнопки */
+    }
+    .add-button:hover {
+        background-color: #2980b9;
+    }
+    .add-button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <div class="emptySpace"></div>
 
-    <div class="container justify-content-center">
-        <h1>Игроки</h1>
-        <div class="filters">
-            <div class="filter-item">
-                <label for="rankFilter">Разряд/Звание:</label>
-                <select id="rankFilter">
-                    <option value="all">Все</option>
-                    <option value="fourth">Четвертый разряд</option>
-                    <option value="third">Третий разряд</option>
-                    <option value="second">Второй разряд</option>
-                    <option value="first">Первый разряд</option>
-                    <option value="candidate">Кандидат в мастера спорта</option>
-                    <option value="master_fide">Мастер ФИДЕ</option>
-                    <option value="international_master">Международный мастер</option>
-                    <option value="grandmaster">Гроссмейстер</option>
-                </select>
+<div class="container justify-content-center">
+    <h1>Игроки</h1>
+    <div class="filters">
+        <div class="filter-item">
+            <label for="rankFilter">Разряд/Звание:</label>
+            <select id="rankFilter">
+                <option value="all">Все</option>
+                <option value="fourth">Четвертый разряд</option>
+                <option value="third">Третий разряд</option>
+                <option value="second">Второй разряд</option>
+                <option value="first">Первый разряд</option>
+                <option value="candidate">Кандидат в мастера спорта</option>
+                <option value="master_fide">Мастер ФИДЕ</option>
+                <option value="international_master">Международный мастер</option>
+                <option value="grandmaster">Гроссмейстер</option>
+            </select>
+        </div>
+        <div class="filter-item">
+            <label for="blitzFilter">Рейтинг в блице:</label>
+            <input type="text" id="blitzFilter" placeholder="Минимальный рейтинг" pattern="\d*" oninput="validateInput(this, 0, 3000)">
+        </div>
+        <div class="filter-item">
+            <label for="rapidFilter">Рейтинг в рапиде:</label>
+            <input type="text" id="rapidFilter" placeholder="Минимальный рейтинг" pattern="\d*" oninput="validateInput(this, 0, 3000)">
+        </div>
+        <div class="filter-item">
+            <label for="classicFilter">Рейтинг в классике:</label>
+            <input type="text" id="classicFilter" placeholder="Минимальный рейтинг" pattern="\d*" oninput="validateInput(this, 0, 3000)">
+        </div>
+    </div>
+
+    @foreach (var player in Model)
+    {
+        <div class="player-card" data-rank="@player.Rank" data-blitz="@player.RatingBlitz" data-rapid="@player.RatingRapid" data-classic="@player.RatingClassic">
+            <img src="data:image/jpeg;base64,@player.PhotoBase64" alt="Профиль" />
+            <div class="player-info">
+                <h2>@player.FIO</h2>
+                <p><i class="fas fa-chess-pawn"></i> @player.RankOutput</p>
+                <p><i class="fas fa-tachometer-alt"></i> Блиц: @player.RatingBlitz</p>
+                <p><i class="fas fa-stopwatch"></i> Рапид: @player.RatingRapid</p>
+                <p><i class="fas fa-clock"></i> Классика: @player.RatingClassic</p>
             </div>
-            <div class="filter-item">
-                <label for="blitzFilter">Рейтинг в блице:</label>
-                <input type="text" id="blitzFilter" placeholder="Минимальный рейтинг" pattern="\d*" oninput="validateInput(this, 0, 3000)">
-            </div>
-            <div class="filter-item">
-                <label for="rapidFilter">Рейтинг в рапиде:</label>
-                <input type="text" id="rapidFilter" placeholder="Минимальный рейтинг" pattern="\d*" oninput="validateInput(this, 0, 3000)">
-            </div>
-            <div class="filter-item">
-                <label for="classicFilter">Рейтинг в классике:</label>
-                <input type="text" id="classicFilter" placeholder="Минимальный рейтинг" pattern="\d*" oninput="validateInput(this, 0, 3000)">
+            <div class="action-buttons">
+                <form asp-controller="Home" asp-action="PersonalArea" asp-route-idPlayer="@player.IdPlayer">
+                    <button class="details-button" idPlayer="@player.IdPlayer">Подробнее</button>
+                </form>
+
+                <button type="button" class="edit-button editPlayer"
+                    idPlayer="@player.IdPlayer"
+                    fioPlayer="@player.FIO"
+                    titlePlayer="@((int)player.Rank)"
+                    ratingPlayerClassic="@player.RatingClassic"
+                    ratingPlayerRapid="@player.RatingRapid"
+                    ratingPlayerBlitz="@player.RatingBlitz"
+                    data-toggle="modal" data-target="#editPlayer">
+                    Редактировать
+                </button>
+
+                <button type="button" class="delete-button deletePlayer"
+                        idPlayer="@player.IdPlayer"
+                        data-toggle="modal" data-target="#deletePlayer">
+                    Удалить
+                </button>
             </div>
         </div>
-        
-        @foreach (var player in Model)
-        {
-            <div class="player-card" data-rank="@player.Rank" data-blitz="@player.RatingBlitz" data-rapid="@player.RatingRapid" data-classic="@player.RatingClassic">
-                <img src="data:image/jpeg;base64,@player.PhotoBase64" alt="Профиль" />
-                <div class="player-info">
-                    <h2>@player.FIO</h2>
-                    <p><i class="fas fa-chess-pawn"></i> @player.RankOutput</p>
-                    <p><i class="fas fa-tachometer-alt"></i> Блиц: @player.RatingBlitz</p>
-                    <p><i class="fas fa-stopwatch"></i> Рапид: @player.RatingRapid</p>
-                    <p><i class="fas fa-clock"></i> Классика: @player.RatingClassic</p>
-                </div>
-                <div class="action-buttons">
-                    <form asp-controller="Home" asp-action="PersonalArea" asp-route-idPlayer="@player.IdPlayer">
-                        <button class="details-button" idPlayer="@player.IdPlayer">Подробнее</button>
-                    </form>
-                   
-                    <button type="button" class="edit-button editPlayer"
-                        idPlayer="@player.IdPlayer"
-                        fioPlayer="@player.FIO"
-                        titlePlayer="@((int)player.Rank)"
-                        ratingPlayerClassic="@player.RatingClassic"
-                        ratingPlayerRapid="@player.RatingRapid"
-                        ratingPlayerBlitz="@player.RatingBlitz"
-                        data-toggle="modal" data-target="#editPlayer">
-                        Редактировать
-                    </button>
+    }
 
-                    <button type="button" class="delete-button deletePlayer" 
-                            idPlayer="@player.IdPlayer"
-                            data-toggle="modal" data-target="#deletePlayer">
-                            Удалить
-                     </button>
-                </div>
-            </div>
-        }
     @if (ViewBag.IsAdmin)
     {
-        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#createPlayer">Добавить</button>
+        <div class="container text-center">
+            <button class="btn btn-primary m-2" data-toggle="modal" data-target="#createPlayer">
+                Добавить
+            </button>
+        </div>
     }
-    </div>
+</div>
+
 
 
 

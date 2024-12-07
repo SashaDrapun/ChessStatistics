@@ -1,19 +1,17 @@
-﻿ @model ChessStatistics.ViewModels.PlayerOnPlayerPageModel
+﻿@model ChessStatistics.ViewModels.PlayerOnPlayerPageModel
 
 @{
     ViewData["CurrentPage"] = "PersonalArea";
     Layout = "_Layout";
 }
- <style>
+<style>
     body {
         background-color: #f4f4f4;
     }
-    .container {
-        width: 80%;
-        margin: 20px auto;
+   .container {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
     }
     h1 {
         text-align: center;
@@ -36,8 +34,8 @@
         height: 150px;
         border-radius: 50%;
         margin-bottom: 10px;
-        object-fit: cover; 
-        object-position: center; 
+        object-fit: cover;
+        object-position: center;
     }
     .user-info h2 {
         margin: 0 0 10px;
@@ -131,16 +129,15 @@
         color: #3498db;
     }
 </style>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <div class="emptySpace"></div>
 <div id="content" class="container justify-content-center">
-    
     @if (!Model.IsPersonalArea || Model.IsPlayerConnectedToUser)
     {
         <div class="user-info">
             <img src="data:image/jpeg;base64,@Model.PhotoBase64" alt="Профиль" />
-            <h2 class="text-light"> Личный кабинет: @Model.FIO </h2>
+            <h2 class="text-light">Личный кабинет: @Model.FIO</h2>
         </div>
         <div class="card-row">
             <div class="card">
@@ -172,7 +169,7 @@
                 </div>
             </div>
             <div class="card">
-                <p id="blitzRank">Текущее (Блиц): Мастер ФИДЕ</p>
+                <p id="blitzRank">Текущий разряд (Блиц): Мастер ФИДЕ</p>
                 <div class="ratings">
                     <div>
                         <i class="fas fa-tachometer-alt"></i>
@@ -188,182 +185,176 @@
         </div>
 
         <h5 class="text-light">Ваши игры</h5>
-           
-            <tbody>
-                @foreach (var game in Model.Games)
-                {
-                         <div class="game-item">
-                        <div><i class="fas fa-chess-king"></i>Ваш цвет: @game.YourColor </div>
-                        <div><i class="fas fa-trophy"></i>Ваш рейтинг @game.YourRatingInMomentOfTheGame</div>
-                        <div><i class="fas fa-trophy"></i>Изменение вашего рейтинга @game.YourRatingChanged</div>
-                         <div><i class="fas fa-chess-king"></i>Ваш cоперник @game.FIOYourOpponent </div>
-                         <div><i class="fas fa-trophy"></i>Рейтинг вашего соперника @game.RatingYourOpponent</div>
-                        <div><i class="fas fa-calendar-alt"></i>Дата @game.DateInOutputFormat</div>
-                        </div>
-                }
-            </tbody>
-            
-    }
-else if(Model.IsUserRequestedLinkWithPlayer)
-{
-    <h5 class="text-info"> Вы запросили связку своего аккаунта с профилем игрока, ожидайте подтвержения администратора</h5>
-}
-else
-{
-    <h5 class="text-info"> Cвяжите ваш аккаунт с профилем игрока </h5>
-    <button type="submit" class="btn btn-primary"
-            data-toggle="modal" data-target="#linkUserWithPlayer">
-        Связать аккаунт с профилем игрока
-    </button>
-}
-
-
-<div class='modal fade' id='linkUserWithPlayer' tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document">
-        <div class="modal-content text-light bg-dark">
-            <div class="modal-header ">
-                <h5 class="modal-title text-info">Cвязать аккаунт со своим игровым профилем</h5>
-                <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <form asp-controller="LinkUserWithPlayer" asp-action="LinkUser" method="post">
-                        <input id="IdUser" name="IdUser" value="@Model.IdUser" class="d-none">
-                        <div class="form-group">
-                            <label for="PlayerProfile">Выберите ваш игровой профиль</label>
-                            <select id="PlayerProfile"
-                                    name="IdPlayer"
-                                    class="form-control">
-                                @foreach (var player in ViewBag.PlayersNotLinkedWithUser)
-                                {
-                                    <option value="@player.IdPlayer">@player.FIO</option>
-                                }
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">
-                            Cвязать
-                        </button>
-                    </form>
+        <tbody>
+            @foreach (var game in Model.Games)
+            {
+                <div class="game-item">
+                    <div><i class="fas fa-chess-king"></i>Ваш цвет: @game.YourColor</div>
+                    <div><i class="fas fa-trophy"></i>Ваш рейтинг @game.YourRatingInMomentOfTheGame</div>
+                    <div><i class="fas fa-trophy"></i>Изменение вашего рейтинга @game.YourRatingChanged</div>
+                    <div><i class="fas fa-chess-king"></i>Ваш соперник @game.FIOYourOpponent</div>
+                    <div><i class="fas fa-trophy"></i>Рейтинг вашего соперника @game.RatingYourOpponent</div>
+                    <div><i class="fas fa-calendar-alt"></i>Дата @game.DateInOutputFormat</div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+            }
+        </tbody>
+    }
+    else if (Model.IsUserRequestedLinkWithPlayer)
+    {
+        <h5 class="text-info">Вы запросили связку своего аккаунта с профилем игрока, ожидайте подтверждения администратора</h5>
+    }
+    else
+    {
+        <h5 class="text-info">Свяжите ваш аккаунт с профилем игрока</h5>
+        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#linkUserWithPlayer">
+            Связать аккаунт с профилем игрока
+        </button>
+    }
+
+    <div class='modal fade' id='linkUserWithPlayer' tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content text-light bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-info">Связать аккаунт со своим игровым профилем</h5>
+                    <button class="close autorization" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form asp-controller="LinkUserWithPlayer" asp-action="LinkUser" method="post">
+                            <input id="IdUser" name="IdUser" value="@Model.IdUser" class="d-none">
+                            <div class="form-group">
+                                <label for="PlayerProfile">Выберите ваш игровой профиль</label>
+                                <select id="PlayerProfile" name="IdPlayer" class="form-control">
+                                    @foreach (var player in ViewBag.PlayersNotLinkedWithUser)
+                                    {
+                                        <option value="@player.IdPlayer">@player.FIO</option>
+                                    }
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Связать
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 <script>
-        function getCurrentRank(rating) {
-            if (rating >= 2500) return "Гроссмейстер";
-            if (rating < 2500 && rating >= 2400) return "Международный мастер";
-            if (rating < 2400 && rating >= 2300) return "Мастер ФИДЕ";
-            if (rating < 2300 && rating >= 2000) return "Кандидат в мастера спорта";
-            if (rating < 2000 && rating >= 1800) return "Первый разряд";
-            if (rating < 1800 && rating >= 1600) return "Второй разряд";
-            if (rating < 1600 && rating >= 1400) return "Третий разряд";
-            if (rating < 1400 && rating >= 1200) return "Четвертый разряд";
-            if (rating < 1200) return "Без разряда";
+    function getCurrentRank(rating) {
+        if (rating >= 2500) return "Гроссмейстер";
+        if (rating < 2500 && rating >= 2400) return "Международный мастер";
+        if (rating < 2400 && rating >= 2300) return "Мастер ФИДЕ";
+        if (rating < 2300 && rating >= 2000) return "Кандидат в мастера спорта";
+        if (rating < 2000 && rating >= 1800) return "Первый разряд";
+        if (rating < 1800 && rating >= 1600) return "Второй разряд";
+        if (rating < 1600 && rating >= 1400) return "Третий разряд";
+        if (rating < 1400 && rating >= 1200) return "Четвертый разряд";
+        if (rating < 1200) return "Без разряда";
+    }
+
+    function getNextRank(currentRank) {
+        const ranks = [
+            "Без разряда",
+            "Четвертый разряд",
+            "Третий разряд",
+            "Второй разряд",
+            "Первый разряд",
+            "Кандидат в мастера спорта",
+            "Мастер ФИДЕ",
+            "Международный мастер",
+            "Гроссмейстер"
+        ];
+        const ranksGenitive = [
+            "Без разряда",
+            "Четвертого разряда",
+            "Третьего разряда",
+            "Второго разряда",
+            "Первого разряда",
+            "Кандидата в мастера спорта",
+            "Мастера ФИДЕ",
+            "Международного мастера",
+            "Гроссмейстера"
+        ];
+        const currentIndex = ranks.indexOf(currentRank);
+        return ranksGenitive[currentIndex + 1];
+    }
+
+    function getProgressInPercents(currentRating) {
+        let progress = 0;
+        let lengthOfProgress = 0;
+
+        if (currentRating >= 1200) {
+            progress = currentRating - 1200;
+            lengthOfProgress = 1200;
         }
 
-        function getNextRank(currentRank) {
-            const ranks = [
-                "Без разряда",
-                "Четвертый разряд",
-                "Третий разряд",
-                "Второй разряд",
-                "Первый разряд",
-                "Кандидат в мастера спорта",
-                "Мастер ФИДЕ",
-                "Международный мастер",
-                "Гроссмейстер"
-            ];
-            const ranksGenitive = [
-                "Без разряда",
-                "Четвертого разряда",
-                "Третьего разряда",
-                "Второго разряда",
-                "Первого разряда",
-                "Кандидата в мастера спорта",
-                "Мастера ФИДЕ",
-                "Международного мастера",
-                "Гроссмейстера"
-            ];
-            const currentIndex = ranks.indexOf(currentRank);
-            return ranksGenitive[currentIndex + 1];
+        if (currentRating >= 1400) {
+            progress = currentRating - 1400;
+            lengthOfProgress = 200;
         }
 
-        function getProgressInPercents(currentRating) {
-            let progress = 0;
-            let lengthOfProgress = 0;
-
-            if (currentRating >= 1200) {
-                progress = currentRating - 1200;
-                lengthOfProgress = 1200;
-            }
-
-            if (currentRating >= 1400) {
-                progress = currentRating - 1400;
-                lengthOfProgress = 200;
-            }
-
-            if (currentRating >= 1600) {
-                progress = currentRating - 1600;
-                lengthOfProgress = 200;
-            }
-
-            if (currentRating >= 1800) {
-                progress = currentRating - 1800;
-                lengthOfProgress = 200;
-            }
-
-            if (currentRating >= 2000) {
-                progress = currentRating - 2000;
-                lengthOfProgress = 300;
-            }
-
-            if (currentRating >= 2300) {
-                progress = currentRating - 2300;
-                lengthOfProgress = 100;
-            }
-
-            if (currentRating >= 2400) {
-                progress = currentRating - 2400;
-                lengthOfProgress = 100;
-            }
-            if (currentRating >= 2500) return 100;
-            console.log(progress);
-            console.log(lengthOfProgress);
-            return (progress / lengthOfProgress) * 100;
+        if (currentRating >= 1600) {
+            progress = currentRating - 1600;
+            lengthOfProgress = 200;
         }
 
-        function updateProgressBar(bar, text, currentRating) {
-            const progress = getProgressInPercents(currentRating);
-            bar.style.width = progress + '%';
-            text.textContent = progress.toFixed(0) + '%';
+        if (currentRating >= 1800) {
+            progress = currentRating - 1800;
+            lengthOfProgress = 200;
         }
 
-        const currentRatingClassic = 2450;
-        const currentRatingRapid = 1450;
-        const currentRatingBlitz = 1550;
+        if (currentRating >= 2000) {
+            progress = currentRating - 2000;
+            lengthOfProgress = 300;
+        }
 
-        const classicRank = getCurrentRank(currentRatingClassic);
-        const rapidRank = getCurrentRank(currentRatingRapid);
-        const blitzRank = getCurrentRank(currentRatingBlitz);
+        if (currentRating >= 2300) {
+            progress = currentRating - 2300;
+            lengthOfProgress = 100;
+        }
 
-        document.getElementById('classicRank').textContent = `Текущий разряд (Классика): ${classicRank}`;
-        document.getElementById('rapidRank').textContent = `Текущий разряд (Рапид): ${rapidRank}`;
-        document.getElementById('blitzRank').textContent = `Текущий разряд (Блиц): ${blitzRank}`;
+        if (currentRating >= 2400) {
+            progress = currentRating - 2400;
+            lengthOfProgress = 100;
+        }
+        if (currentRating >= 2500) return 100;
 
-        document.getElementById('classicNextRank').textContent = `Осталось до: ${getNextRank(classicRank)}`;
-        document.getElementById('rapidNextRank').textContent = `Осталось до: ${getNextRank(rapidRank)}`;
-        document.getElementById('blitzNextRank').textContent = `Осталось до: ${getNextRank(blitzRank)}`;
+        return (progress / lengthOfProgress) * 100;
+    }
 
-        updateProgressBar(document.getElementById('classicProgressBar'), document.getElementById('classicProgressText'), currentRatingClassic);
-        updateProgressBar(document.getElementById('rapidProgressBar'), document.getElementById('rapidProgressText'), currentRatingRapid);
-        updateProgressBar(document.getElementById('blitzProgressBar'), document.getElementById('blitzProgressText'), currentRatingBlitz);
-    </script>
+    function updateProgressBar(bar, text, currentRating) {
+        const progress = getProgressInPercents(currentRating);
+        bar.style.width = progress + '%';
+        text.textContent = progress.toFixed(0) + '%';
+    }
+
+    const currentRatingClassic = 2450;
+    const currentRatingRapid = 1450;
+    const currentRatingBlitz = 1550;
+
+    const classicRank = getCurrentRank(currentRatingClassic);
+    const rapidRank = getCurrentRank(currentRatingRapid);
+    const blitzRank = getCurrentRank(currentRatingBlitz);
+
+    document.getElementById('classicRank').textContent = `Текущий разряд (Классика): ${classicRank}`;
+    document.getElementById('rapidRank').textContent = `Текущий разряд (Рапид): ${rapidRank}`;
+    document.getElementById('blitzRank').textContent = `Текущий разряд (Блиц): ${blitzRank}`;
+
+    document.getElementById('classicNextRank').textContent = `Осталось до: ${getNextRank(classicRank)}`;
+    document.getElementById('rapidNextRank').textContent = `Осталось до: ${getNextRank(rapidRank)}`;
+    document.getElementById('blitzNextRank').textContent = `Осталось до: ${getNextRank(blitzRank)}`;
+
+    updateProgressBar(document.getElementById('classicProgressBar'), document.getElementById('classicProgressText'), currentRatingClassic);
+    updateProgressBar(document.getElementById('rapidProgressBar'), document.getElementById('rapidProgressText'), currentRatingRapid);
+    updateProgressBar(document.getElementById('blitzProgressBar'), document.getElementById('blitzProgressText'), currentRatingBlitz);
+</script>
+
 <div class="emptySpace"></div>

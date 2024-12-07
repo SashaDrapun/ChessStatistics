@@ -63,7 +63,7 @@
             font-size: 16px;
         }
 
-        .donation-form input, .donation-form select {
+        .donation-form input {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -83,6 +83,7 @@
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
+            margin-top: 10px;
         }
 
         .donation-form button:hover {
@@ -93,15 +94,47 @@
             width: 100%;
             max-width: 800px;
             margin: 20px auto;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .faq h3 {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #4CAF50;
         }
 
-        .faq p {
+        .faq-item {
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .faq-item h4 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .faq-item p {
+            display: none;
             margin-bottom: 20px;
             font-size: 16px;
+            color: #ccc;
+        }
+
+        .faq-item i {
+            margin-right: 10px;
+            color: #4CAF50;
+        }
+
+        .faq-item:hover h4 {
+            color: #4CAF50;
+        }
+
+        .faq-item:hover {
+            cursor: pointer;
         }
 
         .nav-item.active .nav-link {
@@ -155,7 +188,8 @@
 
         .main-content {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
             width: 100%;
             margin-top: 20px;
         }
@@ -172,6 +206,13 @@
         .main-content-right {
             text-align: right;
         }
+
+        .divider {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            border-top: 2px solid #4CAF50;
+        }
     </style>
 </head>
 <body>
@@ -183,52 +224,61 @@
 
         <div class="main-content">
             <div class="main-content-left">
-                <p>Мы некоммерческая ассоциация, потому что мы считаем, что все должны иметь бесплатный и свободный доступ к шахматной платформе мирового класса.</p>
-                <p>Мы полагаемся на поддержку таких людей как вы. Если вам нравится Lichess, пожалуйста, поддержите нас, сделайте пожертвование и станьте его спонсором!</p>
+                <p>Мы считаем, что все должны иметь бесплатный и свободный доступ к нашей шахматной платформе.</p>
+                <p>Мы полагаемся на поддержку таких людей как вы. Если вам нравится ChessStatistics, пожалуйста, поддержите нас, сделайте пожертвование и станьте его спонсором!</p>
             </div>
-            <div class="main-content-right">
-                <div class="donation-form">
-                    <h2>Сделайте пожертвование</h2>
-                    <form>
-                        <div class="section">
-                            <div class="section-left">
-                                <label for="sponsor">Пожертвование как:</label>
-                                <input type="text" id="sponsor" placeholder="Ваше имя или псевдоним">
-                            </div>
-                            <div class="section-right">
-                                <label for="duration">Подарить крылья спонсора другому игроку</label>
-                                <select id="duration">
-                                    <option value="1">Однократно</option>
-                                    <option value="12">Ежемесячно</option>
-                                    <option value="365">Пожизненно</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="section">
-                            <div class="section-left">
-                                <label for="amount">Другое</label>
-                                <input type="number" id="amount" placeholder="Сумма пожертвования">
-                            </div>
-                            <div class="section-right">
-                                <div class="payment-options">
-                                    <button type="button">Поддержать проект</button>
-                                    <button type="button">PayPal</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+            <div class="donation-form">
+                <h2>Сделайте пожертвование</h2>
+                <form>
+                    <label for="sponsor">Ваше имя или псевдоним</label>
+                    <input type="text" id="sponsor" placeholder="Ваше имя или псевдоним" required>
+                    <div class="payment-options">
+                        <button type="button">Поддержать проект</button>
+                        <button type="button">PayPal</button>
+                    </div>
+                </form>
             </div>
         </div>
 
+        <div class="divider"></div>
+
         <div class="faq">
             <h3>Часто задаваемые вопросы</h3>
-            <p><strong>Куда пойдут деньги от пожертвований?</strong> Прежде всего, мощные серверы. Также мы оплачиваем пожертвования разработчикам, которые работают над Lichess. Посмотрите детальную калькуляцию расходов.</p>
-            <p><strong>Правда, что Lichess официально некоммерческий?</strong> Да, вот документ (на французском языке).</p>
-            <p><strong>Могу ли я изменить или отменить мою ежемесячную поддержку?</strong> Да, в любое время с этой страницы. Или вы можете связаться со службой поддержки Lichess.</p>
-            <p><strong>Есть ли другие способы сделать пожертвование?</strong> Lichess зарегистрирована на Liberapay. Мы также принимаем биткойны через переводы. Пожалуйста, обратите внимание, что только форма пожертвований выше предоставляет статус покровителя.</p>
+            <p><i class="fas fa-info-circle"></i> Нажмите на вопрос, чтобы увидеть ответ.</p>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> Куда пойдут деньги от пожертвований?</h4>
+                <p>Мы оплачиваем пожертвования разработчикам, которые работают над ChessStatistics.</p>
+            </div>
+            @* <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> Правда, что ChessStatistics официально некоммерческий?</h4>
+                <p>Да, вот документ (на французском языке).</p>
+            </div> *@
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i>Будет ли у меня ежемесячное списание с карты на пожертование?</h4>
+                <p>Нет, вы сами выбираете, поддерживать проект или нет, у нас отключены ежемесячные списания.</p>
+            </div>
+            <div class="faq-item">
+                <h4><i class="fas fa-question-circle"></i> Есть ли другие способы сделать пожертвование?</h4>
+                <p>Мы принимаем пожертвования также на криптовалютные кошельки.</p>
+            </div>
         </div>
     </div>
     <div class="emptySpace"></div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const answer = item.querySelector('p');
+                    if (answer.style.display === 'none' || answer.style.display === '') {
+                        answer.style.display = 'block';
+                    } else {
+                        answer.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

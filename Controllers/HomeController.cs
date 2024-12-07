@@ -112,9 +112,8 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> Tournaments()
         {
             await SetViewBag();
-            List<Tournament> tournaments = [.. Database.db.Tournaments];
-
-            return View(TournamentMapper.MapTournamentsWithPartialInformation(tournaments));
+            
+            return View(PageInformationBuilder.Tournaments());
         }
 
         public async Task<IActionResult> Tournament(int idTournament)

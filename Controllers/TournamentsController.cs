@@ -4,6 +4,7 @@ using ChessStatistics.Models;
 using ChessStatistics.Services;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.TournamentsPage;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,16 +18,16 @@ namespace ChessStatistics.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateTournament(TournamentModel tournamentModel)
+        public async Task<IActionResult> CreateTournament(AddTournamentModel addtournamentModel)
         {
-            await TournamentAdder.AddTournamentAsync(tournamentModel);
+            await TournamentAdder.AddTournamentAsync(addtournamentModel);
             return RedirectToAction("Tournaments", "Home");
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditTournament(TournamentModel tournamentModel)
+        public async Task<IActionResult> EditTournament(EditTournamentModel editTournamentModel)
         {
-            await TournamentUpdater.UpdateTournamentAsync(tournamentModel);
+            await TournamentUpdater.UpdateTournamentAsync(editTournamentModel);
             return RedirectToAction("Tournaments", "Home");
         }
 

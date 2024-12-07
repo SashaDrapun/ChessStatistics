@@ -2,6 +2,7 @@
 using ChessStatistics.Models;
 using ChessStatistics.Models.Enum;
 using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.TournamentsPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ChessStatistics.Services.TournamentServices
 {
     public static class TournamentAdder
     {
-        public static async Task<Tournament> AddTournamentAsync(TournamentModel tournamentModel)
+        public static async Task<Tournament> AddTournamentAsync(AddTournamentModel tournamentModel)
         {
             Tournament tournament = new Tournament
             {

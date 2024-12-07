@@ -1,5 +1,5 @@
 ﻿@{
-    @model List<ChessStatistics.ViewModels.TournamentModel>
+    @model ChessStatistics.ViewModels.TournamentsPage.InformationOnPageTournamentsModel
     ViewData["Title"] = "Турниры";
     ViewData["CurrentPage"] = "Tournaments";
 }
@@ -164,7 +164,7 @@
             <input type="number" id="ageFilter" placeholder="Возраст" pattern="\d*" onchange="validateInput(this, 0, 120)">
         </div>
 
-        @foreach (var tournament in Model)
+        @foreach (var tournament in Model.TournamentModels)
         {
             <div class="text-light tournament-card" data-status="@tournament.OnlineOffline"
                                                     data-type="@tournament.OnlineOffline"
@@ -203,8 +203,8 @@
                         <button type="button" class="edit-button editTournament"
                                 tournamentId="@tournament.IdTournament"
                                 tournamentName="@tournament.TournamentName"
-                                tournamentDateStart="@tournament.DateStart.ToString("yyyy-MM-dd")"
-                                tournamentDateFinish="@tournament.DateFinish.ToString("yyyy-MM-dd")"
+                                tournamentDateStart="@tournament.DateStartForAttribute"
+                                tournamentDateFinish="@tournament.DateFinishForAttribute"
                                 tournamentType="@((int)tournament.TournamentType)"
                                 ratingType="@((int)tournament.RatingType)"
                                 tournamentCountTours="@tournament.CountTours"

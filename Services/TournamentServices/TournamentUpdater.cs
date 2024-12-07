@@ -2,6 +2,7 @@
 using ChessStatistics.Models;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.TournamentsPage;
 using System.Numerics;
 using System.Threading.Tasks;
 
@@ -9,26 +10,26 @@ namespace ChessStatistics.Services.TournamentServices
 {
     public static class TournamentUpdater
     {
-        public static async Task UpdateTournamentAsync(TournamentModel tournamentModel)
+        public static async Task UpdateTournamentAsync(EditTournamentModel editTournamentModel)
         {
-            Tournament tournament = TournamentSearcher.GetTournamentById(tournamentModel.IdTournament);
+            Tournament tournament = TournamentSearcher.GetTournamentById(editTournamentModel.IdTournament);
 
-            tournament.DateStart = tournamentModel.DateStart;
-            tournament.DateFinish = tournamentModel.DateFinish;
-            tournament.CountTours = tournamentModel.CountTours;
-            tournament.TournamentName = tournamentModel.TournamentName;
-            tournament.TournamentType = tournamentModel.TournamentType;
-            tournament.RatingType = tournamentModel.RatingType;
-            tournament.City = tournamentModel.City;
-            tournament.Adress = tournamentModel.Address;
-            tournament.OnlineOrOffline = tournamentModel.OnlineOffline;
-            tournament.Platform = tournamentModel.Platform;
-            tournament.Link = tournamentModel.TournamentLink;
-            tournament.MinimumYearOfBirth = tournamentModel.MinYear;
-            tournament.MaxRating = tournamentModel.MaxRating;
-            tournament.MaxCountOfPlayers = tournamentModel.MaxCountPlayers;
-            tournament.IsTheTournamentHeldUsingThePlatform = tournamentModel.IsPlatformCalculated;
-            tournament.Cost = tournamentModel.Cost;
+            tournament.DateStart = editTournamentModel.DateStart;
+            tournament.DateFinish = editTournamentModel.DateFinish;
+            tournament.CountTours = editTournamentModel.CountTours;
+            tournament.TournamentName = editTournamentModel.TournamentName;
+            tournament.TournamentType = editTournamentModel.TournamentType;
+            tournament.RatingType = editTournamentModel.RatingType;
+            tournament.City = editTournamentModel.City;
+            tournament.Adress = editTournamentModel.Address;
+            tournament.OnlineOrOffline = editTournamentModel.OnlineOffline;
+            tournament.Platform = editTournamentModel.Platform;
+            tournament.Link = editTournamentModel.TournamentLink;
+            tournament.MinimumYearOfBirth = editTournamentModel.MinYear;
+            tournament.MaxRating = editTournamentModel.MaxRating;
+            tournament.MaxCountOfPlayers = editTournamentModel.MaxCountPlayers;
+            tournament.IsTheTournamentHeldUsingThePlatform = editTournamentModel.IsPlatformCalculated;
+            tournament.Cost = editTournamentModel.Cost;
 
             Database.db.Tournaments.Update(tournament);
             await Database.db.SaveChangesAsync();

@@ -88,7 +88,6 @@ function populateEditForm(tournamentData) {
     document.querySelector('#maxParticipantsEdit').value = tournamentData.tournamentMaxCountPlayers;
     document.getElementById('isPlatformCalculatedEdit').value = tournamentData.tournamentIsPlatformCalculated;
     document.getElementById('CostEdit').value = tournamentData.tournamentCost.toString();
-    console.log(tournamentData.tournamentCost.toString());
     
 }
 

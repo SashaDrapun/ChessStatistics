@@ -2,6 +2,7 @@
 using ChessStatistics.Models.Enum;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.PlayersPage;
 using System;
 using System.Linq;
 

@@ -16,6 +16,7 @@ using ChessStatistics.ViewModels;
 using ChessStatistics.BusinessLogic.ParseInformationFromLichess;
 using ChessStatistics.Services.RequestsToParticipateInTournamentServices;
 using ChessStatistics.Services.ClubServices;
+using ChessStatistics.ViewModels.MainPage;
 
 namespace ChessStatistics.Controllers
 {

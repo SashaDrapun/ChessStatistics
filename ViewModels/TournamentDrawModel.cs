@@ -1,4 +1,5 @@
 ﻿using ChessStatistics.Models;
+using ChessStatistics.ViewModels.TournamentPage;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 

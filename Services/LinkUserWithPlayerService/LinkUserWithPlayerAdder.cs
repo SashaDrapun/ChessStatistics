@@ -1,6 +1,6 @@
 ﻿using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
-using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.PlayerPageModel;
 using System.Threading.Tasks;
 
 namespace ChessStatistics.Services.LinkUserWithPlayerService

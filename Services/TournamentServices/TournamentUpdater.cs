@@ -14,6 +14,7 @@ namespace ChessStatistics.Services.TournamentServices
             Tournament tournament = TournamentSearcher.GetTournamentById(tournamentModel.IdTournament);
 
             tournament.DateStart = tournamentModel.DateStart;
+            tournament.DateFinish = tournamentModel.DateFinish;
             tournament.CountTours = tournamentModel.CountTours;
             tournament.TournamentName = tournamentModel.TournamentName;
             tournament.TournamentType = tournamentModel.TournamentType;

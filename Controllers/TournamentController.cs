@@ -11,6 +11,8 @@ using ChessStatistics.Services.RequestsToParticipateInTournamentServices;
 using ChessStatistics.Services.TournamentParticipantsServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.TournamentPage;
+using ChessStatistics.ViewModels.TournamentPage.RequestToParticipateInTournamentModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

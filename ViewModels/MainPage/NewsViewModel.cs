@@ -1,7 +1,7 @@
 ﻿using ChessStatistics.BusinessLogic.ParseInformationFromLichess;
 using System.Collections.Generic;
 
-namespace ChessStatistics.ViewModels
+namespace ChessStatistics.ViewModels.MainPage
 {
     public class NewsViewModel
     {

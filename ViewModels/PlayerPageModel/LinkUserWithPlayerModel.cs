@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ChessStatistics.ViewModels
+namespace ChessStatistics.ViewModels.PlayerPageModel
 {
     public class LinkUserWithPlayerModel
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
-using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.TournamentPage.RequestToParticipateInTournamentModels;
 
 namespace ChessStatistics.Services.RequestsToParticipateInTournamentServices
 {

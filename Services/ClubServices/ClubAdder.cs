@@ -1,6 +1,6 @@
 ﻿using ChessStatistics.BusinessLogic;
 using ChessStatistics.Models;
-using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.ClubPage;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 

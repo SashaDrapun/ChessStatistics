@@ -7,6 +7,7 @@ using ChessStatistics.Services.GameServices;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.ToursServices;
 using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.TournamentPage;
 using System.Collections.Generic;
 using System.Linq;
 

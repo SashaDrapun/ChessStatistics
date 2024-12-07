@@ -1,5 +1,6 @@
 ﻿using ChessStatistics.Models;
 using ChessStatistics.Models.Enum;
+using ChessStatistics.ViewModels.PlayerPageModel;
 using System.Collections.Generic;
 
 namespace ChessStatistics.ViewModels

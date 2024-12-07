@@ -3,7 +3,7 @@ using ChessStatistics.Models;
 using ChessStatistics.Services.ClubServices;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.UserServices;
-using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.ClubPage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;

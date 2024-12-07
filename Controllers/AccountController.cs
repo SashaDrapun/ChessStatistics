@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using ChessStatistics.Models;
 using ChessStatistics.BusinessLogic;
-using ChessStatistics.ViewModels;
 using ChessStatistics.Services;
 using ChessStatistics.Services.PlayerServices;
 using Microsoft.EntityFrameworkCore;
+using ChessStatistics.ViewModels.RegisterPage;
+using ChessStatistics.ViewModels.LoginPage;
 
 namespace ChessStatistics.Controllers
 {

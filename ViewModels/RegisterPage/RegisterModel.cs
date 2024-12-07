@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ChessStatistics.ViewModels
+namespace ChessStatistics.ViewModels.RegisterPage
 {
     public class RegisterModel
     {

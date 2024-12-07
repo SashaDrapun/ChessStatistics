@@ -8,7 +8,7 @@ using ChessStatistics.Models.Enum;
 using ChessStatistics.Services;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.TournamentServices;
-using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.TournamentPage;
 
 namespace ChessStatistics.Mappers
 {

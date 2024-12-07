@@ -2,7 +2,7 @@
 using ChessStatistics.Models;
 using ChessStatistics.Services.LinkUserWithPlayerService;
 using ChessStatistics.Services.PlayerServices;
-using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.PlayerPageModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

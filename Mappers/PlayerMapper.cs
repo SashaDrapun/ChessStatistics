@@ -6,6 +6,7 @@ using ChessStatistics.Services.LinkUserWithPlayerService;
 using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.PlayersPage;
 using System;
 using System.Collections.Generic;
 

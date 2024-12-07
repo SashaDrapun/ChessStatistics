@@ -1,4 +1,4 @@
-﻿using ChessStatistics.ViewModels;
+﻿using ChessStatistics.ViewModels.ClubPage;
 using System.Collections.Generic;
 
 namespace ChessStatistics.Mappers

@@ -1,4 +1,4 @@
-﻿namespace ChessStatistics.ViewModels
+﻿namespace ChessStatistics.ViewModels.LoginPage
 {
     public class LoginModel
     {

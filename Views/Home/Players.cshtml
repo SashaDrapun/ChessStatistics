@@ -1,5 +1,6 @@
-﻿@{
-    @model List<ChessStatistics.ViewModels.PlayerOnPagePlayersModel>
+﻿@using ChessStatistics.ViewModels.PlayersPage
+@{
+    @model List<PlayerOnPagePlayersModel>
     ViewData["Title"] = "Игроки";
     ViewData["CurrentPage"] = "Players";
 }
@@ -133,13 +134,10 @@
         margin: 0;
     }
 </style>
-
-<div class="emptySpace"></div>
-<div class="container justify-content-center">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<div class="emptySpace"></div>
 
-<body>
-    <div class="container">
+    <div class="container justify-content-center">
         <h1>Игроки</h1>
         <div class="filters">
             <div class="filter-item">
@@ -205,13 +203,14 @@
                 </div>
             </div>
         }
+    @if (ViewBag.IsAdmin)
+    {
+        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#createPlayer">Добавить</button>
+    }
     </div>
-</body>
 
-@if (ViewBag.IsAdmin)
-{
-    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#createPlayer">Добавить</button>
-}
+
+
 
 <div class='modal fade' id='createPlayer' tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using TournamentTypeT = ChessStatistics.Models.Enum.TournamentType;
 using RatingTypeT = ChessStatistics.Models.Enum.RatingType;
 using Microsoft.Identity.Client;
+using ChessStatistics.ViewModels.PlayersPage;
+using ChessStatistics.ViewModels.TournamentPage;
 
 namespace ChessStatistics.ViewModels
 {
@@ -16,6 +18,8 @@ namespace ChessStatistics.ViewModels
         public string TournamentName { get; set; }
 
         public DateTime DateStart { get; set; }
+
+        public DateTime DateFinish { get; set; }
 
         public TournamentTypeT TournamentType { get; set; }
 

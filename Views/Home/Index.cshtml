@@ -1,6 +1,7 @@
-﻿@{
+﻿@using ChessStatistics.ViewModels.MainPage
+@{
     ViewData["CurrentPage"] = "Main";
-    var viewModel = (ChessStatistics.ViewModels.NewsViewModel)ViewData["NewsViewModel"];
+    var viewModel = (NewsViewModel)ViewData["NewsViewModel"];
 }
 
 <link rel="stylesheet" href="https://lichess1.org/assets/_Z92u7n/css/ublog.dark.min.css">

@@ -1,4 +1,4 @@
-﻿namespace ChessStatistics.ViewModels
+﻿namespace ChessStatistics.ViewModels.TournamentPage.RequestToParticipateInTournamentModels
 {
     public enum DeclineOrImprove
     {

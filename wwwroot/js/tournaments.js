@@ -53,6 +53,7 @@ function getTournamentDataFromButton(button) {
         tournamentId: button.getAttribute('tournamentId'),
         tournamentName: button.getAttribute('tournamentName'),
         tournamentDateStart: button.getAttribute('tournamentDateStart'),
+        tournamentDateFinish: button.getAttribute('tournamentDateFinish'),
         ratingType: button.getAttribute('ratingType'),
         tournamentCountTours: button.getAttribute('tournamentCountTours'),
         tournamentType: button.getAttribute('tournamentType'),
@@ -73,6 +74,7 @@ function populateEditForm(tournamentData) {
     document.querySelector('#IdTournamentEdit').value = tournamentData.tournamentId;
     document.querySelector('#TournamentNameEdit').value = tournamentData.tournamentName;
     document.querySelector('#DateStartEdit').value = tournamentData.tournamentDateStart;
+    document.querySelector('#DateFinishEdit').value = tournamentData.tournamentDateFinish; 
     document.querySelector('#RatingTypeEdit').value = tournamentData.ratingType;
     document.querySelector('#countToursEdit').value = tournamentData.tournamentCountTours;
     document.querySelector('#TournamentTypeEdit').value = tournamentData.tournamentType;

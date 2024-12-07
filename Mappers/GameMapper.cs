@@ -5,6 +5,7 @@ using ChessStatistics.Services.PlayerServices;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.Services.ToursServices;
 using ChessStatistics.ViewModels;
+using ChessStatistics.ViewModels.PlayerPageModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

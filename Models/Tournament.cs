@@ -25,6 +25,8 @@ namespace ChessStatistics.Models
 
         public DateTime DateStart { get; set; }
 
+        public DateTime DateFinish { get; set; }
+
         public TournamentType TournamentType { get; set; }
 
         public RatingType RatingType { get; set; }

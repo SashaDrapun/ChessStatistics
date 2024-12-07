@@ -1,7 +1,7 @@
 ﻿using ChessStatistics.Models;
 using System.Collections.Generic;
 
-namespace ChessStatistics.ViewModels
+namespace ChessStatistics.ViewModels.TournamentPage
 {
     public class TourModel
     {

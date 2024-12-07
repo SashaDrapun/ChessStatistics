@@ -1,4 +1,4 @@
-﻿namespace ChessStatistics.ViewModels
+﻿namespace ChessStatistics.ViewModels.ClubPage
 {
     public class ClubModel
     {

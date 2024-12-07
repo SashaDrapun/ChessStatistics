@@ -178,6 +178,7 @@
                     <div class="tournament-details">
                         <div class="tournament-details-left">
                             <p><i class="far fa-calendar-alt"></i>@tournament.DateStart</p>
+                            <p><i class="far fa-calendar-alt"></i>@tournament.DateFinish</p>
                             <p><i class="fas fa-trophy"></i>@tournament.TournamentType</p>
                             <p><i class="fas fa-list-ol"></i>@tournament.CountTours</p>
                             <p><i class="fas fa-star"></i>@tournament.RatingType</p>
@@ -203,6 +204,7 @@
                                 tournamentId="@tournament.IdTournament"
                                 tournamentName="@tournament.TournamentName"
                                 tournamentDateStart="@tournament.DateStart.ToString("yyyy-MM-dd")"
+                                tournamentDateFinish="@tournament.DateFinish.ToString("yyyy-MM-dd")"
                                 tournamentType="@((int)tournament.TournamentType)"
                                 ratingType="@((int)tournament.RatingType)"
                                 tournamentCountTours="@tournament.CountTours"
@@ -250,6 +252,10 @@
                             <div class="form-group">
                                 <label for="DateStart">Дата начала турнира</label>
                                 <input type="date" id="DateStart" name="dateStart" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="DateStart">Дата начала турнира</label>
+                                <input type="date" id="DateFinish" name="DateFinish" class="form-control" required />
                             </div>
                             <div class="form-group">
                                 <label for="TournamentType">Тип турнира</label>
@@ -355,6 +361,10 @@
                             <div class="form-group">
                                 <label for="DateStartEdit">Дата начала турнира</label>
                                 <input type="date" id="DateStartEdit" name="dateStart" class="form-control" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="DateFinishEdit">Дата начала турнира</label>
+                                <input type="date" id="DateFinishEdit" name="DateFinish" class="form-control" required />
                             </div>
                             <div class="form-group">
                                 <label for="TournamentTypeEdit">Тип турнира</label>

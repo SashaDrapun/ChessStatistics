@@ -1,6 +1,6 @@
 ﻿using ChessStatistics.Models.Enum;
 
-namespace ChessStatistics.ViewModels
+namespace ChessStatistics.ViewModels.PlayersPage
 {
     public class PlayerOnPagePlayersModel
     {

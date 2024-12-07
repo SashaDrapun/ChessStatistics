@@ -17,6 +17,7 @@ namespace ChessStatistics.Services.TournamentServices
             {
                 TournamentName = tournamentModel.TournamentName,
                 DateStart = tournamentModel.DateStart,
+                DateFinish = tournamentModel.DateFinish,
                 TournamentType = tournamentModel.TournamentType,
                 RatingType = tournamentModel.RatingType,
                 CountTours = tournamentModel.CountTours,

@@ -143,11 +143,11 @@
     <div class="container">
         <h1>Расписание турниров</h1>
         <div class="filters">
-            <select id="statusFilter">
+            <select type="" id="statusFilter">
                 <option value="all">Все турниры</option>
-                <option value="current">Текущие</option>
-                <option value="planned">Планируемые</option>
-                <option value="past">Прошедшие</option>
+                <option value="Current">Текущие</option>
+                <option value="Planned">Планируемые</option>
+                <option value="Past">Прошедшие</option>
             </select>
             <select id="typeFilter">
                 <option value="all">Все</option>
@@ -156,41 +156,48 @@
             </select>
             <select id="cityFilter">
                 <option value="all">Все города</option>
-                <option value="minsk">Минск</option>
-                <option value="moscow">Москва</option>
-                <!-- Add more cities as needed -->
+                @foreach (var city in Model.Cities)
+                {
+                    <option value="@city">@city</option>
+                }
+           
             </select>
-            <input type="number" id="ratingFilter" placeholder="Максимальный рейтинг" pattern="\d*" onchange="validateInput(this, 0, 3000)">
-            <input type="number" id="ageFilter" placeholder="Возраст" pattern="\d*" onchange="validateInput(this, 0, 120)">
+            <input type="number" id="ratingFilter" placeholder="Максимальный рейтинг (до)" pattern="\d*" onchange="validateInput(this, 0, 3000)">
         </div>
 
         @foreach (var tournament in Model.TournamentModels)
         {
-            <div class="text-light tournament-card" data-status="@tournament.OnlineOffline"
-                                                    data-type="@tournament.OnlineOffline"
-                                                    data-city="@tournament.City"
-                                                    data-rating="@tournament.MaxRating"
-                                                    data-age="@tournament.MinYear">
+            <div class="text-light tournament-card" data-status="@tournament.TournamentFilter.DateStatus"
+                                                    data-type="@tournament.TournamentFilter.OnlineOrOffline"
+                                                    data-city="@(tournament.TournamentFilter.City)"
+                                                    data-rating="@tournament.TournamentFilter.MaxRating"
+                                                    data-age="@tournament.TournamentFilter.MaxAge">
                 <div class="tournament-info">
                     <div class="tournament-header">
                         <h2>@tournament.TournamentName</h2>
                     </div>
                     <div class="tournament-details">
                         <div class="tournament-details-left">
-                            <p><i class="far fa-calendar-alt"></i>@tournament.DateStart</p>
-                            <p><i class="far fa-calendar-alt"></i>@tournament.DateFinish</p>
-                            <p><i class="fas fa-trophy"></i>@tournament.TournamentType</p>
-                            <p><i class="fas fa-list-ol"></i>@tournament.CountTours</p>
-                            <p><i class="fas fa-star"></i>@tournament.RatingType</p>
-                            <p><i class="fas fa-map-marker-alt"></i>@tournament.City @tournament.Address</p>
-                            <p><i class="fas fa-globe"></i>@tournament.OnlineOffline</p>
+                            <p><i class="far fa-calendar-alt"></i>Дата начала турнира: @tournament.DateStart</p>
+                            <p><i class="far fa-calendar-alt"></i>Дата окончания турнира: @tournament.DateFinish</p>
+                            <p><i class="fas fa-trophy"></i>@tournament.TournamentTypeOutput</p>
+                            <p><i class="fas fa-list-ol"></i>Количество туров: @tournament.CountTours</p>
+                            <p><i class="fas fa-star"></i>Контроль времени в турнире: @tournament.RatingType</p>
                         </div>
                         <div class="tournament-details-right">
-                            <p><i class="fas fa-laptop"></i>@tournament.Platform</p>
-                            <p><i class="fas fa-link"></i>@tournament.TournamentLink</p>
-                            <p><i class="fas fa-child"></i>@tournament.MinYear и моложе</p>
-                            <p><i class="fas fa-star-half-alt"></i>@tournament.MaxRating</p>
-                            <p><i class="fas fa-users"></i>@tournament.MaxCountPlayers</p>
+                            @if (tournament.TournamentFilter.OnlineOrOffline == ChessStatistics.Models.Enum.OnlineOrOffline.Offline)
+                            {
+                                <p><i class="fas fa-map-marker-alt"></i>Место проведения: @tournament.City @tournament.Address</p>
+                            }
+                            else
+                            {
+                                <p><i class="fas fa-laptop"></i>@tournament.Platform</p>
+                            }
+                            <p><i class="fas fa-link"></i>Ссылка на информацию о турнире: @tournament.TournamentLink</p>
+
+                            <p><i class="fas fa-child"></i>@tournament.MaxAgeOutput</p>
+                            <p><i class="fas fa-star-half-alt"></i>@(tournament.MaxRatingOutput)</p>
+                            <p><i class="fas fa-users"></i>Максимальное количество участников: @tournament.MaxCountPlayers</p>
                         </div>
                     </div>
                 </div>
@@ -210,11 +217,11 @@
                                 tournamentCountTours="@tournament.CountTours"
                                 tournamentCity="@tournament.City"
                                 tournamentAdress="@tournament.Address"
-                                tournamentStatus="@((int)tournament.OnlineOffline)"
+                                tournamentStatus="@((int)tournament.TournamentFilter.OnlineOrOffline)"
                                 tournamentPlatform="@tournament.Platform"
                                 tournamentLink="@tournament.TournamentLink"
                                 tournamentMinYear="@tournament.MinYear"
-                                tournamentMaxRating="@tournament.MaxRating"
+                                tournamentMaxRating="@tournament.TournamentFilter.MaxRating"
                                 tournamentMaxCountPlayers="@tournament.MaxCountPlayers"
                                 tournamentIsPlatformCalculated="@tournament.IsPlatformCalculated.ToString()"
                                 tournamentCost="@((int)tournament.Cost)"
@@ -395,7 +402,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="statusEdit">Статус турнира</label>
-                                <select id="statusEdit" name="status" class="form-control" required>
+                                <select id="statusEdit" name="OnlineOffline" class="form-control" required>
                                     <option value="0">Online</option>
                                     <option value="1">Offline</option>
                                 </select>
@@ -421,7 +428,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="maxParticipantsEdit">Максимальное количество участников</label>
-                                <input type="number" id="maxParticipantsEdit" name="maxParticipants" class="form-control" min="0" max="500" value="500" />
+                                <input type="number" id="maxParticipantsEdit" name="MaxCountPlayers" class="form-control" min="0" max="500" value="500" />
                             </div>
 
                             <div class="form-group">

@@ -97,6 +97,18 @@ namespace ChessStatistics.Services.TournamentServices
             return tournamentModel;
         }
 
+        public static List<string> GetTournamentsCities()
+        {
+            var result = new List<string>();
+            var tournaments = Database.db.Tournaments.ToList();
+            foreach (var tournament in tournaments) 
+            {
+                result.Add(tournament.City);
+            }
+
+            return result;
+        }
+
         public static TournamentModel GetTournamentModelById(int idTournament)
         {
             Tournament tournament = Database.db.Tournaments.FirstOrDefault(t => t.IdTournament == idTournament);

@@ -137,7 +137,8 @@ function handleTournamentTypeEditChange(e) {
     countToursEditInput.required = e.target.value === "1";
 }
 
-function filterTournaments() {
+function filterTournaments(e) {
+    e.preventDefault();
     const statusFilter = document.getElementById('statusFilter').value;
     const typeFilter = document.getElementById('typeFilter').value;
     const cityFilter = document.getElementById('cityFilter').value;
@@ -145,19 +146,18 @@ function filterTournaments() {
     const ageFilter = document.getElementById('ageFilter').value;
 
     const cards = document.querySelectorAll('.tournament-card');
+    
     cards.forEach(card => {
+        
         const status = card.getAttribute('data-status');
         const type = card.getAttribute('data-type');
         const city = card.getAttribute('data-city');
         const rating = card.getAttribute('data-rating');
         const age = card.getAttribute('data-age');
-
-        console.log(type);
         const shouldShow = (statusFilter === 'all' || statusFilter === status) &&
             (typeFilter === 'all' || typeFilter === type) &&
             (cityFilter === 'all' || cityFilter === city) &&
-            (ratingFilter === '' || ratingFilter <= rating) &&
-            (ageFilter === '' || ageFilter >= age);
+            (ratingFilter === '' || rating <= ratingFilter);
 
         card.style.display = shouldShow ? 'flex' : 'none';
     });

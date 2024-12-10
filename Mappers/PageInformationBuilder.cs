@@ -1,4 +1,5 @@
 ﻿using ChessStatistics.BusinessLogic;
+using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels.TournamentsPage;
 using System.Linq;
 
@@ -12,7 +13,7 @@ namespace ChessStatistics.Mappers
 
             result.TournamentModels = TournamentMapper.
                 MapTournamentsToTournamentsOnPageTournamentsModel(Database.db.Tournaments.ToList());
-
+            result.Cities = TournamentSearcher.GetTournamentsCities();
             return result;
         }
     }

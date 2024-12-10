@@ -6,5 +6,7 @@ namespace ChessStatistics.ViewModels.TournamentsPage
     public class InformationOnPageTournamentsModel
     {
         public List<TournamentModelOnPageTournaments> TournamentModels { get; set; }
+
+        public List<string> Cities { get; set; }
     }
 }

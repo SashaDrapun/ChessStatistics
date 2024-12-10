@@ -1,7 +1,9 @@
 ﻿using ChessStatistics.Models;
+using ChessStatistics.Models.Enum;
 using ChessStatistics.Services.TournamentServices;
 using ChessStatistics.ViewModels;
 using ChessStatistics.ViewModels.TournamentsPage;
+using System;
 using System.Collections.Generic;
 
 namespace ChessStatistics.Mappers
@@ -22,28 +24,61 @@ namespace ChessStatistics.Mappers
 
         public static TournamentModelOnPageTournaments MapTournamentToTournamentOnPageTournamentsModel(Tournament tournament)
         {
-            TournamentModelOnPageTournaments result = new TournamentModelOnPageTournaments();
+            var result = new TournamentModelOnPageTournaments
+            {
+                IdTournament = tournament.IdTournament,
+                TournamentName = tournament.TournamentName,
+                TournamentLink = tournament.Link,
+                CountTours = tournament.CountTours,
+                Address = tournament.Adress,
+                City = tournament.City,
+                DateStart = tournament.DateStart.ToString("D"),
+                DateFinish = tournament.DateFinish.ToString("D"),
+                DateStartForAttribute = tournament.DateStart.ToString("yyyy-MM-dd"),
+                DateFinishForAttribute = tournament.DateFinish.ToString("yyyy-MM-dd"),
+                Cost = tournament.Cost,
+                RatingType = tournament.RatingType,
+                IsPlatformCalculated = tournament.IsTheTournamentHeldUsingThePlatform,
+                TournamentType = tournament.TournamentType,
+                MaxCountPlayers = tournament.MaxCountOfPlayers,
+                MinYear = tournament.MinimumYearOfBirth,
+                Platform = tournament.Platform,
+                TournamentFilter = new TournamentFilter()
+            };
 
-            result.IdTournament = tournament.IdTournament;
-            result.TournamentName = tournament.TournamentName;
-            result.TournamentLink = tournament.Link;
-            result.OnlineOffline = tournament.OnlineOrOffline;
-            result.CountTours = tournament.CountTours;
-            result.Address = tournament.Adress;
-            result.City = tournament.City;
-            result.DateStart = tournament.DateStart.ToString("D");
-            result.DateFinish = tournament.DateFinish.ToString("D");
-            result.DateStartForAttribute = tournament.DateStart.ToString("yyyy-MM-dd");
-            result.DateFinishForAttribute = tournament.DateFinish.ToString("yyyy-MM-dd");
-            result.Cost = tournament.Cost;
-            result.RatingType = tournament.RatingType;
-            result.IsPlatformCalculated = tournament.IsTheTournamentHeldUsingThePlatform;
-            result.TournamentType = tournament.TournamentType;
-            result.MaxCountPlayers = tournament.MaxCountOfPlayers;
-            result.MinYear = tournament.MinimumYearOfBirth;
-            result.MaxRating = tournament.MaxRating;
-            result.Platform = tournament.Platform;
+           
+            DateTime currentDate = DateTime.Now;
 
+            if (currentDate < tournament.DateStart)
+            {
+                result.TournamentFilter.DateStatus = DateStatus.Planned;
+            }
+            else if (currentDate >= tournament.DateStart && currentDate <= tournament.DateFinish)
+            {
+                result.TournamentFilter.DateStatus = DateStatus.Current;
+            }
+            else
+            {
+                result.TournamentFilter.DateStatus = DateStatus.Past;
+            }
+
+            result.TournamentFilter.OnlineOrOffline = tournament.OnlineOrOffline;
+            result.TournamentFilter.City = tournament.City;
+            result.TournamentFilter.MaxRating = tournament.MaxRating;
+            result.TournamentFilter.MaxAge = currentDate.Year - tournament.MinimumYearOfBirth;
+            result.MaxAgeOutput = tournament.MinimumYearOfBirth == 1900 ? "Без ограничений по возврасту"
+                                                                    : $"До {result.TournamentFilter.MaxAge} лет включительно";
+            result.MaxRatingOutput = tournament.MaxRating == 3300 ? "Без ограничений по рейтингу"
+                                                                    : $"До {result.TournamentFilter.MaxRating} включительно";
+            if (result.TournamentType == TournamentType.Round)
+            {
+                result.TournamentTypeOutput = "Круговая система";
+            }
+            else if(result.TournamentType == TournamentType.Swiss)
+            {
+                result.TournamentTypeOutput = "Швейцарская система";
+            }
+            
             return result;
         }
 

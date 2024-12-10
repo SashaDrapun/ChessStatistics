@@ -1,8 +1,8 @@
-﻿@using ChessStatistics.Models.Enum
-@using ChessStatistics.Services
-@{
-    @model ChessStatistics.ViewModels.TournamentModel
-    ViewData["CurrentPage"] = "Tournament";
+﻿@{
+    @using ChessStatistics.Models.Enum;
+    @using ChessStatistics.Services;
+    @model ChessStatistics.ViewModels.TournamentPage.InformationOnPageTournamentModel
+    
 }
 
 <link rel="stylesheet" href="~/css/Tournament.css">
@@ -10,9 +10,9 @@
 <div class="emptySpace"></div>
 <div id="content" class="container justify-content-center">
 
-<input type="text" name="idTournament" id="idTournament" class="d-none" value="@(Model.IdTournament)">
-<input type="text" name="countTours" id="countTours" class="d-none" value="@(Model.CountTours)">
-<input type="text" name="tournamentType" id="tournamentType" class="d-none" value="@((int)Model.TournamentType)">
+    <input type="text" name="idTournament" id="idTournament" class="d-none" value="@(Model.TournamentModel.IdTournament)">
+    <input type="text" name="countTours" id="countTours" class="d-none" value="@(Model.TournamentModel.CountTours)">
+    <input type="text" name="tournamentType" id="tournamentType" class="d-none" value="@((int)Model.TournamentModel.TournamentType)">
 
 
 <div class="bd-example">
@@ -37,7 +37,7 @@
                         <th scope="col">ФИО</th>
                         <th scope="col">Рейтинг</th>
                         <th scope="col">Звание</th>
-                        @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+                            @if (Model.UserInfo != null && Model.UserInfo.IsAdmin)
                             {
                                 <th scope="col">Удалить</th>
                             }
@@ -51,17 +51,17 @@
                                 @player.FIO
                             </th>
                             <th scope="row">
-                                @if (Model.RatingType == RatingType.Blitz)
+                                    @if (Model.TournamentModel.RatingType == RatingType.Blitz)
                                 {
                                     @player.RatingBlitz
                                 }
 
-                                @if (Model.RatingType == RatingType.Rapid)
+                                    @if (Model.TournamentModel.RatingType == RatingType.Rapid)
                                 {
                                     @player.RatingRapid
                                 }
 
-                                @if (Model.RatingType == RatingType.Classic)
+                                    @if (Model.TournamentModel.RatingType == RatingType.Classic)
                                 {
                                     @player.RatingClassic
                                 }
@@ -71,22 +71,26 @@
                                 @player.RankOutput
                             </th>
 
-                            @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+                            @if (Model.UserInfo != null && Model.UserInfo.IsAdmin)
                             {
+                                
                                 <th scope="row">
-                                    <button class="btn btn-danger m-2 deleteParticipant" data-toggle="modal"
-                                        tournamentId="@Model.IdTournament"
-                                        playerId="@player.IdPlayer">
+                                    <form method="post" asp-controller="Tournament" asp-action="DeleteTournamentParticipant">
+                                    <input id="IdTournament" name="IdTournament" value="@Model.TournamentModel.IdTournament" class="d-none">
+                                    <input id="IdPlayer" name="IdPlayer" value="@player.IdPlayer" class="d-none">
+                                    <button class="btn btn-danger m-2 deleteParticipant">
                                         Удаление участника 
                                     </button>
+                                    </form>
                                 </th>
+                                
                             }
                         </tr>
                     }
                 </tbody>
             </table>
 
-            @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
+            @if (Model.UserInfo != null && Model.UserInfo.IsAdmin)
             {
                 <button class="btn btn-primary m-2" data-toggle="modal" data-target="#AddParticipant">
                     Добавление участника
@@ -98,7 +102,7 @@
                 if (!Model.IsUserSendRequestToParticipateInTournament)
                 {
                 <form name="AddingRequestToParticipateInTournament" method="post" action="/api/Tournament/AddingRequestToParticipateInTournament">
-                    <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.IdTournament">
+                            <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.TournamentModel.IdTournament">
                     <input type="hidden" name="IdUser" id="idUser" value="@Model.UserInfo.IdUser">
                     <button type="submit" class="btn btn-primary m-2">
                         Принять участие в турнире
@@ -140,7 +144,7 @@
                             </th>
                             <th scope="row">
                                         <form name="AddingRequestToParticipateInTournament" method="post" action="/api/Tournament/ImproveOrDeclineRequestToParticipateInTournament">
-                                            <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.IdTournament">
+                                            <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.TournamentModel.IdTournament">
                                             <input type="hidden" name="IdUser" id="idUser" value="@request.IdUser">
                                             <input type="hidden" name="DeclineOrImprove" id=" declineOrImprove" value="Improve">
                                            
@@ -151,7 +155,7 @@
                             </th>
                             <th scope="row">
                                         <form name="AddingRequestToParticipateInTournament" method="post" action="/api/Tournament/ImproveOrDeclineRequestToParticipateInTournament">
-                                            <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.IdTournament">
+                                            <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.TournamentModel.IdTournament">
                                             <input type="hidden" name="IdUser" id="idUser" value="@Model.UserInfo.IdUser">
                                             <input type="hidden" name="DeclineOrImprove" id="declineOrImprove" value="Decline">
                                             <button type="submit" class="btn btn-primary m-2">
@@ -163,7 +167,6 @@
                     }
                 </tbody>
             </table>
-                
              }
 
             <div class='modal fade' id='AddParticipant' tabindex="-1" role="dialog"
@@ -179,7 +182,7 @@
                         <div class="modal-body">
                             <div class="container-fluid">
                                 <form name="AddParticipant">
-                                    <input type="text" name="tournamentId" id="tournamentId" class="d-none" value="@Model.IdTournament">
+                                        <input type="text" name="tournamentId" id="tournamentId" class="d-none" value="@Model.TournamentModel.IdTournament">
                                     <div class="form-group">
                                         <label for="Title">Выберите игрока</label>
                                         <select id="playerId"
@@ -256,7 +259,8 @@
                                                         @Model.TournamentDrawModel.Tours[i].Games[j].PlayerWhiteScore
                                                 </th>
                                                 <th scope="row">
-                                                        <select @(ViewBag.AutorizeUser == null || !ViewBag.AutorizeUser.IsAdmin ? "disabled" : "")
+
+                                                        <select @(Model.UserInfo == null || !Model.UserInfo.IsAdmin ? "disabled" : "")
                                                         id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)GameResult"
                                                         name="GameResult"
                                                         idGame="@Model.TournamentDrawModel.Tours[i].Games[j].IdGame"
@@ -320,7 +324,7 @@
                 } 
             </div>
 
-            @if(Model.CountTours != Model.TournamentDrawModel.Tours.Count)
+                @if (Model.TournamentModel.CountTours != Model.TournamentDrawModel.Tours.Count)
             {
                     <form name="GenerateNextTour">
                         <button class="TournamentDraw btn btn-primary btn-lg btn-block" id="GenerateNextTour" type="submit">

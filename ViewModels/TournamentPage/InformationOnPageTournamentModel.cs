@@ -7,7 +7,7 @@ namespace ChessStatistics.ViewModels.TournamentPage
 {
     public class InformationOnPageTournamentModel
     {
-        TournamentOnPageTournamentModel TournamentModel { get; set; }
+        public TournamentOnPageTournamentModel TournamentModel { get; set; }
 
         public List<PlayerOnPagePlayersModel> PlayersParticipatingInTournament { get; set; }
 

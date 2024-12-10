@@ -29,16 +29,19 @@ namespace ChessStatistics.Mappers
         {
             var result = new InformationOnPageTournamentModel();
 
+            Tournament tournament = TournamentSearcher.GetTournamentById(idTournament);
+
+            result.TournamentModel = TournamentMapper.MapTournamentToTournamentOnPageTournamentModel(tournament);
             result.PlayersParticipatingInTournament = PlayerMapper.MapListPlayersToListPlayerOnPlayersPage(PlayerSearcher.
                GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, true));
             result.PlayersNotParticipatingInTournament = PlayerMapper.MapListPlayersToListPlayerOnPlayersPage(PlayerSearcher.
                 GetPlayersParticipatingOrNotParticipatingInTournament(idTournament, false));
             result.RoundRobinTournamentResult = TournamentSearcher.GetRoundRobinResult(idTournament);
             result.TournamentDrawModel = TournamentSearcher.GetTournamentDraw(idTournament);
-            result.UserInfo = new UserModel();
-
+           
             if (autorizeUser != null)
             {
+                result.UserInfo = new UserModel();
                 result.UserInfo = UserMapper.MapUser(autorizeUser);
                 TournamentRequests tournamentRequest = RequestToParticipateInTournamentSearcher.GetTournamentRequestByUserIdAndTournamentId(autorizeUser.Id, idTournament);
                 result.IsUserSendRequestToParticipateInTournament = tournamentRequest == null ? false : true;

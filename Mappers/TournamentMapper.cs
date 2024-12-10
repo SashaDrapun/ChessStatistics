@@ -22,6 +22,41 @@ namespace ChessStatistics.Mappers
             return result;
         }
 
+        public static TournamentOnPageTournamentModel MapTournamentToTournamentOnPageTournamentModel(Tournament tournament)
+        {
+            var result = new TournamentOnPageTournamentModel
+            {
+                IdTournament = tournament.IdTournament,
+                TournamentName = tournament.TournamentName,
+                TournamentLink = tournament.Link,
+                CountTours = tournament.CountTours,
+                Address = tournament.Adress,
+                City = tournament.City,
+                DateStart = tournament.DateStart.ToString("D"),
+                DateFinish = tournament.DateFinish.ToString("D"),
+                Cost = tournament.Cost,
+                RatingType = tournament.RatingType,
+                IsPlatformCalculated = tournament.IsTheTournamentHeldUsingThePlatform,
+                TournamentType = tournament.TournamentType,
+                MaxCountPlayers = tournament.MaxCountOfPlayers,
+                MinYear = tournament.MinimumYearOfBirth,
+                Platform = tournament.Platform,
+                OnlineOrOffline = tournament.OnlineOrOffline,
+            };
+
+            
+            if (result.TournamentType == TournamentType.Round)
+            {
+                result.TournamentTypeOutput = "Круговая система";
+            }
+            else if (result.TournamentType == TournamentType.Swiss)
+            {
+                result.TournamentTypeOutput = "Швейцарская система";
+            }
+
+            return result;
+        }
+
         public static TournamentModelOnPageTournaments MapTournamentToTournamentOnPageTournamentsModel(Tournament tournament)
         {
             var result = new TournamentModelOnPageTournaments

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using TournamentTypeT = ChessStatistics.Models.Enum.TournamentType;
 using RatingTypeT = ChessStatistics.Models.Enum.RatingType;
-using Microsoft.Identity.Client;
 using ChessStatistics.ViewModels.PlayersPage;
 using ChessStatistics.ViewModels.TournamentPage;
 

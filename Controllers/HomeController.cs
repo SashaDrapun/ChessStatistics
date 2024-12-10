@@ -120,6 +120,7 @@ namespace ChessStatistics.Controllers
         {
             await SetViewBag();
             User user = await GetAutorizeUser();
+            ViewData["CurrentPage"] = "Tournament";
             return View(PageInformationBuilder.Tournament(idTournament, user));
         }
 

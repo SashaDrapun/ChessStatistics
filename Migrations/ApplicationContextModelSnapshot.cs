@@ -160,6 +160,9 @@ namespace ChessStatistics.Migrations
                     b.Property<int>("CountTours")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DateFinish")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DateStart")
                         .HasColumnType("datetime2");
 

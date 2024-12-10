@@ -181,12 +181,12 @@
                         </div>
                         <div class="modal-body">
                             <div class="container-fluid">
-                                <form name="AddParticipant">
-                                        <input type="text" name="tournamentId" id="tournamentId" class="d-none" value="@Model.TournamentModel.IdTournament">
+                                    <form name="AddParticipant" asp-controller="Tournament" asp-action="AddTournamentParticipants">
+                                        <input type="text" name="IdTournament" id="tournamentId" class="d-none" value="@Model.TournamentModel.IdTournament">
                                     <div class="form-group">
                                         <label for="Title">Выберите игрока</label>
                                         <select id="playerId"
-                                                name="playerId"
+                                                    name="IdPlayer"
                                                 class="form-control">
                                             @{
                                                 foreach (var player in Model.PlayersNotParticipatingInTournament)
@@ -403,7 +403,6 @@
 <div class="emptySpace"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"> </script>
-<script src="~/js/tournament.js"></script>
 
 
 

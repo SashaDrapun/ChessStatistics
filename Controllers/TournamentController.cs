@@ -28,11 +28,11 @@ namespace ChessStatistics.Controllers
         }
 
         [HttpPost("AddTournamentParticipants")]
-        public async Task<ActionResult<Player>> AddTournamentParticipants([FromBody]TournamentAddParticipantModel tournamentAddParticipantModel)
+        public async Task<ActionResult> AddTournamentParticipants([FromForm] TournamentAddParticipantModel tournamentAddParticipantModel)
         {
             await TournamentParticipantsAdder.AddTournamentParticipantAsync(tournamentAddParticipantModel.IdPlayer, tournamentAddParticipantModel.IdTournament);
-            Player player = PlayerSearcher.GetPlayerById(tournamentAddParticipantModel.IdPlayer);
-            return Ok(PlayerMapper.MapPlayer(player, tournamentAddParticipantModel.IdTournament));
+            
+            return RedirectToAction("Tournament", "Home", new { idTournament = tournamentAddParticipantModel.IdTournament });
         }
 
         [HttpPost("AddingRequestToParticipateInTournament")]

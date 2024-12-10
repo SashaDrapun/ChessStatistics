@@ -119,25 +119,8 @@ namespace ChessStatistics.Controllers
         public async Task<IActionResult> Tournament(int idTournament)
         {
             await SetViewBag();
-            TournamentModel tournamentModel = TournamentSearcher.GetTournamentModelById(idTournament);
-            tournamentModel = TournamentSearcher.SetRoundRobitResult(tournamentModel);
-            User autorizeUser = await GetAutorizeUser();
-            tournamentModel.UserInfo = new UserModel();
-
-            if (autorizeUser != null)
-            {
-                tournamentModel.UserInfo = UserMapper.MapUser(autorizeUser);
-                TournamentRequests tournamentRequest =  RequestToParticipateInTournamentSearcher.GetTournamentRequestByUserIdAndTournamentId(autorizeUser.Id, idTournament);
-                tournamentModel.IsUserSendRequestToParticipateInTournament = tournamentRequest == null ? false : true;
-            }
-
-            var requestsToParticipateInTournament = RequestToParticipateInTournamentSearcher.GetAllTournamentInTournamentRequests(idTournament);
-            if (requestsToParticipateInTournament != null)
-            {
-                tournamentModel.RequestsToParticipateInTournamentModels = RequestToParticipateInTournamentMapper.MapRequestsToParticipateInTournament(requestsToParticipateInTournament);
-            }
-
-            return View(tournamentModel);
+            User user = await GetAutorizeUser();
+            return View(PageInformationBuilder.Tournament(idTournament, user));
         }
 
         public async Task<IActionResult> AdminPanel()

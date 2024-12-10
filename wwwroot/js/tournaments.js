@@ -26,7 +26,6 @@
     document.getElementById('typeFilter').addEventListener('change', filterTournaments);
     document.getElementById('cityFilter').addEventListener('change', filterTournaments);
     document.getElementById('ratingFilter').addEventListener('change', filterTournaments);
-    document.getElementById('ageFilter').addEventListener('change', filterTournaments);
 
     // Initial check for the tournament type
 });
@@ -143,7 +142,6 @@ function filterTournaments(e) {
     const typeFilter = document.getElementById('typeFilter').value;
     const cityFilter = document.getElementById('cityFilter').value;
     const ratingFilter = document.getElementById('ratingFilter').value;
-    const ageFilter = document.getElementById('ageFilter').value;
 
     const cards = document.querySelectorAll('.tournament-card');
     
@@ -153,7 +151,6 @@ function filterTournaments(e) {
         const type = card.getAttribute('data-type');
         const city = card.getAttribute('data-city');
         const rating = card.getAttribute('data-rating');
-        const age = card.getAttribute('data-age');
         const shouldShow = (statusFilter === 'all' || statusFilter === status) &&
             (typeFilter === 'all' || typeFilter === type) &&
             (cityFilter === 'all' || cityFilter === city) &&

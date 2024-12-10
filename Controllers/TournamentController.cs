@@ -104,7 +104,7 @@ namespace ChessStatistics.Controllers
         [HttpPost("GetTournamentResult")]
         public ActionResult<RoundRobinTournamentResult> GetTournamentResult([FromBody] TournamentModel tournamentModel)
         {
-            return TournamentSearcher.GetRoundRobitResult(tournamentModel.IdTournament);
+            return TournamentSearcher.GetRoundRobinResult(tournamentModel.IdTournament);
         }
     }
 }

@@ -140,7 +140,7 @@ namespace ChessStatistics.Services.TournamentServices
             return model;
         }
 
-        public static RoundRobinTournamentResult GetRoundRobitResult(int idTournament)
+        public static RoundRobinTournamentResult GetRoundRobinResult(int idTournament)
         {
             GenerateTournamentResult generateTournamentResult = new(idTournament);
 

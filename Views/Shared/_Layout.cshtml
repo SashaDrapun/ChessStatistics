@@ -28,22 +28,20 @@
         body {
             background-color: #343a40;
             color: #fff;
-            margin: 0;
-            padding: 0;
         }
         * {
             padding: 0px;
             margin: 0px;
         }
-        .mainContainer {
+         .mainContainer {
             background-color: #343A40;
             display: grid;
             grid-template-columns: 15% 70% 15%;
-        }
-        .navbar-brand {
+        } 
+         .navbar-brand {
             font-size: 1.5rem;
             font-weight: bold;
-        }
+        } 
         .nav-link {
             font-size: 1rem;
             font-weight: 500;
@@ -52,17 +50,12 @@
             color: orange;
             font-weight: bold;
         }
+        
         .user-info {
             display: flex;
             align-items: center;
             margin-right: 10px; 
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            margin-right: 10px; 
-        }
+        } 
 
         .user-info h3 {
             margin: 0;
@@ -82,12 +75,6 @@
 
         .logout-button:hover {
             background-color: #ff6347;
-        }
-
-        .navbar-nav {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
         }
 
     </style>
@@ -159,9 +146,9 @@
 
             @if (ViewBag.AutorizeUser != null)
             {
-                <li class="nav-item d-flex justify-content-center align-items-center user-info">
+                <li class="nav-item d-flex justify-content-center align-items-center">
                     <a asp-controller="Home" asp-action="PersonalArea" asp-route-idPlayer="0">
-                        <h3 class='text-success' id="userFIO">@ViewBag.AutorizeUser.FIO</h3>
+                        <h4 class='text-success' id="userFIO">@ViewBag.AutorizeUser.FIO</h4>
                     </a>
                 </li>
                 <li class="nav-item d-flex justify-content-center align-items-center">

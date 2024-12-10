@@ -16,6 +16,7 @@
 
     <title>Главная</title>
 
+    <link rel="stylesheet" href="~/css/Index.css">
     <link rel="apple-touch-icon" sizes="180x180" href="~/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="~/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="~/favicon/favicon-16x16.png">
@@ -23,44 +24,6 @@
     <link rel="mask-icon" href="~/favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="theme-color" content="#ffffff">
-    <style>
-
-        body {
-            background-color: #343a40;
-            color: #fff;
-        }
-        * {
-            padding: 0px;
-            margin: 0px;
-        }
-         .mainContainer {
-            background-color: #343A40;
-            display: grid;
-            grid-template-columns: 15% 70% 15%;
-        } 
-         .navbar-brand {
-            font-size: 1.5rem;
-            font-weight: bold;
-        } 
-       
-        .nav-item.active .nav-link {
-            font-weight: bold;
-        }
-        .logout-button {
-            background-color: #ff7f50;
-            border: none;
-            padding: 5px 10px; 
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-        }
-
-        .logout-button:hover {
-            background-color: #ff6347;
-        }
-
-    </style>
 </head>
 <body class="p-2 mainContainer">
     <p id="LengthMenu" class="d-none">Отображено _MENU_ записей на странице</p>
@@ -72,7 +35,6 @@
 
     <div class="emptySpace"></div>
     <div id="content" class="container justify-content-center d-flex align-items-center">
-
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div>
         <a class="navbar-brand" href="#">СhessStatistics</a>

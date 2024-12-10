@@ -1,33 +1,30 @@
-﻿.ublog-index__posts {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0 -15px;
+body {
+    background-color: #343a40;
+    color: #fff;
+}
+* {
+    padding: 0px;
+    margin: 0px;
 }
 
-.ublog-post-card {
-    display: flex;
-    flex-direction: column;
-    margin: 30px 15px;
-    max-width: 400px;
-    text-decoration: none;
-    color: inherit;
+ .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+} 
+
+.nav-item.active .nav-link {
+    font-weight: bold;
+}
+.logout-button {
+    background-color: #ff7f50;
+    border: none;
+    padding: 5px 10px; 
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
 }
 
-.ublog-post-card__top {
-    position: relative;
-    overflow: hidden;
-    border-radius: 5px;
-}
-
-.ublog-post-card__image {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    transition: transform .3s;
-}
-
-.ublog-post-card__image:hover {
-       transform: scale(1.1);
+.logout-button:hover {
+    background-color: #ff6347;
 }

@@ -18,10 +18,10 @@
 <div class="bd-example">
     <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="player-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="true">Игроки</button>
+                <button class="nav-link @(Model.UserPosition.TabPosition == 1 ? "active" : "")" id="player-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="true">Игроки</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tour-tab" data-bs-toggle="tab" data-bs-target="#tours" type="button" role="tab" aria-controls="tours" aria-selected="false">Туры</button>
+                <button class="nav-link @(Model.UserPosition.TabPosition == 2 ? "active" : "")" id="tour-tab" data-bs-toggle="tab" data-bs-target="#tours" type="button" role="tab" aria-controls="tours" aria-selected="false">Туры</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="result-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab" aria-controls="results" aria-selected="false">Итоги</button>
@@ -29,7 +29,7 @@
     </ul>
 
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade active show" id="players" role="tabpanel" aria-labelledby="players-tab">
+            <div class="tab-pane fade  @(Model.UserPosition.TabPosition == 1 ? "show active" : "")" id="players" role="tabpanel" aria-labelledby="players-tab">
             <h5 class="text-light"> Участники турнира </h5>
             <table id="usersParticipatingInTournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
                 <thead>
@@ -102,7 +102,7 @@
                 if (!Model.IsUserSendRequestToParticipateInTournament)
                 {
                 <form name="AddingRequestToParticipateInTournament" method="post" action="/api/Tournament/AddingRequestToParticipateInTournament">
-                            <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.TournamentModel.IdTournament">
+                    <input type="hidden" name="IdTournament" id="tournamentId" value="@Model.TournamentModel.IdTournament">
                     <input type="hidden" name="IdUser" id="idUser" value="@Model.UserInfo.IdUser">
                     <button type="submit" class="btn btn-primary m-2">
                         Принять участие в турнире
@@ -207,7 +207,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade" id="tours" role="tabpanel" aria-labelledby="tours-tab">
+            <div class="tab-pane fade  @(Model.UserPosition.TabPosition == 2 ? "show active" : "")" id="tours" role="tabpanel" aria-labelledby="tours-tab">
                 <h5 class="text-light"> Туры </h5>
             <nav>
                 <div class="nav nav-tabs centered justify-content-center" id="nav-tabTours" role="tablist">
@@ -215,7 +215,8 @@
                     {
                         for (int i = 0; i < Model.TournamentDrawModel.Tours.Count; i++)
                         {
-                            <button class="nav-link" id="nav-tour@(i+1)-tab" data-bs-toggle="tab"
+                                <button class="nav-link  @(Model.UserPosition.TourPosition == (i + 1) ? "active" : "") "
+                                        id="nav-tour@(i + 1)-tab" data-bs-toggle="tab"
                                     data-bs-target="#nav-tour@(i + 1)" type="button" role="tab" aria-controls="nav-tour@(i+1)"
                                     aria-selected="true">
                                 Тур @(i + 1)
@@ -230,7 +231,7 @@
                 {
                     for (int i = 0; i < Model.TournamentDrawModel.Tours.Count; i++)
                     {
-                        <div class="tab-pane fade show" id="nav-tour@(i+1)" role="tabpanel" aria-labelledby="nav-tour@(i+1)-tab">
+                            <div class="tab-pane fade @(Model.UserPosition.TourPosition == i+1 ? "show active" : "")" id="nav-tour@(i+1)" role="tabpanel" aria-labelledby="nav-tour@(i+1)-tab">
                             <div class="d-flex justify-content-center">
                                 <table id="usersParticipatingInTournamentTable" class="table table-responsive-sm table-bordered table-hover table-dark regular-table">
                                     <thead>
@@ -258,30 +259,33 @@
                                                 <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)PlayerWhiteScore">
                                                         @Model.TournamentDrawModel.Tours[i].Games[j].PlayerWhiteScore
                                                 </th>
-                                                <th scope="row">
-
-                                                        <select @(Model.UserInfo == null || !Model.UserInfo.IsAdmin ? "disabled" : "")
-                                                        id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)GameResult"
-                                                        name="GameResult"
-                                                        idGame="@Model.TournamentDrawModel.Tours[i].Games[j].IdGame"
-                                                        class="form-control gameResultSelect">
-                                                        @if (!Model.TournamentDrawModel.Tours[i].Games[j].DidTheGamePassed)
-                                                        {
-                                                            <option selected disabled>Заполнить</option>
-                                                            <option value="0">1-0</option>
-                                                            <option value="1">1/2</option>
-                                                            <option value="2">0-1</option>
-                                                        }
-                                                        else
-                                                        {
-                                                            <option value="0" selected="@(Model.TournamentDrawModel.Tours[i].Games[j].GameResult == GameResult.WhiteWin)">1-0</option>
-                                                            <option value="1" selected="@(Model.TournamentDrawModel.Tours[i].Games[j].GameResult == GameResult.Draw)">1/2</option>
-                                                            <option value="2" selected="@(Model.TournamentDrawModel.Tours[i].Games[j].GameResult == GameResult.BlackWin)">0-1</option>
-                                                        }
-    
-                                                        </select>
-
-                                                </th>
+                                                    <th scope="row">
+                                                        <form id="gameResultForm@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)" method="post" action="/api/Tournament/SetGameResult">
+                                                            <select @(Model.UserInfo == null || !Model.UserInfo.IsAdmin ? "disabled" : "")
+                                                                    id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)GameResult"
+                                                                    name="GameResult"
+                                                                    idGame="@Model.TournamentDrawModel.Tours[i].Games[j].IdGame"
+                                                                    class="form-control gameResultSelect">
+                                                                @if (!Model.TournamentDrawModel.Tours[i].Games[j].DidTheGamePassed)
+                                                                {
+                                                                    <option selected disabled>Заполнить</option>
+                                                                    <option value="0">1-0</option>
+                                                                    <option value="1">1/2</option>
+                                                                    <option value="2">0-1</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="0" selected="@(Model.TournamentDrawModel.Tours[i].Games[j].GameResult == GameResult.WhiteWin)">1-0</option>
+                                                                    <option value="1" selected="@(Model.TournamentDrawModel.Tours[i].Games[j].GameResult == GameResult.Draw)">1/2</option>
+                                                                    <option value="2" selected="@(Model.TournamentDrawModel.Tours[i].Games[j].GameResult == GameResult.BlackWin)">0-1</option>
+                                                                }
+                                                            </select>
+                                                            <input type="hidden" name="TabPosition" value="2" />
+                                                            <input type="hidden" name="TourPosition" value="@(i+1)" />
+                                                            <input type="hidden" name="IdGame" value="@Model.TournamentDrawModel.Tours[i].Games[j].IdGame" />
+                                                            <input type="hidden" name="IdTournament" value="@Model.TournamentModel.IdTournament" />
+                                                        </form>
+                                                    </th>
                                                 <th scope="row" id="Tour@(Model.TournamentDrawModel.Tours[i].IdTour)Game@(Model.TournamentDrawModel.Tours[i].Games[j].IdGame)PlayerBlackScore">
                                                         @Model.TournamentDrawModel.Tours[i].Games[j].PlayerBlackScore
                                                 </th>
@@ -326,7 +330,8 @@
 
                 @if (Model.TournamentModel.CountTours != Model.TournamentDrawModel.Tours.Count)
             {
-                    <form name="GenerateNextTour">
+                    <form name="GenerateNextTour" asp-controller="Tournament" asp-action="GenerateTournamentDraw">
+                        <input type="text" name="IdTournament" id="tournamentId" class="d-none" value="@Model.TournamentModel.IdTournament">
                         <button class="TournamentDraw btn btn-primary btn-lg btn-block" id="GenerateNextTour" type="submit">
                             <i class="fas fa-chess-clock"></i>
                             Генерация следующего тура
@@ -402,8 +407,7 @@
 </div>
 <div class="emptySpace"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.7/signalr.min.js"> </script>
-
+<script src="~/js/tournament.js"></script>
 
 
 

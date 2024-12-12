@@ -25,7 +25,7 @@ namespace ChessStatistics.Mappers
             return result;
         }
 
-        public static InformationOnPageTournamentModel Tournament(int idTournament, User autorizeUser)
+        public static InformationOnPageTournamentModel Tournament(int idTournament, User autorizeUser, UserPosition userPosition)
         {
             var result = new InformationOnPageTournamentModel();
 
@@ -52,6 +52,8 @@ namespace ChessStatistics.Mappers
             {
                 result.RequestsToParticipateInTournamentModels = RequestToParticipateInTournamentMapper.MapRequestsToParticipateInTournament(requestsToParticipateInTournament);
             }
+
+            result.UserPosition = userPosition;
 
             return result;
         }

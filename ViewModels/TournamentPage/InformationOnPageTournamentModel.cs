@@ -17,6 +17,8 @@ namespace ChessStatistics.ViewModels.TournamentPage
 
         public RoundRobinTournamentResult RoundRobinTournamentResult { get; set; }
 
+        public UserPosition UserPosition { get; set; }
+
         public UserModel UserInfo { get; set; }
 
         public bool IsUserSendRequestToParticipateInTournament { get; set; }

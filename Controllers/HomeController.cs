@@ -17,6 +17,8 @@ using ChessStatistics.BusinessLogic.ParseInformationFromLichess;
 using ChessStatistics.Services.RequestsToParticipateInTournamentServices;
 using ChessStatistics.Services.ClubServices;
 using ChessStatistics.ViewModels.MainPage;
+using ChessStatistics.ViewModels.TournamentPage;
+
 
 namespace ChessStatistics.Controllers
 {
@@ -116,12 +118,12 @@ namespace ChessStatistics.Controllers
             return View(PageInformationBuilder.Tournaments());
         }
 
-        public async Task<IActionResult> Tournament(int idTournament)
+        public async Task<IActionResult> Tournament(int idTournament, int tabPosition = 1, int tourPosition = 1)
         {
             await SetViewBag();
             User user = await GetAutorizeUser();
             ViewData["CurrentPage"] = "Tournament";
-            return View(PageInformationBuilder.Tournament(idTournament, user));
+            return View(PageInformationBuilder.Tournament(idTournament, user, new UserPosition(tabPosition, tourPosition)));
         }
 
         public async Task<IActionResult> AdminPanel()

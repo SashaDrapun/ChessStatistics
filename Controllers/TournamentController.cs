@@ -70,35 +70,38 @@ namespace ChessStatistics.Controllers
         }
 
         [HttpPost("GenerateTournamentDraw")]
-        public async Task<ActionResult<TournamentDrawModel>> GenerateTournamentDraw([FromBody] TournamentModel tournamentModel)
+        public async Task<ActionResult> GenerateTournamentDraw([FromForm] int idTournament)
         {
-            Tournament tournament = TournamentSearcher.GetTournamentById(tournamentModel.IdTournament);
+            Tournament tournament = TournamentSearcher.GetTournamentById(idTournament);
 
             if (tournament.TournamentType == TournamentType.Round)
             {
                 if (tournament.CountTours == 2)
                 {
-                    await TournamentUpdater.SetCountToursAsync(tournamentModel.IdTournament);
-                    await GeneratingRoundTournamentDraw.GenerateTournamentDrawAsync(tournamentModel.IdTournament);
+                    await TournamentUpdater.SetCountToursAsync(idTournament);
+                    await GeneratingRoundTournamentDraw.GenerateTournamentDrawAsync(idTournament);
                 }
             }
 
             if (tournament.TournamentType == TournamentType.Swiss)
             {
-                await GeneratingSwissTournamentDraw.AddNextTourAsync(tournamentModel.IdTournament);
+                await GeneratingSwissTournamentDraw.AddNextTourAsync(idTournament);
             }
 
-            TournamentDrawModel result = TournamentSearcher.GetTournamentDraw(tournamentModel.IdTournament);
-            return result;
+            return RedirectToAction("Tournament", "Home", new { idTournament });
+
         }
 
         [HttpPost("SetGameResult")]
-        public async Task<ActionResult<GameModel>> SetGameResult([FromBody] GameModel gameModel)
+        public async Task<ActionResult> SetGameResult([FromForm] SetGameResultModel setGameResultModel)
         {
-            await GameUpdater.UpdateGameAsync(gameModel);
-
-            GameModel result = GameMapper.MapGame(GameSearcher.GetGame(gameModel.IdGame));
-            return result;
+            await GameUpdater.UpdateGameAsync(setGameResultModel);
+            
+            return RedirectToAction("Tournament", "Home", 
+                new { idTournament = setGameResultModel.IdTournament,
+                    tabPosition = setGameResultModel.TabPosition,
+                    tourPosition = setGameResultModel.TourPosition,
+                });
         }
 
         [HttpPost("GetTournamentResult")]

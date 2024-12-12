@@ -1,7 +1,3 @@
-body {
-    background-color: #343a40;
-    color: #fff;
-}
 * {
     padding: 0px;
     margin: 0px;
@@ -27,4 +23,44 @@ body {
 
 .logout-button:hover {
     background-color: #ff6347;
+}
+
+.ublog-index__posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 -15px;
+}
+
+.ublog-post-card {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 15px;
+    max-width: 400px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.ublog-post-card__top {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.ublog-post-card__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform .3s;
+}
+
+.mainContainer {
+    background-color: #343A40;
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+}
+
+.ublog-post-card__image:hover {
+    transform: scale(1.1);
 }

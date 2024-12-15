@@ -3,22 +3,28 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
 h1 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    font-size: 2em; /* Используем em для гибкости */
 }
+
 h2 {
     text-align: center;
     color: #333;
     margin-bottom: 20px;
+    font-size: 1.5em; /* Используем em для гибкости */
 }
+
 .user-info {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 20px;
 }
+
 .user-info img {
     width: 150px;
     height: 150px;
@@ -27,17 +33,21 @@ h2 {
     object-fit: cover;
     object-position: center;
 }
+
 .user-info h2 {
     margin: 0 0 10px;
     color: #333;
-    font-size: 32px;
+    font-size: 2em; /* Используем em для гибкости */
 }
+
 .card-row {
     display: flex;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
+
 .card {
     background: #2c3e50;
     border-radius: 8px;
@@ -47,57 +57,78 @@ h2 {
     width: calc(33% - 20px);
     text-align: center;
     color: #ecf0f1;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
 .card p {
     margin: 5px 0;
     color: #3498db;
-    font-size: 16px;
+    font-size: 1em; /* Используем em для гибкости */
 }
+
 .progress-bar-container {
     margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
 .progress-bar-container p {
     margin-bottom: 5px;
+    font-size: 1em; /* Используем em для гибкости */
 }
+
 .progress-bar {
     background-color: #e0e0e0;
     border-radius: 20px;
     overflow: hidden;
     height: 20px;
     position: relative;
+    width: 100%;
 }
+
 .progress-bar div {
     height: 100%;
     width: 0;
     background-color: #3498db;
     transition: width 0.3s;
 }
+
 .progress-bar span {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     color: #fff;
-    font-size: 12px;
+    font-size: 0.8em; /* Используем em для гибкости */
 }
+
 .ratings {
     display: flex;
     justify-content: space-around;
     margin: 20px 0;
+    flex-wrap: wrap;
 }
+
 .ratings div {
     text-align: center;
 }
+
 .ratings div i {
-    font-size: 24px;
+    font-size: 1.5em; /* Используем em для гибкости */
     color: #3498db;
     margin-bottom: 5px;
 }
+
 .games-list {
     width: 100%;
     max-width: 800px;
     margin-top: 20px;
 }
+
 .game-item {
     background: #2c3e50;
     border-radius: 8px;
@@ -108,13 +139,93 @@ h2 {
     justify-content: space-between;
     align-items: center;
     color: #ecf0f1;
+    flex-wrap: wrap;
 }
+
 .game-item div {
     flex: 1;
     text-align: center;
     padding: 5px;
 }
+
 .game-item i {
     margin-right: 5px;
     color: #3498db;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5em; /* Уменьшаем размер шрифта */
+    }
+
+    h2 {
+        font-size: 1.2em; /* Уменьшаем размер шрифта */
+    }
+
+    .user-info h2 {
+        font-size: 1.5em; /* Уменьшаем размер шрифта */
+    }
+
+    .card {
+        width: calc(50% - 20px);
+    }
+
+    .card p {
+        font-size: 0.9em; /* Уменьшаем размер шрифта */
+    }
+
+    .progress-bar-container p {
+        font-size: 0.9em; /* Уменьшаем размер шрифта */
+    }
+
+    .progress-bar span {
+        font-size: 0.7em; /* Уменьшаем размер шрифта */
+    }
+
+    .ratings div i {
+        font-size: 1.2em; /* Уменьшаем размер шрифта */
+    }
+
+    .game-item div {
+        font-size: 0.9em; /* Уменьшаем размер шрифта */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2em; /* Уменьшаем размер шрифта */
+    }
+
+    h2 {
+        font-size: 1em; /* Уменьшаем размер шрифта */
+    }
+
+    .user-info h2 {
+        font-size: 1.2em; /* Уменьшаем размер шрифта */
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .card p {
+        font-size: 0.8em; /* Уменьшаем размер шрифта */
+    }
+
+    .progress-bar-container p {
+        font-size: 0.8em; /* Уменьшаем размер шрифта */
+    }
+
+    .progress-bar span {
+        font-size: 0.6em; /* Уменьшаем размер шрифта */
+    }
+
+    .ratings div i {
+        font-size: 1em; /* Уменьшаем размер шрифта */
+    }
+
+    .game-item div {
+        font-size: 0.8em; /* Уменьшаем размер шрифта */
+    }
 }

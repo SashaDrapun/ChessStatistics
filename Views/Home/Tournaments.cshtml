@@ -33,7 +33,7 @@
                 }
            
             </select>
-            <input type="number" id="ratingFilter" placeholder="Максимальный рейтинг (до)" pattern="\d*" onchange="validateInput(this, 0, 3000)">
+            <input type="text" id="ratingFilter" placeholder="Максимальный рейтинг (до)" pattern="\d*" oninput="validateInput(this, 0, 3000)">
         </div>
 
         @foreach (var tournament in Model.TournamentModels)
@@ -363,4 +363,20 @@
     </div>
 </div>
 <div class="emptySpace"></div>
+<script>
+    
+   function validateInput(input, min, max) {
+    if (input.value === '') {
+        return; // Если значение пустое, ничего не делаем
+    }
+    let value = parseFloat(input.value);
+    if (isNaN(value)) {
+        input.value = ''; // Если значение не является числом, очищаем поле
+    } else if (value < min) {
+        input.value = min;
+    } else if (value > max) {
+        input.value = max;
+    }
+}
+</script>
 <script src="~/js/tournaments.js"></script>

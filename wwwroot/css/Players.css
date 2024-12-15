@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
 .filters {
     display: flex;
     flex-wrap: wrap;
@@ -11,12 +12,14 @@
     width: 100%;
     gap: 10px;
 }
+
 .filter-item {
     display: flex;
     flex-direction: column;
     flex: 1 1 calc(25% - 20px);
     gap: 5px;
 }
+
 .filters select, .filters input {
     padding: 10px;
     border: 1px solid #ccc;
@@ -28,35 +31,42 @@
     flex: 1;
     min-width: 150px;
 }
+
 .filters select:focus, .filters input:focus {
     outline: none;
     border-color: #3498db;
 }
+
 .filters label {
     font-size: 14px;
     color: #fff;
 }
+
 h1 {
     text-align: center;
     color: #fff;
     margin-bottom: 10px;
 }
+
 .player-card {
     background: #2c3e50;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 10px;
     overflow: hidden;
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     transition: transform 0.2s;
     position: relative;
 }
+
 .player-card:hover {
     transform: translateY(-5px);
 }
+
 .player-card img {
     width: 80px;
     height: 80px;
@@ -65,25 +75,30 @@ h1 {
     object-fit: cover;
     object-position: center;
 }
+
 .player-info {
     padding: 10px;
     text-align: center;
     width: 100%;
 }
+
 .player-info h2 {
     margin: 0 0 10px;
     color: #ecf0f1;
-    font-size: 18px;
+    font-size: 1.5em; /* Используем em для гибкости */
 }
+
 .player-info p {
     margin: 5px 0;
     color: #3498db;
-    font-size: 14px;
+    font-size: 1em; /* Используем em для гибкости */
 }
+
 .player-info i {
     margin-right: 5px;
     color: #3498db;
 }
+
 .action-buttons {
     display: flex;
     justify-content: space-around;
@@ -92,6 +107,7 @@ h1 {
     padding: 5px 10px;
     gap: 5px;
 }
+
 .action-buttons button {
     background-color: #3498db;
     color: white;
@@ -102,26 +118,33 @@ h1 {
     font-size: 12px;
     transition: background-color 0.3s;
 }
+
 .action-buttons button:hover {
     background-color: #2980b9;
 }
+
 .edit-button {
     background-color: #4CAF50;
 }
+
 .edit-button:hover {
     background-color: #45a049;
 }
+
 .delete-button {
     background-color: #f44336;
 }
+
 .delete-button:hover {
     background-color: #d32f2f;
 }
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 .add-button {
     background-color: #3498db;
     color: white;
@@ -133,13 +156,64 @@ input[type="number"]::-webkit-inner-spin-button {
     transition: background-color 0.3s;
     margin: 20px auto;
     display: block;
-    width: 150px; /* Уменьшен размер кнопки */
+    width: 150px;
 }
+
 .add-button:hover {
     background-color: #2980b9;
 }
+
 .add-button-container {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .filter-item {
+        flex: 1 1 calc(50% - 20px);
+    }
+
+    .player-card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .player-info h2 {
+        font-size: 1.2em; /* Уменьшаем размер шрифта */
+    }
+
+    .player-info p {
+        font-size: 0.9em; /* Уменьшаем размер шрифта */
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action-buttons button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-item {
+        flex: 1 1 100%;
+    }
+
+    .player-info h2 {
+        font-size: 1em; /* Уменьшаем размер шрифта */
+    }
+
+    .player-info p {
+        font-size: 0.8em; /* Уменьшаем размер шрифта */
+    }
+
+    .add-button {
+        width: 100%;
+        font-size: 1em;
+    }
 }

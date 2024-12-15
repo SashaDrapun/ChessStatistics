@@ -1,7 +1,6 @@
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -13,8 +12,9 @@ h1 {
 }
 
 .filters {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
     width: 100%;
@@ -28,6 +28,7 @@ h1 {
     appearance: none;
     font-size: 14px;
     color: #fff;
+    flex: 1;
     min-width: 150px;
 }
 
@@ -48,14 +49,15 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 10px;
     overflow: hidden;
-    width: 773px;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    width: 100%;
+    max-width: 773px;
+    display: flex;
+    flex-direction: column;
     align-items: flex-start;
     transition: transform 0.2s;
     position: relative;
-    height: auto; /* Установим автоматическую высоту */
-    padding-bottom: 20px; /* Добавим отступ для кнопок */
+    height: auto;
+    padding-bottom: 20px;
 }
 
 .tournament-card:hover {
@@ -63,35 +65,35 @@ h1 {
 }
 
 .tournament-header {
-    display: grid;
-    justify-content: center; /* Центрируем содержимое по горизонтали */
+    display: flex;
+    justify-content: center;
     width: 100%;
-    position: relative; /* Добавляем position: relative для абсолютного позиционирования изображения */
+    position: relative;
 }
 
 .tournament-header h2 {
     margin: 0;
     color: #ecf0f1;
     font-size: 30px;
-    text-align: center; /* Центрируем текст внутри h2 */
-    width: 100%; /* Задаем ширину 100%, чтобы текст занимал всю доступную ширину */
-    margin-bottom: 30px; /* Добавляем отступ снизу */
+    text-align: center;
+    width: 100%;
+    margin-bottom: 30px;
 }
 
 .tournament-info {
     padding: 10px;
     flex-grow: 1;
     width: 100%;
-    display: grid;
-    grid-template-rows: auto 1fr;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 
 .tournament-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    display: flex;
+    justify-content: space-between;
     width: 100%;
+    flex-wrap: wrap;
 }
 
 .tournament-details-left, .tournament-details-right {
@@ -110,13 +112,13 @@ h1 {
 }
 
 .tournament-buttons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     padding: 10px;
     margin-bottom: -20px;
     background-color: #2c3e50;
+    flex-wrap: wrap;
 }
 
 .details-button, .edit-button, .delete-button {
@@ -128,6 +130,7 @@ h1 {
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
+    margin: 5px;
 }
 
 .details-button:hover, .edit-button:hover, .delete-button:hover {
@@ -138,4 +141,50 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .tournament-card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .tournament-header h2 {
+        font-size: 24px;
+    }
+
+    .tournament-details-left, .tournament-details-right {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .tournament-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .details-button, .edit-button, .delete-button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .tournament-header h2 {
+        font-size: 20px;
+    }
+
+    .tournament-info p {
+        font-size: 12px;
+    }
+
+    .tournament-info i {
+        font-size: 12px;
+    }
+
+    .details-button, .edit-button, .delete-button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
 }

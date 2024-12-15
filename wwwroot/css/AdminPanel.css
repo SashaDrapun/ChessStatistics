@@ -1,0 +1,74 @@
+/* Стили для таблицы */
+#LinkUser {
+    margin-bottom: 20px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+#LinkUser th, #LinkUser td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Стили для кнопок */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Стили для модальных окон */
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    background-color: #343a40;
+    border-bottom: 1px solid #495057;
+}
+
+.modal-title {
+    color: #ffffff;
+}
+
+.modal-body {
+    background-color: #495057;
+}
+
+.modal-body .form-group label {
+    color: #ffffff;
+}
+
+.modal-body .form-control {
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+.modal-body .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.modal-body .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Адаптивные стили для таблицы */
+@media (max-width: 768px) {
+    #LinkUser th, #LinkUser td {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    #LinkUser th, #LinkUser td {
+        padding: 8px;
+        font-size: 12px;
+    }
+}

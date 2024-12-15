@@ -28,6 +28,11 @@
                             @if (ViewBag.AutorizeUser != null && ViewBag.AutorizeUser.IsAdmin)
                             {
                             <div class="action-buttons">
+                                  <form asp-controller="Home" asp-action="Player" asp-route-idPlayer="@user.Id">
+                                    <button class="btn btn-primary @(user.IsAdmin ? "single-button" : "")">
+                                        <i class="fas fa-arrow-right"></i> Перейти
+                                    </button>
+                                </form>
                                 @if (!user.IsAdmin)
                                 {
                                     <button class="btn btn-danger deleteUser" idUser="@user.Id" data-toggle="modal" data-target="#deleteUser">
@@ -41,11 +46,6 @@
                                 {
                                     <p class="text-info single-button">Администратор</p>
                                 }
-                                <form asp-controller="Home" asp-action="Player" asp-route-idPlayer="@user.Id">
-                                    <button class="btn btn-primary @(user.IsAdmin ? "single-button" : "")">
-                                        <i class="fas fa-arrow-right"></i> Перейти
-                                    </button>
-                                </form>
                             </div>
 
                         }

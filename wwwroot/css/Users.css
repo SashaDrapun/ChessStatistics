@@ -56,7 +56,6 @@ h5 {
     padding: 10px; /* Добавьте отступы для внутреннего содержимого */
 }
 
-
 .card-title {
     margin-bottom: 10px;
     word-wrap: break-word; /* Разрешаем перенос слов */
@@ -71,25 +70,35 @@ h5 {
 
 .action-buttons {
     display: flex;
-    justify-content: center; /* Центрируем кнопки по горизонтали */
+    flex-direction: column;
     width: 100%;
     margin-top: 10px;
     padding: 5px 10px;
-    gap: 5px;
-    flex-wrap: wrap; /* Разрешаем перенос кнопок на новую строку */
+    gap: 10px; /* Добавляем отступ между кнопками */
+}
+
+.action-buttons .top-button {
+    order: -1; /* Перемещаем кнопку "Перейти" наверх */
+    margin-bottom: 10px; /* Добавляем отступ снизу */
+}
+
+.action-buttons .bottom-buttons {
+    display: flex;
+    justify-content: space-around; /* Равномерно распределяем кнопки */
+    width: 100%;
+    gap: 10px; /* Добавляем отступ между кнопками */
 }
 
 .action-buttons button {
     background-color: #3498db;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 10px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     transition: background-color 0.3s;
-    flex: 1 1 48%; /* Разрешаем кнопкам занимать до 48% ширины контейнера */
-    max-width: 150px; /* Ограничиваем максимальную ширину кнопки */
+    flex: 1; /* Разрешаем кнопкам занимать всю доступную ширину */
     box-sizing: border-box; /* Включаем padding и border в ширину элемента */
 }
 
@@ -170,5 +179,13 @@ h5 {
     }
     .card {
         width: 100%;
+    }
+    .action-buttons .bottom-buttons {
+        flex-direction: column; /* Размещаем кнопки вертикально */
+        align-items: center; /* Центрируем кнопки по горизонтали */
+    }
+    .action-buttons button {
+        width: 100%; /* Кнопки занимают всю ширину контейнера */
+        margin-bottom: 10px; /* Добавляем отступ между кнопками */
     }
 }
